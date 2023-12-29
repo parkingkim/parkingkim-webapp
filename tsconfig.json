@@ -5,16 +5,16 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "outDir": "./dist",
 
     /* Bundler mode */
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
     "jsx": "react-jsx",
-
-    "outDir": "./dist",
 
     /* Linting */
     "strict": true,
@@ -25,8 +25,8 @@
     /* Path */
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
+      "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
       "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"]
