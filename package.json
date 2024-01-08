@@ -8,20 +8,18 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "lint:css": "stylelint './src/**/*.tsx'",
+    "lint:css": "stylelint --ignore-path .gitignore './src/**/*.tsx' --fix",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
-    "styled-components": "^6.1.3",
-    "@tanstack/react-query": "^5.15.0"
+    "styled-components": "^6.1.3"
   },
   "devDependencies": {
-    "postcss-styled-syntax": "^0.5.0",
-    "stylelint-config-standard": "^36.0.0",
     "@storybook/addon-essentials": "^7.6.6",
     "@storybook/addon-interactions": "^7.6.6",
     "@storybook/addon-links": "^7.6.6",
@@ -42,9 +40,12 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "eslint-plugin-storybook": "^0.6.15",
     "msw": "^2.0.11",
+    "postcss-styled-syntax": "^0.5.0",
     "prettier": "3.1.1",
     "storybook": "^7.6.6",
     "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-order": "^6.0.4",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }
