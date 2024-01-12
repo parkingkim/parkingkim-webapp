@@ -6,7 +6,6 @@
     "order/properties-order": [
       {
         "groupName": "layout",
-        "emptyLineBefore": "always",
         "properties": [
           "display",
           "box-sizing",
@@ -55,6 +54,22 @@
           "flex-shrink",
           "flex-basis",
           "align-self"
+        ]
+      },
+      {
+        "groupName": "layout-style",
+        "emptyLineBefore": "always",
+        "properties": [
+          "background",
+          "background-color",
+          "border",
+          "border-radius",
+          "border-color",
+          "border-top",
+          "border-right",
+          "border-bottom",
+          "border-left",
+          "box-shadow"
         ]
       },
       {
