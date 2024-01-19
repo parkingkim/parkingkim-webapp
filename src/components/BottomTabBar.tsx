@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const tabs = ['홈', '?', '?'];
 
 const BottomTabBar = () => {
+  // TODO: 현재의 url을 읽어서 currentTabIndex의 초깃값을 set하는 로직
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
   const changeTab = (index: number) => () => {
