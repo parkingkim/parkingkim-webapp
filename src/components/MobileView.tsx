@@ -7,6 +7,7 @@ const MobileView = ({ children }: PropsWithChildren) => {
 
 const ViewWrapper = styled.section`
   display: flex;
+  flex-direction: column;
   width: 500px;
   height: 100vh;
 
