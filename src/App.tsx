@@ -1,12 +1,12 @@
 import { ThemeProvider } from 'styled-components';
-import './App.css';
-import Button from '@components/Button';
 import theme from './theme.ts';
+import Home from '@pages/home/index.tsx';
+import './App.css';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Button />
+      <Home />
     </ThemeProvider>
   );
 }
