@@ -21,6 +21,7 @@ const DragHandle = styled.div`
   height: 40px;
   text-align: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent; // iOS Safari의 터치 시 하이라이트 방지
 `;
 
 const DragHandleBar = styled.div`
