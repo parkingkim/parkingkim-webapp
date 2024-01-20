@@ -32,7 +32,8 @@ const DragHandleBar = styled.div`
 `;
 
 const BottomSheet = ({ children }: PropsWithChildren) => {
-  const { height, handleDragStart, handleDragMove, handleDragEnd } = useDraggable(INITIAL_HEIGHT);
+  const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight } =
+    useDraggable(INITIAL_HEIGHT);
 
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     handleDragStart(e.clientY);
@@ -57,6 +58,7 @@ const BottomSheet = ({ children }: PropsWithChildren) => {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
+        onClick={toggleHeight}
       >
         <DragHandleBar />
       </DragHandle>
