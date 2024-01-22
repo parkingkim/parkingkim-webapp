@@ -3,6 +3,38 @@ import styled from 'styled-components';
 import useDraggable from './hook/useDraggable';
 import { INITIAL_HEIGHT } from '@constants/index';
 
+const BottomSheet = ({ children }: PropsWithChildren) => {
+  const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight } =
+    useDraggable(INITIAL_HEIGHT);
+
+  const handleEvent =
+    (handler: (clientY: number) => void) =>
+    (e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
+      // touches 속성이 이벤트 내부에 있는지 확인
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+      handler(clientY);
+    };
+
+  const handleTouchEnd = () => {
+    handleDragEnd();
+  };
+
+  return (
+    <BottomSheetContainer height={height}>
+      <DragHandle
+        onMouseDown={handleEvent(handleDragStart)}
+        onTouchStart={handleEvent(handleDragStart)}
+        onTouchMove={handleEvent(handleDragMove)}
+        onTouchEnd={handleTouchEnd}
+        onClick={toggleHeight}
+      >
+        <DragHandleBar />
+      </DragHandle>
+      {children}
+    </BottomSheetContainer>
+  );
+};
+
 const BottomSheetContainer = styled.div<{ height: number }>`
   position: fixed;
   bottom: 0;
@@ -31,41 +63,5 @@ const DragHandleBar = styled.div`
   border-radius: 4px;
   background-color: #000;
 `;
-
-const BottomSheet = ({ children }: PropsWithChildren) => {
-  const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight } =
-    useDraggable(INITIAL_HEIGHT);
-
-  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    handleDragStart(e.clientY);
-  };
-
-  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
-    handleDragStart(e.touches[0].clientY);
-  };
-
-  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-    handleDragMove(e.touches[0].clientY);
-  };
-
-  const handleTouchEnd = () => {
-    handleDragEnd();
-  };
-
-  return (
-    <BottomSheetContainer height={height}>
-      <DragHandle
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onClick={toggleHeight}
-      >
-        <DragHandleBar />
-      </DragHandle>
-      {children}
-    </BottomSheetContainer>
-  );
-};
 
 export default BottomSheet;
