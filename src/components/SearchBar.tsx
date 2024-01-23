@@ -33,9 +33,9 @@ const SearchBarWrapper = styled.div`
 
 const StyledSearchBar = styled.input`
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   height: 48px;
-  padding: 0 14px;
+  padding: 0 26px;
   border: none;
   border-radius: 9px;
   background: #f5f5f5;

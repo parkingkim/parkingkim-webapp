@@ -38,11 +38,10 @@ const SearchContainer = styled.div`
 const SearchBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 44px;
+  padding: 0 20px 14px 20px;
   border-bottom: 7px solid #f6f6f6;
 
   & > :first-child {
-    margin-left: 19px;
     cursor: pointer;
   }
 `;
@@ -52,7 +51,7 @@ const SearchOptionWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  margin: 12px 30px 0 0;
+  margin: 12px 10px 0 0;
   gap: 11px;
 `;
 
