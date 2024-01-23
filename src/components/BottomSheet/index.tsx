@@ -30,7 +30,7 @@ const BottomSheet = ({ children }: BottomSheetProps) => {
         onTouchEnd={handleTouchEnd}
         onClick={toggleHeight}
       >
-        <DragHandleBar />
+        {height <= window.innerHeight * 0.16 && <DragHandleBar />}
       </DragHandle>
       {children}
     </BottomSheetContainer>
@@ -54,17 +54,21 @@ const BottomSheetContainer = styled.div<{ height: number }>`
 `;
 
 const DragHandle = styled.div`
+  position: relative;
   width: 100%;
-  height: 40px;
+  height: 30px;
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; // iOS Safari의 터치 시 하이라이트 방지
 `;
 
 const DragHandleBar = styled.div`
+  position: absolute;
   width: 85px;
   height: 3px;
-  margin: 14px auto;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 4px;
   background-color: #000;
 `;

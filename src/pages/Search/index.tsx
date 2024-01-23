@@ -1,5 +1,6 @@
-import { BackIcon, LocationIcon, OptionIcon } from '@assets/index';
+import { BackIcon, LocationIcon } from '@assets/index';
 import SearchBar from '@components/SearchBar';
+import SearchFilter from '@components/SearchFilter';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -15,10 +16,7 @@ const Search = () => {
         <BackIcon onClick={goHome} role="button" />
         <SearchBar isFocused={true} />
         <SearchOptionWrapper>
-          <SearchFilter>
-            <OptionIcon />
-            주차장 조건설정
-          </SearchFilter>
+          <SearchFilter />
           <div style={{ width: '1px', height: '24px', background: 'rgba(0, 0, 0, 0.21)' }} />
           <LocationIcon style={{ cursor: 'pointer' }} role="button" />
         </SearchOptionWrapper>
@@ -53,33 +51,6 @@ const SearchOptionWrapper = styled.div`
   align-items: center;
   margin: 12px 10px 0 0;
   gap: 11px;
-`;
-
-const SearchFilter = styled.button`
-  display: flex;
-  align-items: flex-end;
-  border: none;
-  background: none;
-  padding: 0;
-  cursor: pointer;
-
-  color: #707070;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.42px;
-  -webkit-tap-highlight-color: transparent; // iOS Safari의 터치 시 하이라이트 방지
-  gap: 5px;
-
-  &:hover {
-    border: none;
-  }
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export default Search;
