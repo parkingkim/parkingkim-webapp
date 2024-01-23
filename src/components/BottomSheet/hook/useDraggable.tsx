@@ -5,12 +5,12 @@ const useDraggable = (initialHeight: number) => {
   const [lastY, setLastY] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const windowHeight = window.innerHeight;
-  const snapPoints = [windowHeight * 0.1, windowHeight * 0.5, windowHeight];
+  const snapPoints = [windowHeight * 0.15, windowHeight * 0.6, windowHeight];
 
-  const toggleHeight = useCallback(() => {
-    const nextHeight = height === snapPoints[0] ? snapPoints[1] : snapPoints[0];
+  const toggleHeight = () => {
+    const nextHeight = height === snapPoints[1] ? snapPoints[0] : snapPoints[1];
     setHeight(nextHeight);
-  }, [height]);
+  };
 
   const handleDragStart = useCallback((dragStartY: number) => {
     setLastY(dragStartY);
@@ -56,7 +56,14 @@ const useDraggable = (initialHeight: number) => {
     };
   }, [handleDragMove, handleDragEnd]);
 
-  return { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight };
+  return {
+    height,
+    handleDragStart,
+    handleDragMove,
+    handleDragEnd,
+    toggleHeight,
+    setHeight,
+  };
 };
 
 export default useDraggable;

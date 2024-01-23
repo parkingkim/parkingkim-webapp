@@ -1,11 +1,13 @@
 import { MouseEvent, PropsWithChildren, TouchEvent } from 'react';
 import styled from 'styled-components';
 import useDraggable from './hook/useDraggable';
-import { INITIAL_HEIGHT } from '@constants/index';
 
-const BottomSheet = ({ children }: PropsWithChildren) => {
+interface BottomSheetProps extends PropsWithChildren {}
+
+const BottomSheet = ({ children }: BottomSheetProps) => {
+  const initialHeight = window.innerHeight * 0.6;
   const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight } =
-    useDraggable(INITIAL_HEIGHT);
+    useDraggable(initialHeight);
 
   const handleEvent =
     (handler: (clientY: number) => void) =>
@@ -37,9 +39,13 @@ const BottomSheet = ({ children }: PropsWithChildren) => {
 
 const BottomSheetContainer = styled.div<{ height: number }>`
   position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 500px;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 18px;
   background-color: #fff;
   border-radius: 10px 10px 0 0;
   box-shadow: 0px 4px 5px 6px rgba(0, 0, 0, 0.25);
@@ -59,7 +65,7 @@ const DragHandle = styled.div`
 const DragHandleBar = styled.div`
   width: 85px;
   height: 3px;
-  margin: 12px auto;
+  margin: 0px auto;
   border-radius: 4px;
   background-color: #000;
 `;

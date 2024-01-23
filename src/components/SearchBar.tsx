@@ -4,28 +4,24 @@ import { SearchIcon } from '@assets/index';
 
 interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   isFocused?: boolean;
+  goSearch?: () => void;
 }
 
-const SearchBar = ({ isFocused }: SearchBarProps) => {
-  const [isExpanded, setIsExpanded] = useState(isFocused);
+const SearchBar = ({ goSearch, isFocused }: SearchBarProps) => {
   const [placeholder, setPlaceholder] = useState('');
 
   useEffect(() => {
-    isExpanded ? setPlaceholder('목적지 검색') : setPlaceholder('');
-  }, [isExpanded]);
-
-  const expandSearchBar = () => {
-    setIsExpanded(true);
-  };
+    isFocused ? setPlaceholder('목적지 검색') : setPlaceholder('');
+  }, [isFocused]);
 
   return (
     <SearchBarWrapper>
-      {!isExpanded && (
+      {!isFocused && (
         <IconWrapper>
           <SearchIcon />
         </IconWrapper>
       )}
-      <StyledSearchBar placeholder={placeholder} onFocus={expandSearchBar} />
+      <StyledSearchBar placeholder={placeholder} onClick={goSearch} />
     </SearchBarWrapper>
   );
 };
