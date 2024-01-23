@@ -36,16 +36,19 @@ const BottomSheet = ({ children }: PropsWithChildren) => {
 };
 
 const BottomSheetContainer = styled.div<{ height: number }>`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: ${({ height }) => height}px;
+
   background-color: #fff;
   border-radius: 10px 10px 0 0;
-  box-shadow: 0px 4px 5px 6px rgba(0, 0, 0, 0.25);
-  height: ${({ height }) => height}px;
+  box-shadow: 0 4px 5px 6px rgb(0 0 0 / 25%);
+
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
   transition: height 0.3s ease;
-  touch-action: none; // iOS Safari의 스크롤 방지
+  touch-action: none;
 `;
 
 const DragHandle = styled.div`
@@ -53,15 +56,16 @@ const DragHandle = styled.div`
   height: 40px;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; // iOS Safari의 터치 시 하이라이트 방지
+  -webkit-tap-highlight-color: transparent;
 `;
 
 const DragHandleBar = styled.div`
   width: 85px;
   height: 3px;
   margin: 12px auto;
-  border-radius: 4px;
+
   background-color: #000;
+  border-radius: 4px;
 `;
 
 export default BottomSheet;
