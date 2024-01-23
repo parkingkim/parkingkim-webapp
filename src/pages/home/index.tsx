@@ -1,11 +1,21 @@
 import Map from '@components/Map';
-import MobileView from '@components/MobileView';
+import BottomSheet from '@components/BottomSheet';
+import SearchBar from '@components/SearchBar';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const goSearch = () => {
+    navigate('/search');
+  };
+
   return (
-    <MobileView>
+    <>
       <Map />
-    </MobileView>
+      <BottomSheet>
+        <SearchBar isFocused={false} goSearch={goSearch} />
+      </BottomSheet>
+    </>
   );
 };
 
