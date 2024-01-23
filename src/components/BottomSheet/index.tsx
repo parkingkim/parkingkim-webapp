@@ -45,7 +45,6 @@ const BottomSheetContainer = styled.div<{ height: number }>`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  padding: 18px;
   background-color: #fff;
   border-radius: 10px 10px 0 0;
   box-shadow: 0px 4px 5px 6px rgba(0, 0, 0, 0.25);
@@ -65,7 +64,7 @@ const DragHandle = styled.div`
 const DragHandleBar = styled.div`
   width: 85px;
   height: 3px;
-  margin: 0px auto;
+  margin: 14px auto;
   border-radius: 4px;
   background-color: #000;
 `;

@@ -56,7 +56,7 @@ const StyledSearchBar = styled.input`
 const IconWrapper = styled.div`
   position: absolute;
   top: 14px;
-  left: 32px;
+  left: 46px;
 `;
 
 export default SearchBar;
