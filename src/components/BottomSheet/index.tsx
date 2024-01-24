@@ -29,9 +29,7 @@ const BottomSheet = ({ children }: BottomSheetProps) => {
         onTouchMove={handleEvent(handleDragMove)}
         onTouchEnd={handleTouchEnd}
         onClick={toggleHeight}
-      >
-        {height <= window.innerHeight * 0.16 && <DragHandleBar />}
-      </DragHandle>
+      />
       {children}
     </BottomSheetContainer>
   );
@@ -47,30 +45,19 @@ const BottomSheetContainer = styled.div<{ height: number }>`
   transform: translateX(-50%);
   background-color: #fff;
   border-radius: 10px 10px 0 0;
-  box-shadow: 0px 4px 5px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px -1px 5px -1px rgba(0, 0, 0, 0.25);
   height: ${({ height }) => height}px;
   transition: height 0.3s ease;
   touch-action: none; // iOS Safari의 스크롤 방지
 `;
 
 const DragHandle = styled.div`
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 30px;
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent; // iOS Safari의 터치 시 하이라이트 방지
-`;
-
-const DragHandleBar = styled.div`
-  position: absolute;
-  width: 85px;
-  height: 3px;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 4px;
-  background-color: #000;
 `;
 
 export default BottomSheet;
