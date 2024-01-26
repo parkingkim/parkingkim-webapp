@@ -1,25 +1,47 @@
-import { useEffect, useRef } from 'react';
+import useGeoLocation from '@hooks/useGeoLocation';
+import { useEffect, useRef, useState } from 'react';
 
-let isMount = false;
+type GeoLocation = {
+  lat: number;
+  lng: number;
+};
+
 const Map = () => {
+  const { Tmapv3 } = window;
   const ref = useRef<HTMLDivElement>(null);
+  const mapInstance = useRef(null);
+  const [location, setLocation] = useState<GeoLocation | null>(null);
+
+  const { makeUserMaker } = useGeoLocation(mapInstance);
 
   useEffect(() => {
-    /** 지도가 2번 생성되지 않기 위한 로직입니다.
-     * ex. React.StrictMode
-     */
-    if (isMount) return;
-
-    isMount = true;
-    new window.Tmapv3.Map(ref.current, {
-      center: new window.Tmapv3.LatLng(37.566481622437934, 126.98502302169841),
-      width: '100%',
-      height: '600px',
-      zoom: 18,
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLocation({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
     });
   }, []);
 
-  return <div ref={ref} />;
+  useEffect(() => {
+    if (location && mapInstance.current === null && ref.current) {
+      mapInstance.current = new Tmapv3.Map(ref.current, {
+        center: new Tmapv3.LatLng(location.lat, location.lng),
+        width: '100%',
+        height: '600px',
+        zoom: 15,
+        scaleBar: true,
+      });
+      makeUserMaker();
+    }
+  }, [location]);
+
+  return (
+    <>
+      <div ref={ref} />
+      {location && <button onClick={makeUserMaker}>현위치</button>}
+    </>
+  );
 };
 
 export default Map;
