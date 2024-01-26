@@ -23,7 +23,7 @@ const useGeoLocation = (mapInstance: any) => {
 
       tmapMarker.current = new Tmapv3.Marker({
         position: userCoords,
-        icon: 'src/assets/location.svg',
+        icon: 'src/assets/react.svg',
         map: mapInstance.current,
       });
     }

@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'styled-components';
 import theme from './theme.ts';
-import Home from '@pages/home/index.tsx';
+import Home from '@pages/Home';
 import './App.css';
 import BottomTabBar from '@components/BottomTabBar.tsx';
 

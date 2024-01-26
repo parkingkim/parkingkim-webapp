@@ -1,5 +1,7 @@
+import { SearchIcon } from '@assets/index';
 import useGeoLocation from '@hooks/useGeoLocation';
 import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 type GeoLocation = {
   lat: number;
@@ -39,9 +41,22 @@ const Map = () => {
   return (
     <>
       <div ref={ref} />
-      {location && <button onClick={makeUserMaker}>현위치</button>}
+      {location && (
+        <UserLocationButton onClick={makeUserMaker}>
+          <SearchIcon />
+        </UserLocationButton>
+      )}
     </>
   );
 };
+
+const UserLocationButton = styled.button`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+`;
 
 export default Map;
