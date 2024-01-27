@@ -1,12 +1,8 @@
 import { SearchIcon } from '@assets/index';
 import useGeoLocation from '@hooks/useGeoLocation';
 import { useEffect, useRef, useState } from 'react';
+import { GeoLocation } from 'src/types/map';
 import styled from 'styled-components';
-
-type GeoLocation = {
-  lat: number;
-  lng: number;
-};
 
 const Map = () => {
   const { Tmapv3 } = window;

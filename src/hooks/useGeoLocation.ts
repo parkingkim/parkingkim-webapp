@@ -1,9 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-
-type GeoLocation = {
-  lat: number;
-  lng: number;
-};
+import { GeoLocation } from 'src/types/map';
 
 const useGeoLocation = (mapInstance: any) => {
   const { Tmapv3 } = window;
