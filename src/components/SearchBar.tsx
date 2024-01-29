@@ -1,6 +1,7 @@
 import { InputHTMLAttributes, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SearchIcon } from '@assets/index';
+import { CommonTextStyle } from '@style/CommonTextStyle';
 
 interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   isFocused?: boolean;
@@ -27,26 +28,26 @@ const SearchBar = ({ goSearch, isFocused }: SearchBarProps) => {
 };
 
 const SearchBarWrapper = styled.div`
-  position: relative;
   width: 100%;
+
+  position: relative;
 `;
 
 const StyledSearchBar = styled.input`
   width: 100%;
-  max-width: 400px;
   height: 48px;
+  max-width: 400px;
   padding: 0 26px;
+
+  background: #f5f5f5;
   border: none;
   border-radius: 9px;
-  background: #f5f5f5;
+
+  font-size: 20px;
+  font-weight: 600;
   outline: none;
 
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  letter-spacing: -0.6px;
+  ${CommonTextStyle}
 
   &::placeholder {
     color: #b4b4b4;

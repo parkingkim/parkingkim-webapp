@@ -35,25 +35,29 @@ const BottomSheet = ({ children }: BottomSheetProps) => {
 };
 
 const BottomSheetContainer = styled.div<{ height: number }>`
-  position: fixed;
   box-sizing: border-box;
   width: 100%;
+  height: ${({ height }) => height}px;
   max-width: 500px;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+
   background-color: #fff;
   border-radius: 10px 10px 0 0;
-  box-shadow: 0px -1px 5px -1px rgba(0, 0, 0, 0.25);
-  height: ${({ height }) => height}px;
+  box-shadow: 0 -1px 5px -1px rgb(0 0 0 / 25%);
+
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+
   transition: height 0.3s ease;
+  transform: translateX(-50%);
   touch-action: none;
 `;
 
 const DragHandle = styled.div`
-  position: absolute;
   width: 100%;
   height: 30px;
+
+  position: absolute;
   text-align: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;

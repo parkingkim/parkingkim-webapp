@@ -3,7 +3,8 @@ import BottomSheet from '@components/BottomSheet';
 import SearchBar from '@components/SearchBar';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import SearchFilter from '@components/SearchFilter';
+import SearchFilter from '@pages/Home/components/SearchFilter';
+import { CommonTextStyle } from '@style/CommonTextStyle';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Home = () => {
 
   return (
     <>
-      {/* <Map /> */}
+      <Map />
       <BottomSheet>
         <SearchBarWrapper>
           <Title>목적지 입력</Title>
@@ -27,21 +28,19 @@ const Home = () => {
 
 const SearchBarWrapper = styled.div`
   display: flex;
+  padding: 22px 20px;
   flex-direction: column;
   align-items: flex-start;
-  padding: 22px 20px;
 
   border-bottom: 7px solid #f6f6f6;
 
   color: #120924;
-  font-family: Pretendard;
   font-size: 20px;
-  font-style: normal;
   font-weight: 700;
-  line-height: normal;
-  letter-spacing: -0.6px;
+  ${CommonTextStyle}
 
   gap: 15px;
+
   & > :first-child {
     margin-left: 2px;
   }
@@ -52,15 +51,13 @@ const SearchBarWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  margin: 0;
   padding-left: 4px;
+  margin: 0;
+
   color: #120924;
-  font-family: Pretendard;
   font-size: 20px;
-  font-style: normal;
   font-weight: 700;
-  line-height: normal;
-  letter-spacing: -0.6px;
+  ${CommonTextStyle}
 `;
 
 export default Home;

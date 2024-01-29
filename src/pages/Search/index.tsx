@@ -17,7 +17,7 @@ const Search = () => {
         <SearchBar isFocused={true} />
         <SearchOptionWrapper>
           <SearchFilter />
-          <div style={{ width: '1px', height: '24px', background: 'rgba(0, 0, 0, 0.21)' }} />
+          <Partition />
           <LocationIcon style={{ cursor: 'pointer' }} role="button" />
         </SearchOptionWrapper>
       </SearchBarWrapper>
@@ -26,17 +26,19 @@ const Search = () => {
 };
 
 const SearchContainer = styled.div`
-  position: relative;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding: 20px 0;
+
+  position: relative;
 `;
 
 const SearchBarWrapper = styled.div`
   display: flex;
+  padding: 0 20px 14px;
   flex-direction: column;
-  padding: 0 20px 14px 20px;
+
   border-bottom: 7px solid #f6f6f6;
 
   & > :first-child {
@@ -46,11 +48,18 @@ const SearchBarWrapper = styled.div`
 
 const SearchOptionWrapper = styled.div`
   display: flex;
+  margin: 12px 10px 0 0;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  margin: 12px 10px 0 0;
   gap: 11px;
+`;
+
+const Partition = styled.div`
+  width: 1px;
+  height: 24px;
+
+  background: rgb(0 0 0 / 21%);
 `;
 
 export default Search;
