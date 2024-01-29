@@ -14,8 +14,6 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  console.log(id, password);
-
   return (
     <MobileView>
       <Header>
