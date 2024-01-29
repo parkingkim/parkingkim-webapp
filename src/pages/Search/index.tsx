@@ -1,6 +1,6 @@
 import { BackIcon, LocationIcon } from '@assets/index';
 import SearchBar from '@components/SearchBar';
-import SearchFilter from '@components/SearchFilter';
+import SearchFilter from '@pages/Home/components/SearchFilter';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
