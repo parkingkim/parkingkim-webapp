@@ -12,7 +12,6 @@ const BottomSheet = ({ children }: BottomSheetProps) => {
   const handleEvent =
     (handler: (clientY: number) => void) =>
     (e: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
-      // touches 속성이 이벤트 내부에 있는지 확인
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
       handler(clientY);
     };
@@ -48,7 +47,7 @@ const BottomSheetContainer = styled.div<{ height: number }>`
   box-shadow: 0px -1px 5px -1px rgba(0, 0, 0, 0.25);
   height: ${({ height }) => height}px;
   transition: height 0.3s ease;
-  touch-action: none; // iOS Safari의 스크롤 방지
+  touch-action: none;
 `;
 
 const DragHandle = styled.div`
@@ -57,7 +56,7 @@ const DragHandle = styled.div`
   height: 30px;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; // iOS Safari의 터치 시 하이라이트 방지
+  -webkit-tap-highlight-color: transparent;
 `;
 
 export default BottomSheet;
