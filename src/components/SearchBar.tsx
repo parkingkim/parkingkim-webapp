@@ -1,32 +1,53 @@
 import { InputHTMLAttributes, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SearchIcon } from '@assets/index';
+import { CommonTextStyle } from '@style/CommonTextStyle';
 
 interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   isFocused?: boolean;
+  goSearch?: () => void;
 }
 
+const SearchBar = ({ goSearch, isFocused }: SearchBarProps) => {
+  const [placeholder, setPlaceholder] = useState('');
+
+  useEffect(() => {
+    isFocused ? setPlaceholder('목적지 검색') : setPlaceholder('');
+  }, [isFocused]);
+
+  return (
+    <SearchBarWrapper>
+      {!isFocused && (
+        <IconWrapper>
+          <SearchIcon />
+        </IconWrapper>
+      )}
+      <StyledSearchBar placeholder={placeholder} onClick={goSearch} />
+    </SearchBarWrapper>
+  );
+};
+
 const SearchBarWrapper = styled.div`
-  position: relative;
   width: 100%;
+
+  position: relative;
 `;
 
 const StyledSearchBar = styled.input`
   width: 100%;
-  height: 47px;
-  margin: 0 18px;
-  padding: 0 14px;
+  height: 48px;
+  max-width: 400px;
+  padding: 0 26px;
+
+  background: #f5f5f5;
   border: none;
   border-radius: 9px;
-  background: #f5f5f5;
+
+  font-size: 20px;
+  font-weight: 600;
   outline: none;
 
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  letter-spacing: -0.6px;
+  ${CommonTextStyle}
 
   &::placeholder {
     color: #b4b4b4;
@@ -36,31 +57,7 @@ const StyledSearchBar = styled.input`
 const IconWrapper = styled.div`
   position: absolute;
   top: 14px;
-  left: 32px;
+  left: 20px;
 `;
-
-const SearchBar = ({ isFocused }: SearchBarProps) => {
-  const [isExpanded, setIsExpanded] = useState(isFocused);
-  const [placeholder, setPlaceholder] = useState('');
-
-  useEffect(() => {
-    isExpanded ? setPlaceholder('목적지 검색') : setPlaceholder('');
-  }, [isExpanded]);
-
-  const expandSearchBar = () => {
-    setIsExpanded(true);
-  };
-
-  return (
-    <SearchBarWrapper>
-      {!isExpanded && (
-        <IconWrapper>
-          <SearchIcon />
-        </IconWrapper>
-      )}
-      <StyledSearchBar placeholder={placeholder} onFocus={expandSearchBar} />
-    </SearchBarWrapper>
-  );
-};
 
 export default SearchBar;
