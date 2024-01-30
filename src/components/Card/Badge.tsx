@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface BadgeProps {
+export interface BadgeProps {
   price?: number;
   ETA?: number;
   isPublic?: boolean;
