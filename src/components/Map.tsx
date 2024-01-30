@@ -1,4 +1,5 @@
 import { SearchIcon } from '@assets/index';
+import { INIT_LAT, INIT_LNG } from '@constants/index';
 import useGeoLocation from '@hooks/useGeoLocation';
 import { useEffect, useRef, useState } from 'react';
 import { GeoLocation } from 'src/types/map';
@@ -23,8 +24,8 @@ const Map = () => {
     const error = (err: GeolocationPositionError) => {
       console.warn(`ERROR(${err.code}): ${err.message}`);
       setLocation({
-        lat: 37.566481622437934,
-        lng: 126.98502302169841,
+        lat: INIT_LAT,
+        lng: INIT_LNG,
       });
     };
 

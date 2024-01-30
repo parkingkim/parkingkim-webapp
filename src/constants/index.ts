@@ -1,1 +1,4 @@
 export const INITIAL_HEIGHT = 100;
+
+export const INIT_LAT = 37.566481622437934;
+export const INIT_LNG = 126.98502302169841;
