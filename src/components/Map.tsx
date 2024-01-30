@@ -13,12 +13,22 @@ const Map = () => {
   const { makeUserMaker } = useGeoLocation(mapInstance);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
+    const success = (position: GeolocationPosition) => {
       setLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
-    });
+    };
+
+    const error = (err: GeolocationPositionError) => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+      setLocation({
+        lat: 37.566481622437934,
+        lng: 126.98502302169841,
+      });
+    };
+
+    navigator.geolocation.getCurrentPosition(success, error);
   }, []);
 
   useEffect(() => {
@@ -37,11 +47,9 @@ const Map = () => {
   return (
     <>
       <div ref={ref} />
-      {location && (
-        <UserLocationButton onClick={makeUserMaker}>
-          <SearchIcon />
-        </UserLocationButton>
-      )}
+      <UserLocationButton onClick={makeUserMaker}>
+        <SearchIcon />
+      </UserLocationButton>
     </>
   );
 };
