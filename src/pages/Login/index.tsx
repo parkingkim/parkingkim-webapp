@@ -1,6 +1,12 @@
-import MobileView from '@components/MobileView';
+import { REGEX } from '@constants/index';
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
+
+// TODO: 유효성 규칙대로 설정
+const isValidId = (id: string) => id.length > 5 && REGEX.id.test(id);
+
+// TODO: 유효성 규칙대로 설정
+const isValidPassword = (password: string) => password.length > 7 && REGEX.password.test(password);
 
 const Login = () => {
   const [id, setId] = useState('');
@@ -14,8 +20,12 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
+  const enter = () => {
+    // TODO: 로그인 성공 혹은 실패로직
+  };
+
   return (
-    <MobileView>
+    <>
       <Header>
         <h1>
           파킹킴과 함께 새로운
@@ -26,7 +36,7 @@ const Login = () => {
           파킹킴은 주차장뿐 아니라 목적지까지의 경로도 알려드려요.
         </h2>
       </Header>
-      <Form>
+      <Form onSubmit={enter}>
         <Input
           id="id"
           value={id}
@@ -37,13 +47,14 @@ const Login = () => {
         />
         <Input
           id="password"
+          type="password"
           value={password}
           placeholder="비밀번호 입력"
           minLength={5}
           maxLength={20}
           onChange={typePassword}
         />
-        <Button>로그인</Button>
+        <Button disabled={!(isValidId(id) && isValidPassword(password))}>로그인</Button>
       </Form>
       <OptionContainer>
         <button>회원가입</button>
@@ -57,7 +68,7 @@ const Login = () => {
           <hr />
         </Title>
       </Footer>
-    </MobileView>
+    </>
   );
 };
 
@@ -109,21 +120,17 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ disabled: boolean }>`
   width: 80%;
   height: 54px;
   margin-top: 5px;
 
-  background-color: ${({ theme }) => theme.lightGray};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.lightGray : 'black')};
   border: none;
   border-radius: 10px;
 
   color: white;
   font-size: 16px;
-
-  &:hover {
-    background-color: black;
-  }
 `;
 
 const OptionContainer = styled.div`
