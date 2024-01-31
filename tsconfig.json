@@ -44,6 +44,9 @@
       "@constants/*": [
         "src/constants/*"
       ],
+      "@style/*": [
+        "src/style/*"
+      ]
     }
   },
   "include": [

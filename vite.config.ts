@@ -13,6 +13,7 @@ export default defineConfig({
       { find: '@hooks', replacement: '/src/hooks' },
       { find: '@utils', replacement: '/src/utils' },
       { find: '@constants', replacement: '/src/constants' },
+      { find: '@style', replacement: '/src/style' },
     ],
   },
   build: {
