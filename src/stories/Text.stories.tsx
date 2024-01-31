@@ -10,6 +10,10 @@ const meta = {
   args: {
     children: 'Text',
   },
+  argTypes: {
+    size: { control: 'radio' },
+    color: { control: 'radio' },
+  },
   tags: ['autodocs'],
 } satisfies Meta<typeof Text>;
 
