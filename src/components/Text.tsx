@@ -2,16 +2,22 @@ import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 type TextSizeType = 'x-bold' | 'semi-bold' | 'bold' | 'md' | 'regular' | 'sm-regular';
+type TextColorType = 'dark-gray' | 'black' | 'gray' | 'light-gray';
 
 interface TextProps extends PropsWithChildren {
   size?: TextSizeType;
+  color?: TextColorType;
 }
 
-const Text = ({ size = 'regular', children }: TextProps) => {
-  return <StyledText $size={size}>{children}</StyledText>;
+const Text = ({ size = 'regular', color = 'dark-gray', children }: TextProps) => {
+  return (
+    <StyledText $size={size} $color={color}>
+      {children}
+    </StyledText>
+  );
 };
 
-const StyledText = styled.p<{ $size: TextSizeType }>`
+const StyledText = styled.p<{ $size: TextSizeType; $color: TextColorType }>`
   color: #000;
   font-family: Pretendard;
   font-style: normal;
@@ -34,6 +40,21 @@ const StyledText = styled.p<{ $size: TextSizeType }>`
         return 'font-size: 14px; font-weight: 400;';
     }
   }}
+
+  color: ${({ $color, theme }) => {
+    switch ($color) {
+      case 'dark-gray':
+        return theme.darkGray;
+      case 'black':
+        return theme.black;
+      case 'gray':
+        return theme.gray;
+      case 'light-gray':
+        return theme.lightGray;
+      default:
+        return theme.darkGray;
+    }
+  }};
 `;
 
 export default Text;
