@@ -18,10 +18,6 @@ const Text = ({ size = 'regular', color = 'dark-gray', children }: TextProps) =>
 };
 
 const StyledText = styled.p<{ $size: TextSizeType; $color: TextColorType }>`
-  color: #000;
-  font-family: Pretendard;
-  font-style: normal;
-  line-height: normal;
   ${({ $size }) => {
     switch ($size) {
       case 'x-bold':
@@ -40,7 +36,6 @@ const StyledText = styled.p<{ $size: TextSizeType; $color: TextColorType }>`
         return 'font-size: 14px; font-weight: 400;';
     }
   }}
-
   color: ${({ $color, theme }) => {
     switch ($color) {
       case 'dark-gray':
@@ -55,6 +50,9 @@ const StyledText = styled.p<{ $size: TextSizeType; $color: TextColorType }>`
         return theme.darkGray;
     }
   }};
+
+  font-style: normal;
+  line-height: normal;
 `;
 
 export default Text;

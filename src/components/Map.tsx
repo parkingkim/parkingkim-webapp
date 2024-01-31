@@ -47,11 +47,12 @@ const Map = () => {
 };
 
 const UserLocationButton = styled.button`
+  width: 42px;
+  height: 42px;
+
   position: absolute;
   top: 20px;
   left: 20px;
-  width: 42px;
-  height: 42px;
   cursor: pointer;
 `;
 
