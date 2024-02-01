@@ -8,7 +8,7 @@ const MobileView = ({ children }: PropsWithChildren) => {
 const ViewWrapper = styled.section`
   display: flex;
   width: 500px;
-  height: 130vh;
+  height: 100vh;
   flex-direction: column;
 
   background-color: white;
