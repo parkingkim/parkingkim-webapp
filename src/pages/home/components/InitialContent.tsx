@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SearchFilter from './SearchFilter';
 import SearchBar from '@components/SearchBar';
 import { Dispatch, SetStateAction } from 'react';
+import Text from '@components/Text';
 
 interface InitialContentProps {
   setExpanded: Dispatch<SetStateAction<boolean>>;
@@ -12,7 +13,7 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
   return (
     <InitialContentContainer>
       <SearchBarWrapper>
-        <Title>목적지 입력</Title>
+        <Text size="bold">목적지 입력</Text>
         <SearchBar
           isFocused={false}
           expandHeight={() => {
@@ -22,14 +23,20 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
         <SearchFilter />
       </SearchBarWrapper>
       <UserLocation>
-        <h2>현위치</h2>
-        <h3>부산대학교 정문</h3>
-        <p>도로명 주소</p>
+        <Text size="bold">현위치</Text>
+        <Text size="md">부산대학교 정문</Text>
+        <Text size="md" color="gray">
+          도로명 주소
+        </Text>
       </UserLocation>
       <Bar />
-      <FavoriteParkingLot>자주가는 주차장</FavoriteParkingLot>
+      <FavoriteParkingLot>
+        <Text size="md">자주가는 주차장</Text>
+      </FavoriteParkingLot>
       <Bar />
-      <FavoriteLocation>자주가는 위치 등록</FavoriteLocation>
+      <FavoriteLocation>
+        <Text size="md">자주가는 위치 등록</Text>
+      </FavoriteLocation>
     </InitialContentContainer>
   );
 };
@@ -60,16 +67,6 @@ const SearchBarWrapper = styled.div`
   }
 `;
 
-const Title = styled.h2`
-  padding-left: 4px;
-  margin: 0;
-
-  color: #120924;
-  font-size: 20px;
-  font-weight: 700;
-  ${CommonTextStyle}
-`;
-
 const UserLocation = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,39 +76,6 @@ const UserLocation = styled.div`
   height: fit-content;
   padding: 20px;
   gap: 6px;
-
-  h2 {
-    color: #120924;
-    font-family: Pretendard;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: -0.6px;
-    margin: 0;
-  }
-
-  h3 {
-    color: #120924;
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.48px;
-    margin: 0;
-  }
-
-  p {
-    color: #bdc4cb;
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.48px;
-    margin: 0;
-  }
 `;
 
 const Bar = styled.div`
