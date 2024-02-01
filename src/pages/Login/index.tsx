@@ -131,6 +131,10 @@ const Button = styled.button<{ disabled: boolean }>`
 
   color: white;
   font-size: 16px;
+
+  &:focus {
+    outline: 0;
+  }
 `;
 
 const OptionContainer = styled.div`
