@@ -26,7 +26,7 @@ const Map = () => {
       mapInstance.current = new Tmapv3.Map(ref.current, {
         center: new Tmapv3.LatLng(location.lat, location.lng),
         width: '100%',
-        height: '600px',
+        height: '800px',
         zoom: 15,
         scaleBar: true,
       });
@@ -35,23 +35,30 @@ const Map = () => {
   }, [location]);
 
   return (
-    <>
+    <MapContainer>
       <div ref={ref} />
       {location && (
         <UserLocationButton onClick={makeUserMaker}>
           <SearchIcon />
         </UserLocationButton>
       )}
-    </>
+    </MapContainer>
   );
 };
 
+const MapContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: relative;
+`;
+
 const UserLocationButton = styled.button`
-  position: absolute;
-  top: 20px;
-  left: 20px;
   width: 42px;
   height: 42px;
+
+  position: absolute;
+  bottom: 300px;
+  right: 30px;
   cursor: pointer;
 `;
 
