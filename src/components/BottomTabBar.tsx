@@ -33,6 +33,7 @@ const TabsContainer = styled.nav`
 
   position: fixed;
   bottom: 0;
+  background: #fff;
 `;
 
 const Tab = styled.button<{ $isCurrent: boolean }>`

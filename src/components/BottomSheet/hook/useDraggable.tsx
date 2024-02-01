@@ -5,7 +5,7 @@ const useDraggable = (initialHeight: number) => {
   const [lastY, setLastY] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const windowHeight = window.innerHeight;
-  const snapPoints = [windowHeight * 0.28, windowHeight * 0.6, windowHeight];
+  const snapPoints = [255, windowHeight * 0.6, windowHeight];
 
   const toggleHeight = () => {
     const nextHeight = height === snapPoints[1] ? snapPoints[0] : snapPoints[1];
