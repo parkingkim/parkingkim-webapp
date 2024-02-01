@@ -1,5 +1,5 @@
 import { SearchIcon } from '@assets/index';
-import useGeoLocation from '@hooks/useGeoLocation';
+import useGeoLocation from '@hooks/useGeolocation';
 import { useEffect, useRef, useState } from 'react';
 import { GeoLocation } from 'src/types/map';
 import styled from 'styled-components';
@@ -22,11 +22,11 @@ const Map = () => {
   }, []);
 
   useEffect(() => {
-    if (location && mapInstance.current === null && ref.current) {
+    if (mapInstance.current === null && ref.current) {
       mapInstance.current = new Tmapv3.Map(ref.current, {
-        center: new Tmapv3.LatLng(location.lat, location.lng),
+        center: new Tmapv3.LatLng(37.5652045, 126.98702028),
         width: '100%',
-        height: '800px',
+        height: '100%',
         zoom: 15,
         scaleBar: true,
       });
@@ -37,19 +37,21 @@ const Map = () => {
   return (
     <MapContainer>
       <div ref={ref} />
-      {location && (
-        <UserLocationButton onClick={makeUserMaker}>
-          <SearchIcon />
-        </UserLocationButton>
-      )}
+      <UserLocationButton onClick={makeUserMaker}>
+        <SearchIcon />
+      </UserLocationButton>
     </MapContainer>
   );
 };
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 255px);
   position: relative;
+
+  @media screen and (max-width: 768px) {
+    height: 47%;
+  }
 `;
 
 const UserLocationButton = styled.button`
@@ -57,8 +59,8 @@ const UserLocationButton = styled.button`
   height: 42px;
 
   position: absolute;
-  bottom: 300px;
-  right: 30px;
+  bottom: 55%;
+  right: 20px;
   cursor: pointer;
 `;
 
