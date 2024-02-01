@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 type TextSizeType = 'x-bold' | 'semi-bold' | 'bold' | 'md' | 'regular' | 'sm-regular';
-type TextColorType = 'dark-gray' | 'black' | 'gray' | 'light-gray';
+type TextColorType = 'dark-gray' | 'black' | 'gray' | 'light-gray' | 'btn-gray';
 
 interface TextProps extends PropsWithChildren {
   size?: TextSizeType;
@@ -46,6 +46,8 @@ const StyledText = styled.p<{ $size: TextSizeType; $color: TextColorType }>`
         return theme.gray;
       case 'light-gray':
         return theme.lightGray;
+      case 'btn-gray':
+        return theme.btnGray;
       default:
         return theme.darkGray;
     }
@@ -53,6 +55,7 @@ const StyledText = styled.p<{ $size: TextSizeType; $color: TextColorType }>`
 
   font-style: normal;
   line-height: normal;
+  margin: 0;
 `;
 
 export default Text;
