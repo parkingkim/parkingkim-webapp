@@ -1,34 +1,38 @@
-import { InputHTMLAttributes, useEffect, useState } from 'react';
+import { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { SearchIcon } from '@assets/index';
 import { CommonTextStyle } from '@style/CommonTextStyle';
 
 interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   isFocused?: boolean;
-  goSearch?: () => void;
+  expandHeight?: () => void;
 }
 
-const SearchBar = ({ goSearch, isFocused }: SearchBarProps) => {
-  const [placeholder, setPlaceholder] = useState('');
-
-  useEffect(() => {
-    isFocused ? setPlaceholder('목적지 검색') : setPlaceholder('');
-  }, [isFocused]);
-
+const SearchBar = ({ expandHeight, isFocused }: SearchBarProps) => {
   return (
-    <SearchBarWrapper>
-      {!isFocused && (
+    <SearchBarWrapper
+      onClick={() => {
+        if (!isFocused && expandHeight) expandHeight();
+      }}
+    >
+      {isFocused ? (
+        <StyledSearchBar placeholder="목적지 검색" />
+      ) : (
         <IconWrapper>
           <SearchIcon />
         </IconWrapper>
       )}
-      <StyledSearchBar placeholder={placeholder} onClick={goSearch} />
     </SearchBarWrapper>
   );
 };
 
 const SearchBarWrapper = styled.div`
   width: 100%;
+  height: 48px;
+
+  background: #f5f5f5;
+  border: none;
+  border-radius: 9px;
 
   position: relative;
 `;
