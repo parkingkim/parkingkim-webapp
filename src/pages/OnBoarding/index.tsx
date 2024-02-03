@@ -5,16 +5,6 @@ import styled from 'styled-components';
 import Slide from './components/Slide';
 import useOnBoardingContents from './hooks/useOnBoardingContents';
 
-const sliderSettings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  prevArrow: <ArrowLeftIcon />,
-  appendDots: (dots: ReactElement[]) => <DotsContainer>{dots}</DotsContainer>,
-};
-
 const OnBoarding = () => {
   const {
     parkingTypes,
@@ -68,6 +58,13 @@ const OnBoarding = () => {
   );
 };
 
+const ArrowContainer = styled.div`
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  z-index: 1;
+`;
+
 const DotsContainer = styled.div`
   height: 10px;
   top: 3rem;
@@ -91,5 +88,19 @@ const Notice = styled.p`
   font-size: 16px;
   text-align: center;
 `;
+
+const sliderSettings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  prevArrow: (
+    <ArrowContainer>
+      <ArrowLeftIcon />
+    </ArrowContainer>
+  ),
+  appendDots: (dots: ReactElement[]) => <DotsContainer>{dots}</DotsContainer>,
+};
 
 export default OnBoarding;
