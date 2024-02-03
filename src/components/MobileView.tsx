@@ -13,6 +13,13 @@ const ViewWrapper = styled.section`
 
   background-color: white;
   box-shadow: 0 5px 15px #eee;
+
+  position: relative;
+
+  @media screen and (width >= 300px) and (width <= 468px) {
+    width: 100vw;
+    height: 100vh;
+  }
 `;
 
 export default MobileView;

@@ -86,7 +86,7 @@ const Header = styled.header`
   }
 
   & > h2 {
-    color: ${({ theme }) => theme.lightGray};
+    color: ${({ theme }) => theme.gray};
     font-size: 14px;
   }
 `;
@@ -104,13 +104,13 @@ const Input = styled.input`
   height: 50px;
   padding: 0 15px;
 
-  border: 1px solid ${({ theme }) => theme.lightGray};
+  border: 1px solid ${({ theme }) => theme.gray};
   border-radius: 10px;
 
   font-size: 14px;
 
   &::placeholder {
-    color: ${({ theme }) => theme.lightGray};
+    color: ${({ theme }) => theme.gray};
   }
 
   &:focus {
@@ -125,7 +125,7 @@ const Button = styled.button<{ disabled: boolean }>`
   height: 54px;
   margin-top: 5px;
 
-  background-color: ${({ theme, disabled }) => (disabled ? theme.lightGray : 'black')};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.gray : 'black')};
   border: none;
   border-radius: 10px;
 
@@ -153,12 +153,12 @@ const OptionContainer = styled.div`
     border: 0;
     border-radius: 0;
 
-    color: ${({ theme }) => theme.lightGray};
+    color: ${({ theme }) => theme.gray};
     font-size: 14px;
     outline: 0;
 
     &:not(:first-child) {
-      border-left: 1px solid ${({ theme }) => theme.lightGray};
+      border-left: 1px solid ${({ theme }) => theme.gray};
     }
   }
 `;
@@ -174,14 +174,14 @@ const Footer = styled.footer`
 const Title = styled.h1`
   display: flex;
 
-  color: ${({ theme }) => theme.lightGray};
+  color: ${({ theme }) => theme.gray};
   font-size: 16px;
 
   & > hr {
     width: 100px;
     height: 1px;
 
-    background-color: ${({ theme }) => theme.lightGray};
+    background-color: ${({ theme }) => theme.gray};
     border: 0;
   }
 `;

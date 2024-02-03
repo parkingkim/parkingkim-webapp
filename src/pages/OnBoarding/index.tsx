@@ -1,11 +1,12 @@
 import { ArrowLeftIcon } from '@assets/index';
-import { ReactElement } from 'react';
+import { ReactElement, useRef } from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import Slide from './components/Slide';
 import useOnBoardingContents from './hooks/useOnBoardingContents';
 
 const OnBoarding = () => {
+  const sliderRef = useRef<Slider>(null);
   const {
     parkingTypes,
     parkingPrices,
@@ -19,9 +20,17 @@ const OnBoarding = () => {
     selectPriorityCondition,
   } = useOnBoardingContents();
 
+  const slickPrev = () => {
+    if (!sliderRef.current) return;
+    sliderRef.current.slickPrev();
+  };
+
   return (
     <>
-      <Slider {...sliderSettings}>
+      <ArrowContainer onClick={slickPrev}>
+        <ArrowLeftIcon />
+      </ArrowContainer>
+      <Slider {...sliderSettings} ref={sliderRef}>
         <Slide
           title={'선호하는 주차장 \n유형을 알려주세요!'}
           isMultipleSelection={true}
@@ -60,13 +69,15 @@ const OnBoarding = () => {
 
 const ArrowContainer = styled.div`
   position: absolute;
-  top: 3rem;
+  top: 3.5rem;
   left: 3rem;
   z-index: 1;
+  cursor: pointer;
 `;
 
 const DotsContainer = styled.div`
   height: 10px;
+
   top: 3rem;
 
   & > li {
@@ -79,10 +90,10 @@ const DotsContainer = styled.div`
 `;
 
 const Notice = styled.p`
-  position: absolute;
-  bottom: 1.5rem;
-  padding: 4rem 0 3rem;
   align-self: center;
+
+  position: absolute;
+  bottom: 5rem;
 
   color: ${({ theme }) => theme.gray};
   font-size: 16px;
@@ -95,11 +106,7 @@ const sliderSettings = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  prevArrow: (
-    <ArrowContainer>
-      <ArrowLeftIcon />
-    </ArrowContainer>
-  ),
+  arrows: false,
   appendDots: (dots: ReactElement[]) => <DotsContainer>{dots}</DotsContainer>,
 };
 

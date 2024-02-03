@@ -34,11 +34,13 @@ const Slide = ({ title, isMultipleSelection, contents, onClick }: SlideProps) =>
               {content.name} {isMultipleSelection && '주차장'}
               {content.moreOptions && <ArrowTopIcon />}
             </OptionButton>
-            {content.moreOptions?.map((moreOption) => (
-              <MoreOptionButton key={moreOption} $isSelected={content.isSelected}>
-                {moreOption}
-              </MoreOptionButton>
-            ))}
+            <MoreOptionsContainer $isSelected={content.isSelected}>
+              {content.moreOptions?.map((moreOption) => (
+                <MoreOptionButton key={moreOption} $isSelected={content.isSelected}>
+                  {moreOption}
+                </MoreOptionButton>
+              ))}
+            </MoreOptionsContainer>
           </>
         );
       })}
@@ -52,7 +54,7 @@ const Container = styled.div`
   align-items: center;
 
   & > h1 {
-    padding: 10rem 3rem 5rem;
+    padding: 10rem 3rem 4rem;
     margin-bottom: 5px;
     align-self: flex-start;
 
@@ -71,7 +73,7 @@ const Container = styled.div`
     align-self: flex-start;
 
     position: absolute;
-    bottom: -8px;
+    bottom: -1rem;
     left: 0;
 
     color: ${({ theme }) => theme.gray};
@@ -83,18 +85,18 @@ const Container = styled.div`
 
 const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolean }>`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   width: 80%;
   height: 63px;
   padding: 0 2rem;
   margin-top: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
 
   background-color: ${({ theme, $isSelected }) => ($isSelected ? theme.gray : '#f5f5f5')};
   border: 0;
   border-radius: ${({ $isCollapsed }) => ($isCollapsed ? '10px 10px 0 0' : '10px')};
 
-  color: ${({ theme, $isSelected }) => ($isSelected ? '#edeeef' : theme.gray)};
+  color: ${({ theme, $isSelected }) => ($isSelected ? 'white' : theme.gray)};
   font-size: 20px;
   font-weight: bold;
   text-align: start;
@@ -107,14 +109,23 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
     transform: ${({ $isSelected }) => !$isSelected && 'rotate(180deg)'};
 
     & > path {
-      stroke: ${({ theme, $isSelected }) => ($isSelected ? '#edeeef' : theme.gray)};
+      stroke: ${({ theme, $isSelected }) => ($isSelected ? 'white' : theme.gray)};
     }
   }
 `;
 
-const MoreOptionButton = styled.button<{ $isSelected: boolean }>`
+const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
+  display: ${({ $isSelected }) => ($isSelected ? 'flex' : 'none')};
+
   width: 80%;
-  height: 60px;
+  max-height: 190px;
+  overflow: scroll;
+  flex-direction: column;
+`;
+
+const MoreOptionButton = styled.button<{ $isSelected: boolean }>`
+  width: 100%;
+  min-height: 55px;
   padding: 0 2rem;
 
   background-color: '#f5f5f5';
