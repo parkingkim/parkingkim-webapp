@@ -19,7 +19,7 @@ export const Default: Story = {
     title: '부산대학교 주차장',
     price: 4500,
     ETA: 15,
-    isPublic: true,
+    parkingType: '공영',
     isFavorite: false,
   },
   decorators: [

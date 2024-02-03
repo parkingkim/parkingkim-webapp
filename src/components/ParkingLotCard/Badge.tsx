@@ -3,15 +3,15 @@ import styled from 'styled-components';
 export interface BadgeProps {
   price?: number;
   ETA?: number;
-  isPublic?: boolean;
+  parkingType?: string;
 }
 
-const Badge = ({ price, ETA, isPublic }: BadgeProps) => {
+const Badge = ({ price, ETA, parkingType }: BadgeProps) => {
   return (
     <BadgeContainer>
       {price && <BadgeWrapper>예상금액 {price}원</BadgeWrapper>}
       {ETA && <BadgeWrapper>도보 예상시간 {ETA}분</BadgeWrapper>}
-      {<BadgeWrapper>{isPublic ? '공영' : '민영'} 주차장</BadgeWrapper>}
+      {<BadgeWrapper>{parkingType} 주차장</BadgeWrapper>}
     </BadgeContainer>
   );
 };

@@ -8,7 +8,7 @@ interface CardProps extends BadgeProps {
   isFavorite: boolean;
 }
 
-const ParkingLotCard = ({ title, imgUrl, price, ETA, isPublic, isFavorite }: CardProps) => {
+const ParkingLotCard = ({ title, imgUrl, price, ETA, parkingType, isFavorite }: CardProps) => {
   return (
     <CardContainer>
       <CardInfoContainer>
@@ -17,7 +17,7 @@ const ParkingLotCard = ({ title, imgUrl, price, ETA, isPublic, isFavorite }: Car
         </CardThumbnail>
         <CardInfoWrapper>
           <Title>{title}</Title>
-          <Badge price={price} ETA={ETA} isPublic={isPublic} />
+          <Badge price={price} ETA={ETA} parkingType={parkingType} />
         </CardInfoWrapper>
       </CardInfoContainer>
       {isFavorite ? <StarFilledIcon /> : <StarIcon />}
