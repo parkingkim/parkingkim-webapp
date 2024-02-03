@@ -49,6 +49,7 @@ const Slide = ({ title, isMultipleSelection, contents, onClick }: SlideProps) =>
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   & > h1 {
     padding: 10rem 3rem 5rem;
@@ -81,6 +82,9 @@ const Container = styled.div`
 `;
 
 const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 80%;
   height: 63px;
   padding: 0 2rem;
@@ -97,6 +101,14 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
 
   &:focus {
     outline: 0;
+  }
+
+  & > svg {
+    transform: ${({ $isSelected }) => !$isSelected && 'rotate(180deg)'};
+
+    & > path {
+      stroke: ${({ theme, $isSelected }) => ($isSelected ? '#edeeef' : theme.gray)};
+    }
   }
 `;
 
