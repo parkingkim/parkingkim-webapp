@@ -1,15 +1,15 @@
-import Card from '@components/Card';
+import ParkingLotCard from '@components/ParkingLotCard';
 
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'Components/Card',
-  component: Card,
+  component: ParkingLotCard,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Card>;
+} satisfies Meta<typeof ParkingLotCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

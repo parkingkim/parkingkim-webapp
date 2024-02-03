@@ -8,7 +8,7 @@ interface CardProps extends BadgeProps {
   isFavorite: boolean;
 }
 
-const Card = ({ title, imgUrl, price, ETA, isPublic, isFavorite }: CardProps) => {
+const ParkingLotCard = ({ title, imgUrl, price, ETA, isPublic, isFavorite }: CardProps) => {
   return (
     <CardContainer>
       <CardInfoContainer>
@@ -67,4 +67,4 @@ const CardInfoContainer = styled.div`
   display: flex;
 `;
 
-export default Card;
+export default ParkingLotCard;

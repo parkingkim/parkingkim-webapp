@@ -1,4 +1,4 @@
-import Badge from '@components/Card/Badge';
+import Badge from '@components/ParkingLotCard/Badge';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
