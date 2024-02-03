@@ -31,7 +31,7 @@ const Slide = ({ title, isMultipleSelection, contents, onClick }: SlideProps) =>
               $isCollapsed={content.moreOptions && content.isSelected}
               onClick={onClick(index)}
             >
-              {content.name} 주차장
+              {content.name} {isMultipleSelection && '주차장'}
               {content.moreOptions && <ArrowTopIcon />}
             </OptionButton>
             {content.moreOptions?.map((moreOption) => (

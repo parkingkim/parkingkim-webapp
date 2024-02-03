@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { OnBoardingContent } from '../components/Slide';
 
+const checkAlternative = (contents: OnBoardingContent[], index: number) => {
+  contents = contents.map((content, i) => {
+    if (i !== index) content.isSelected = false;
+    return content;
+  });
+};
+
 const initialParkingTypes = [
   { key: 'public', name: '공영', isSelected: false },
   { key: 'private', name: '민영', isSelected: false },
@@ -65,19 +72,23 @@ const useOnBoardingContents = () => {
   };
 
   const selectParkingTerm = (index: number) => () => {
+    checkAlternative(parkingTerms, index);
     parkingTerms[index].isSelected = !parkingTerms[index].isSelected;
     setParkingTerms([...parkingTerms]);
   };
 
   const selectElectricCar = (index: number) => () => {
+    checkAlternative(electricCars, index);
     electricCars[index].isSelected = !electricCars[index].isSelected;
     setElectricCars([...electricCars]);
   };
 
   const selectPriorityCondition = (index: number) => () => {
+    checkAlternative(priorityConditions, index);
     priorityConditions[index].isSelected = !priorityConditions[index].isSelected;
     setPriorityConditions([...priorityConditions]);
   };
+
   return {
     parkingTypes,
     parkingPrices,
