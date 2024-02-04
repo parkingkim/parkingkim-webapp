@@ -178,7 +178,7 @@ const Title = styled.h1`
   font-size: 16px;
 
   & > hr {
-    width: 100px;
+    width: 20%;
     height: 1px;
 
     background-color: ${({ theme }) => theme.gray};
