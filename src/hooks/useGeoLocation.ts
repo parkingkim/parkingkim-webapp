@@ -28,12 +28,17 @@ const useGeoLocation = (mapInstance: any) => {
   const makeUserMaker = () => {
     if (!mapInstance.current) return;
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLocation({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => {
+        alert(error.message);
+      },
+    );
   };
 
   return { makeUserMaker };

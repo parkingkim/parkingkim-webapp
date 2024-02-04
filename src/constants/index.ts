@@ -1,5 +1,7 @@
 export const INITIAL_HEIGHT = 100;
 
+export const INIT_LAT = 37.566481622437934;
+export const INIT_LNG = 126.98502302169841;
 export const REGEX = {
   number: /^[0-9]+$/,
   id: /^[a-zA-Z0-9]+$/,
