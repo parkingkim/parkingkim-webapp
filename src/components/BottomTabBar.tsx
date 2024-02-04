@@ -31,8 +31,6 @@ const TabsContainer = styled.nav`
   padding: 0 2rem;
   justify-content: space-between;
 
-  background-color: yellow;
-
   position: fixed;
   bottom: 0;
 `;

@@ -12,20 +12,20 @@ const SearchFilter = () => {
 
 const SearchFilterButton = styled.button`
   display: flex;
-  align-items: flex-end;
-  border: none;
-  background: none;
   padding: 0;
-  cursor: pointer;
+  align-items: flex-end;
+
+  background: none;
+  border: none;
 
   color: #707070;
-  font-family: Pretendard;
   font-size: 14px;
-  font-style: normal;
   font-weight: 500;
+  font-style: normal;
   line-height: normal;
   letter-spacing: -0.42px;
-  -webkit-tap-highlight-color: transparent; // iOS Safari의 터치 시 하이라이트 방지
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   gap: 5px;
 
   &:hover {
