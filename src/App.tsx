@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Search from '@pages/Search/index.tsx';
 import MobileView from '@components/MobileView.tsx';
 import Menu from '@pages/Menu/index.tsx';
+import Profile from '@pages/Menu/Profile/index.tsx';
+import Coupons from '@pages/Menu/Coupons/index.tsx';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/menu" element={<Menu />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/coupons" element={<Coupons />} />
           </Routes>
         </BrowserRouter>
         <BottomTabBar />
