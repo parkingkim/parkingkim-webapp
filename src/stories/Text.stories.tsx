@@ -11,6 +11,7 @@ const meta = {
     children: 'Text',
   },
   argTypes: {
+    fontStyle: { control: 'radio' },
     size: { control: 'radio' },
     color: { control: 'radio' },
   },
@@ -23,37 +24,42 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 export const ExtraBold: Story = {
   args: {
-    size: 'x-bold',
+    fontStyle: 'x-bold',
+    size: 'xxxl',
     children: 'Pretendard,ExtraBold,24pt,-3%',
   },
 };
 export const SemiBold: Story = {
   args: {
-    size: 'semi-bold',
+    fontStyle: 'semi-bold',
     children: 'Pretendard,SemiBold,22pt,-2%',
   },
 };
 export const Bold: Story = {
   args: {
-    size: 'bold',
+    fontStyle: 'bold',
+    size: 'xl',
     children: 'Pretendard, Bold,20pt',
   },
 };
 export const Medium: Story = {
   args: {
-    size: 'md',
+    fontStyle: 'md',
+    size: 'lg',
     children: 'Pretendard,Medium,16',
   },
 };
 export const Regular: Story = {
   args: {
-    size: 'regular',
+    fontStyle: 'regular',
+    size: 'md',
     children: 'Pretendard,Regular,14pt,-3%',
   },
 };
 export const SmallRegular: Story = {
   args: {
-    size: 'sm-regular',
+    fontStyle: 'sm-regular',
+    size: 'sm',
     children: 'Pretendard, Regular, 11pt, -3%',
   },
 };
