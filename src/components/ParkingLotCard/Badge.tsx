@@ -24,17 +24,19 @@ const BadgeContainer = styled.div`
 
 const BadgeWrapper = styled.div`
   display: flex;
-  align-items: center;
   width: fit-content;
   height: 21px;
-  border-radius: 10px;
-  background: #fff;
   padding: 0 9px;
+  align-items: center;
+
+  background: #fff;
+  border-radius: 10px;
+
   color: #bdc4cb;
-  font-family: Pretendard;
   font-size: 14px;
-  font-style: normal;
   font-weight: 500;
+  font-family: Pretendard;
+  font-style: normal;
   line-height: normal;
   letter-spacing: -0.42px;
 `;
