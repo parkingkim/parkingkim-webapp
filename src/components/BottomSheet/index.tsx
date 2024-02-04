@@ -40,7 +40,7 @@ const BottomSheet = ({ isExpanded, children }: BottomSheetProps) => {
   );
 };
 
-const BottomSheetContainer = styled.div<{ $height: number; $isExpanded: boolean | undefined }>`
+const BottomSheetContainer = styled.div<{ $height: number; $isExpanded?: boolean }>`
   box-sizing: border-box;
   width: 100%;
   height: ${({ $height }) => $height}px;

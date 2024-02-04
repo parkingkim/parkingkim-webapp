@@ -9,14 +9,14 @@ interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const SearchBar = ({ expandHeight, isFocused }: SearchBarProps) => {
+  const focusAndExpand = () => {
+    if (!isFocused && expandHeight) expandHeight();
+  };
+
   return (
-    <SearchBarWrapper
-      onClick={() => {
-        if (!isFocused && expandHeight) expandHeight();
-      }}
-    >
+    <SearchBarWrapper onClick={focusAndExpand}>
       {isFocused ? (
-        <StyledSearchBar placeholder="목적지 검색" />
+        <StyledSearchBar placeholder="목적지 검색" autoFocus />
       ) : (
         <IconWrapper>
           <SearchIcon />

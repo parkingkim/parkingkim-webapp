@@ -11,7 +11,7 @@ interface InitialContentProps {
 
 const InitialContent = ({ setExpanded }: InitialContentProps) => {
   return (
-    <InitialContentContainer>
+    <>
       <SearchBarWrapper>
         <Text size="bold">목적지 입력</Text>
         <SearchBar
@@ -37,11 +37,9 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
       <FavoriteLocation>
         <Text size="md">자주가는 위치 등록</Text>
       </FavoriteLocation>
-    </InitialContentContainer>
+    </>
   );
 };
-
-const InitialContentContainer = styled.div``;
 
 const SearchBarWrapper = styled.div`
   display: flex;

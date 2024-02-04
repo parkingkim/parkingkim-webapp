@@ -6,13 +6,16 @@ import InitialContent from './components/InitialContent';
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const reduceHeight = () => {
+    setIsExpanded(false);
+  };
 
   return (
     <>
       <Map />
       <BottomSheet isExpanded={isExpanded}>
         {isExpanded ? (
-          <SearchContent reduceHeight={() => setIsExpanded(false)} />
+          <SearchContent reduceHeight={reduceHeight} />
         ) : (
           <InitialContent setExpanded={setIsExpanded} />
         )}
