@@ -14,7 +14,7 @@ const Profile = () => {
 
   return (
     <>
-      <UserInfoContainer>
+      <HeadContainer>
         <BackIcon onClick={goBack} />
         <Text fontStyle="bold" size="xxl">
           내 정보 관리
@@ -22,7 +22,7 @@ const Profile = () => {
         <Text fontStyle="md" size="md">
           내 정보를 관리해보세요!
         </Text>
-      </UserInfoContainer>
+      </HeadContainer>
       <Partition />
       <NameAndEmail>
         <Text fontStyle="md" size="md" color="gray">
@@ -52,7 +52,7 @@ const Profile = () => {
   );
 };
 
-const UserInfoContainer = styled.div`
+export const HeadContainer = styled.div`
   display: flex;
   padding: 20px;
   flex-direction: column;
