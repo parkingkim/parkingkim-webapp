@@ -37,11 +37,11 @@ const Coupons = () => {
     <>
       <HeadContainer>
         <BackIcon onClick={goBack} />
-        <Text fontStyle="bold" size="xxl">
-          내 정보 관리
+        <Text fontStyle="bold" size="xl">
+          쿠폰함
         </Text>
-        <Text fontStyle="md" size="md">
-          내 정보를 관리해보세요!
+        <Text fontStyle="md" size="sm">
+          내 쿠폰을 관리해보세요!
         </Text>
       </HeadContainer>
       <Partition />
@@ -55,7 +55,7 @@ const Coupons = () => {
       </CouponInputWrapper>
       <Bar />
       <CouponsContainer>
-        <Text fontStyle="semi-bold" size="xl">
+        <Text fontStyle="semi-bold" size="lg">
           내 쿠폰
         </Text>
         <CouponsWrapper>
@@ -76,11 +76,12 @@ const Coupons = () => {
 const CouponInputWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 40px 20px;
+  padding: 25px 20px;
   gap: 20px;
 `;
 
 const CouponNumberInput = styled.input`
+  box-sizing: border-box;
   width: 100%;
   height: 48px;
   padding: 0 15px;
@@ -109,10 +110,11 @@ const CouponInputButton = styled.button`
 `;
 
 const CouponsContainer = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 60vh;
+  height: calc(100vh - 320px);
   padding: 25px 20px;
   gap: 15px;
 `;

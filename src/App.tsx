@@ -10,6 +10,7 @@ import Menu from '@pages/Menu/index.tsx';
 import Profile from '@pages/Menu/Profile/index.tsx';
 import Coupons from '@pages/Menu/Coupons/index.tsx';
 import Notifications from '@pages/Menu/Notifications/index.tsx';
+import ChangePassword from '@pages/Menu/Profile/ChangePassword/index.tsx';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/coupons" element={<Coupons />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/change-password" element={<ChangePassword />} />
           </Routes>
           <BottomTabBar />
         </BrowserRouter>

@@ -32,15 +32,15 @@ const Menu = () => {
   return (
     <>
       <UserInfoContainer>
-        <Text fontStyle="bold" size="xxl">
+        <Text fontStyle="bold" size="xl">
           내 정보
         </Text>
         <UserInfoButton onClick={goToProfile}>
           <NameAndEmail>
-            <Text fontStyle="bold" size="lg">
+            <Text fontStyle="bold" size="md">
               {userInfo.name}
             </Text>
-            <Text fontStyle="regular" size="lg" color="btn-gray">
+            <Text fontStyle="regular" size="md" color="btn-gray">
               {userInfo.email}
             </Text>
           </NameAndEmail>
@@ -49,30 +49,30 @@ const Menu = () => {
       </UserInfoContainer>
       <Partition />
       <MenuButton onClick={goToNotifications}>
-        <Text fontStyle="md" size="lg">
+        <Text fontStyle="md" size="md">
           공지/이벤트
         </Text>
       </MenuButton>
       <Bar />
       <MenuButton onClick={goToCoupons}>
-        <Text fontStyle="md" size="lg">
+        <Text fontStyle="md" size="md">
           쿠폰함
         </Text>
       </MenuButton>
       <Bar />
       <MenuButton>
-        <Text fontStyle="md" size="lg">
+        <Text fontStyle="md" size="md">
           집/회사 관리
         </Text>
       </MenuButton>
       <Bar />
       <SubMenuButton>
-        <Text size="md" color="gray">
+        <Text size="sm" color="gray">
           고객센터
         </Text>
       </SubMenuButton>
       <SubMenuButton>
-        <Text size="md" color="gray">
+        <Text size="sm" color="gray">
           로그아웃
         </Text>
       </SubMenuButton>

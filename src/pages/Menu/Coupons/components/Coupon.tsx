@@ -10,10 +10,10 @@ interface CouponProps {
 const Coupon = ({ discountRate, discountName, expirationDate }: CouponProps) => {
   return (
     <CouponsContainer>
-      <Text fontStyle="semi-bold" size="xl">
+      <Text fontStyle="semi-bold" size="lg">
         {discountRate}%
       </Text>
-      <Text fontStyle="md" size="lg">
+      <Text fontStyle="md" size="md">
         {discountName} 할인
       </Text>
       <Text size="xs" color="gray">
