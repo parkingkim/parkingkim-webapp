@@ -1,4 +1,4 @@
-import Coupon from '@pages/Menu/components/Coupon';
+import Coupon from '@pages/Menu/Coupons/components/Coupon';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { HeadContainer } from '../Profile';
 import { Bar, Partition } from '..';
 import { CommonTextStyle } from '@style/CommonTextStyle';
-import Coupon from '../components/Coupon';
+import Coupon from './components/Coupon';
 
 const coupons = [
   {
@@ -112,7 +112,7 @@ const CouponsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 45vh;
+  height: 60vh;
   padding: 25px 20px;
   gap: 15px;
 `;
