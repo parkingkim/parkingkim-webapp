@@ -12,38 +12,42 @@ const Profile = () => {
     navigate('/menu');
   };
 
+  const goToChangePassword = () => {
+    navigate('/change-password');
+  };
+
   return (
     <>
       <HeadContainer>
         <BackIcon onClick={goBack} />
-        <Text fontStyle="bold" size="xxl">
+        <Text fontStyle="bold" size="xl">
           내 정보 관리
         </Text>
-        <Text fontStyle="md" size="md">
+        <Text fontStyle="md" size="sm">
           내 정보를 관리해보세요!
         </Text>
       </HeadContainer>
       <Partition />
       <NameAndEmail>
-        <Text fontStyle="md" size="md" color="gray">
+        <Text fontStyle="md" size="sm" color="gray">
           이름
         </Text>
-        <Text fontStyle="semi-bold" size="lg">
+        <Text fontStyle="semi-bold" size="md">
           {name}
         </Text>
       </NameAndEmail>
       <Bar />
       <NameAndEmail>
-        <Text fontStyle="md" size="md" color="gray">
+        <Text fontStyle="md" size="sm" color="gray">
           이메일
         </Text>
-        <Text fontStyle="semi-bold" size="lg">
+        <Text fontStyle="semi-bold" size="md">
           {email}
         </Text>
       </NameAndEmail>
       <Bar />
-      <ChangePasswordButton>
-        <Text fontStyle="semi-bold" size="lg">
+      <ChangePasswordButton onClick={goToChangePassword}>
+        <Text fontStyle="semi-bold" size="md">
           비밀번호 변경
         </Text>
         <RightArrowIcon />
@@ -54,7 +58,7 @@ const Profile = () => {
 
 export const HeadContainer = styled.div`
   display: flex;
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
