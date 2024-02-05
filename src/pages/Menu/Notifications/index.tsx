@@ -12,6 +12,15 @@ const notices = [
   { title: '공지사항1', content: '공지사항 내용1', date: '2023.12.31' },
   { title: '공지사항2', content: '공지사항 내용2', date: '2024.1.31' },
   { title: '공지사항3', content: '공지사항 내용3', date: '2024.2.4' },
+  { title: '공지사항1', content: '공지사항 내용1', date: '2023.12.31' },
+  { title: '공지사항2', content: '공지사항 내용2', date: '2024.1.31' },
+  { title: '공지사항3', content: '공지사항 내용3', date: '2024.2.4' },
+  { title: '공지사항1', content: '공지사항 내용1', date: '2023.12.31' },
+  { title: '공지사항2', content: '공지사항 내용2', date: '2024.1.31' },
+  { title: '공지사항3', content: '공지사항 내용3', date: '2024.2.4' },
+  { title: '공지사항1', content: '공지사항 내용1', date: '2023.12.31' },
+  { title: '공지사항2', content: '공지사항 내용2', date: '2024.1.31' },
+  { title: '공지사항3', content: '공지사항 내용3', date: '2024.2.4' },
 ];
 
 const events = [
@@ -41,7 +50,7 @@ const Notifications = () => {
       <TabsContainer>
         {tabs.map((tab, index) => (
           <Tab $isCurrent={index === currentTabIndex} onClick={changeTab(index)}>
-            <Text size="lg" color={currentTabIndex === index ? 'dark-gray' : 'gray'}>
+            <Text size="md" color={currentTabIndex === index ? 'dark-gray' : 'gray'}>
               {tab}
             </Text>
           </Tab>
@@ -52,10 +61,10 @@ const Notifications = () => {
           ? notices.map((notice) => (
               <>
                 <Content>
-                  <Text size="lg" fontStyle="bold">
+                  <Text size="md" fontStyle="bold">
                     {notice.title}
                   </Text>
-                  <Text size="sm" color="gray">
+                  <Text size="xs" color="gray">
                     {notice.date}
                   </Text>
                 </Content>
@@ -65,10 +74,10 @@ const Notifications = () => {
           : events.map((event) => (
               <>
                 <Content>
-                  <Text size="lg" fontStyle="bold">
+                  <Text size="md" fontStyle="bold">
                     {event.title}
                   </Text>
-                  <Text size="sm" color="gray">
+                  <Text size="xs" color="gray">
                     {event.date}
                   </Text>
                 </Content>
@@ -103,6 +112,8 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: calc(100vh - 202px);
+  overflow: scroll;
 `;
 
 const Content = styled.div`

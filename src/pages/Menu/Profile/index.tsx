@@ -69,7 +69,7 @@ const NameAndEmail = styled.div`
   padding: 20px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 8px;
 `;
 
 const ChangePasswordButton = styled.button`

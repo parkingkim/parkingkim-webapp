@@ -40,7 +40,7 @@ const Menu = () => {
             <Text fontStyle="bold" size="md">
               {userInfo.name}
             </Text>
-            <Text fontStyle="regular" size="md" color="btn-gray">
+            <Text fontStyle="regular" size="xs" color="btn-gray">
               {userInfo.email}
             </Text>
           </NameAndEmail>
