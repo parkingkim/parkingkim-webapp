@@ -25,6 +25,10 @@ const Menu = () => {
     navigate('/coupons');
   };
 
+  const goToNotifications = () => {
+    navigate('/notifications');
+  };
+
   return (
     <>
       <UserInfoContainer>
@@ -44,7 +48,7 @@ const Menu = () => {
         </UserInfoButton>
       </UserInfoContainer>
       <Partition />
-      <MenuButton>
+      <MenuButton onClick={goToNotifications}>
         <Text fontStyle="md" size="lg">
           공지/이벤트
         </Text>

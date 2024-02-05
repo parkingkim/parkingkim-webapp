@@ -9,6 +9,7 @@ import MobileView from '@components/MobileView.tsx';
 import Menu from '@pages/Menu/index.tsx';
 import Profile from '@pages/Menu/Profile/index.tsx';
 import Coupons from '@pages/Menu/Coupons/index.tsx';
+import Notifications from '@pages/Menu/Notifications/index.tsx';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/menu" element={<Menu />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/coupons" element={<Coupons />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Routes>
           <BottomTabBar />
         </BrowserRouter>

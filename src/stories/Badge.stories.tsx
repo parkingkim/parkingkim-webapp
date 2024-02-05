@@ -17,7 +17,7 @@ export const Default: Story = {
   args: {
     price: 4500,
     ETA: 15,
-    isPublic: true,
+    parkingType: '공영',
   },
   decorators: [
     (Story) => {
