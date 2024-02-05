@@ -29,6 +29,10 @@ const Menu = () => {
     navigate('/notifications');
   };
 
+  const goToFrequentDestinations = () => {
+    navigate('/frequent-destinations');
+  };
+
   return (
     <>
       <UserInfoContainer>
@@ -60,7 +64,7 @@ const Menu = () => {
         </Text>
       </MenuButton>
       <Bar />
-      <MenuButton>
+      <MenuButton onClick={goToFrequentDestinations}>
         <Text fontStyle="md" size="md">
           집/회사 관리
         </Text>
