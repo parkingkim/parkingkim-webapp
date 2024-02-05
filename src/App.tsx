@@ -22,8 +22,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/coupons" element={<Coupons />} />
           </Routes>
+          <BottomTabBar />
         </BrowserRouter>
-        <BottomTabBar />
       </MobileView>
     </ThemeProvider>
   );
