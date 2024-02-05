@@ -58,10 +58,14 @@ const Profile = () => {
 
 export const HeadContainer = styled.div`
   display: flex;
-  padding: 10px 20px 20px 20px;
+  padding: 10px 20px 20px;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+
+  & > svg {
+    cursor: pointer;
+  }
 `;
 
 const NameAndEmail = styled.div`

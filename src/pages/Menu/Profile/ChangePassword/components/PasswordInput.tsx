@@ -10,11 +10,13 @@ const PasswordInput = ({ placeholder }: PasswordInputProps) => {
 
 const StyledPasswordInput = styled.input`
   box-sizing: border-box;
-  padding: 0 15px;
   width: 100%;
   height: 50px;
+  padding: 0 15px;
+
   border: 1px solid ${({ theme }) => theme.gray};
   border-radius: 10px;
+
   color: ${({ theme }) => theme.gray};
   font-size: 14px;
 `;

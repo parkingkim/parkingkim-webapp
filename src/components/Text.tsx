@@ -51,6 +51,23 @@ const StyledText = styled.p<{
     }
   }}
 
+  color: ${({ $color, theme }) => {
+    switch ($color) {
+      case 'dark-gray':
+        return theme.darkGray;
+      case 'black':
+        return theme.black;
+      case 'gray':
+        return theme.gray;
+      case 'light-gray':
+        return theme.lightGray;
+      case 'btn-gray':
+        return theme.btnGray;
+      default:
+        return theme.darkGray;
+    }
+  }};
+
   font-size: ${({ $size }) => {
     switch ($size) {
       case 'xs':
@@ -69,23 +86,6 @@ const StyledText = styled.p<{
         return '24px';
       default:
         return '16px';
-    }
-  }};
-
-  color: ${({ $color, theme }) => {
-    switch ($color) {
-      case 'dark-gray':
-        return theme.darkGray;
-      case 'black':
-        return theme.black;
-      case 'gray':
-        return theme.gray;
-      case 'light-gray':
-        return theme.lightGray;
-      case 'btn-gray':
-        return theme.btnGray;
-      default:
-        return theme.darkGray;
     }
   }};
 

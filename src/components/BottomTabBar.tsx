@@ -47,7 +47,7 @@ const TabsContainer = styled.nav`
   position: fixed;
   bottom: 0;
 
-  @media screen and (max-width: 415px) {
+  @media screen and (width <= 415px) {
     width: 100vw;
   }
 `;

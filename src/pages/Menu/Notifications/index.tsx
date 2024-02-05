@@ -96,32 +96,34 @@ const TabsContainer = styled.nav`
 
 const Tab = styled.button<{ $isCurrent: boolean }>`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: ${({ theme, $isCurrent }) => ($isCurrent ? theme.darkGray : theme.gray)};
   width: 50%;
   height: 50px;
+  justify-content: center;
+  align-items: center;
+
+  background: none;
   border-bottom: ${({ theme, $isCurrent }) =>
     $isCurrent ? `2px solid ${theme.darkGray}` : `2px solid transparent`};
+
+  color: ${({ theme, $isCurrent }) => ($isCurrent ? theme.darkGray : theme.gray)};
   font-size: 16px;
-  background: none;
 `;
 
 const ContentContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   height: calc(100vh - 202px);
   overflow: scroll;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Content = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   width: calc(100% - 40px);
   padding: 25px 20px;
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
 export default Notifications;

@@ -70,21 +70,23 @@ const FrequentDestinations = () => {
 
 const DestinationContainer = styled.div`
   display: flex;
-  flex-direction: column;
   padding: 30px 20px;
+  flex-direction: column;
   gap: 60px;
 `;
 
 const DestinationTabContainer = styled.div`
   display: flex;
   flex-direction: row;
+
   border-radius: 10px;
-  box-shadow: 0px 0px 4px 2px rgba(189, 196, 203, 0.5);
+  box-shadow: 0 0 4px 2px rgb(189 196 203 / 50%);
 
   & > :first-child {
     border-radius: 10px 0 0 10px;
     border-right: 1px solid #d9d9d9;
   }
+
   & > :last-child {
     border-radius: 0 10px 10px 0;
   }
@@ -92,53 +94,59 @@ const DestinationTabContainer = styled.div`
 
 const DestinationTab = styled.button<{ $isSelected: boolean }>`
   display: flex;
-  flex-direction: column;
   width: 50%;
-  gap: 12px;
+  flex-direction: column;
+
   background: ${({ $isSelected }) => ($isSelected ? '#f5f5f5' : 'none')};
+  gap: 12px;
 `;
 
 const AddressContainer = styled.div`
   display: flex;
-  flex-direction: column;
   width: 100%;
+  flex-direction: column;
   gap: 10px;
 `;
 
 const AddressHeader = styled.div`
   display: flex;
+  margin-bottom: 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 `;
 
 const LocationButton = styled.button`
   display: flex;
+  padding: 0;
   flex-direction: row;
   align-items: center;
-  padding: 0;
+
   background: none;
   gap: 12px;
   cursor: pointer;
 `;
 
 const AddressInput = styled.input`
-  color: ${({ theme }) => theme.gray};
-  background: #f5f5f5;
-  border-radius: 10px;
-  border: none;
   padding: 15px;
+
+  background: #f5f5f5;
+  border: none;
+  border-radius: 10px;
+
+  color: ${({ theme }) => theme.gray};
+
+  outline: none;
+
   &::placeholder {
     color: ${({ theme }) => theme.gray};
   }
-
-  outline: none;
 `;
 
 const AddressInputWrapper = styled.div`
-  position: relative;
   display: flex;
+
+  position: relative;
 
   & > input {
     width: 100%;
@@ -146,8 +154,8 @@ const AddressInputWrapper = styled.div`
 
   & > svg {
     position: absolute;
-    right: 10px;
     top: 50%;
+    right: 10px;
     transform: translateY(-50%);
   }
 `;

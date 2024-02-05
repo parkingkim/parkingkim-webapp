@@ -14,7 +14,7 @@ const ViewWrapper = styled.section`
   background-color: white;
   box-shadow: 0 5px 15px #eee;
 
-  @media screen and (max-width: 415px) {
+  @media screen and (width <= 415px) {
     width: 100vw;
   }
 `;

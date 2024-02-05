@@ -35,7 +35,6 @@ const BadgeWrapper = styled.div`
   color: #bdc4cb;
   font-size: 14px;
   font-weight: 500;
-  font-family: Pretendard;
   font-style: normal;
   line-height: normal;
   letter-spacing: -0.42px;

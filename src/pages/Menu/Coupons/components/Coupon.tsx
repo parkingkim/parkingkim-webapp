@@ -25,14 +25,16 @@ const Coupon = ({ discountRate, discountName, expirationDate }: CouponProps) => 
 
 const CouponsContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 
   width: calc(100% - 80px);
   padding: 20px 30px;
+  flex-direction: column;
+  align-items: flex-start;
+
   border-radius: 10px;
-  box-shadow: 0px 0px 4px 2px rgba(189, 196, 203, 0.5);
+  box-shadow: 0 0 4px 2px rgb(189 196 203 / 50%);
   gap: 5px;
+
   & > :first-child {
     margin-bottom: 10px;
   }

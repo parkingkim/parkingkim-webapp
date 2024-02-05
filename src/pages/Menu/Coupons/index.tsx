@@ -75,8 +75,8 @@ const Coupons = () => {
 
 const CouponInputWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   padding: 25px 20px;
+  flex-direction: row;
   gap: 20px;
 `;
 
@@ -102,33 +102,34 @@ const CouponNumberInput = styled.input`
 `;
 
 const CouponInputButton = styled.button`
-  min-width: 60px;
   height: 48px;
-  border-radius: 10px;
-  background: #f5f5f5;
+  min-width: 60px;
   padding: 15px;
+
+  background: #f5f5f5;
+  border-radius: 10px;
 `;
 
 const CouponsContainer = styled.div`
-  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  box-sizing: border-box;
   height: calc(100vh - 320px);
   padding: 25px 20px;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 15px;
 `;
 
 const CouponsWrapper = styled.div`
   display: flex;
+  width: 100%;
+
+  padding: 10px 0;
+  overflow: scroll;
   flex-direction: column;
   align-items: center;
 
-  padding: 10px 0;
-  width: 100%;
-
   gap: 25px;
-  overflow: scroll;
 `;
 
 export default Coupons;

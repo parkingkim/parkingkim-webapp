@@ -43,35 +43,38 @@ const ChangePassword = () => {
 };
 
 const InputContainer = styled.div`
-  position: relative;
   display: flex;
-  flex-direction: column;
   width: calc(100% - 40px);
   height: calc(100% - 300px);
   padding: 25px 20px;
+  flex-direction: column;
+
+  position: relative;
 `;
 
 const CurrentPasswordWrapper = styled.div`
   display: flex;
+  width: 100%;
+  margin-bottom: 40px;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
   gap: 6px;
-  margin-bottom: 40px;
 
   & > a {
-    font-size: 12px;
-    color: ${({ theme }) => theme.darkGray};
-    border-bottom: 1px solid ${({ theme }) => theme.darkGray};
     margin-top: 6px;
+
+    border-bottom: 1px solid ${({ theme }) => theme.darkGray};
+
+    color: ${({ theme }) => theme.darkGray};
+    font-size: 12px;
   }
 `;
 
 const NewPasswordContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
 
   gap: 6px;
 
@@ -81,17 +84,20 @@ const NewPasswordContainer = styled.div`
 `;
 
 const ChangePasswordButton = styled.button`
-  position: absolute;
-  bottom: 0;
   display: flex;
+  width: calc(100% - 40px);
+  padding: 15px 0;
   justify-content: center;
   align-items: center;
-  width: calc(100% - 40px);
+
+  background-color: ${({ theme }) => theme.gray};
   border-radius: 10px;
+
+  position: absolute;
+  bottom: 0;
+
   color: white;
   font-size: 20px;
-  padding: 15px 0;
-  background-color: ${({ theme }) => theme.gray};
   cursor: pointer;
 `;
 
