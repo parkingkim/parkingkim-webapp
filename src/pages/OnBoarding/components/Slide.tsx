@@ -128,7 +128,7 @@ const MoreOptionButton = styled.button<{ $isSelected: boolean }>`
   min-height: 55px;
   padding: 0 2rem;
 
-  background-color: '#f5f5f5';
+  background: '#f5f5f5';
   border: 0;
   border-radius: 0;
 
