@@ -1,11 +1,13 @@
 import { ThemeProvider } from 'styled-components';
 import theme from './theme.ts';
-import Home from '@pages/Home';
 import './App.css';
 import BottomTabBar from '@components/BottomTabBar.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Search from '@pages/Search/index.tsx';
 import MobileView from '@components/MobileView.tsx';
+import Home from '@pages/home/index.tsx';
+import OnBoarding from '@pages/OnBoarding/index.tsx';
+import Login from '@pages/Login/index.tsx';
 
 function App() {
   return (
@@ -15,9 +17,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/onboarding" element={<OnBoarding />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
-        <BottomTabBar />
+        {/* <BottomTabBar /> */}
       </MobileView>
     </ThemeProvider>
   );

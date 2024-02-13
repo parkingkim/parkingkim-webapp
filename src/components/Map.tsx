@@ -1,5 +1,6 @@
 import { SearchIcon } from '@assets/index';
 import useGeoLocation from '@hooks/useGeolocation';
+import { INIT_LAT, INIT_LNG } from '@constants/index';
 import { useEffect, useRef, useState } from 'react';
 import { GeoLocation } from 'src/types/map';
 import styled from 'styled-components';
@@ -13,12 +14,22 @@ const Map = () => {
   const { makeUserMaker } = useGeoLocation(mapInstance);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
+    const success = (position: GeolocationPosition) => {
       setLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
-    });
+    };
+
+    const error = (err: GeolocationPositionError) => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+      setLocation({
+        lat: INIT_LAT,
+        lng: INIT_LNG,
+      });
+    };
+
+    navigator.geolocation.getCurrentPosition(success, error);
   }, []);
 
   useEffect(() => {
