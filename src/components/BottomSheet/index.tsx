@@ -1,13 +1,19 @@
-import { MouseEvent, PropsWithChildren, TouchEvent } from 'react';
+import { MouseEvent, PropsWithChildren, TouchEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import useDraggable from './hook/useDraggable';
 
-interface BottomSheetProps extends PropsWithChildren {}
+interface BottomSheetProps extends PropsWithChildren {
+  isExpanded?: boolean;
+}
 
-const BottomSheet = ({ children }: BottomSheetProps) => {
+const BottomSheet = ({ isExpanded, children }: BottomSheetProps) => {
   const initialHeight = window.innerHeight * 0.6;
-  const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight } =
+  const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight, fillHeight } =
     useDraggable(initialHeight);
+
+  useEffect(() => {
+    isExpanded ? fillHeight() : toggleHeight();
+  }, [isExpanded]);
 
   const handleEvent =
     (handler: (clientY: number) => void) =>
@@ -21,7 +27,7 @@ const BottomSheet = ({ children }: BottomSheetProps) => {
   };
 
   return (
-    <BottomSheetContainer height={height}>
+    <BottomSheetContainer $height={height} $isExpanded={isExpanded}>
       <DragHandle
         onMouseDown={handleEvent(handleDragStart)}
         onTouchStart={handleEvent(handleDragStart)}
@@ -34,14 +40,16 @@ const BottomSheet = ({ children }: BottomSheetProps) => {
   );
 };
 
-const BottomSheetContainer = styled.div<{ height: number }>`
+const BottomSheetContainer = styled.div<{ $height: number; $isExpanded?: boolean }>`
   box-sizing: border-box;
   width: 100%;
-  height: ${({ height }) => height}px;
+  height: ${({ $height }) => $height}px;
   max-width: 500px;
 
   background-color: #fff;
-  border-radius: 10px 10px 0 0;
+
+  ${({ $isExpanded }) => !$isExpanded && 'border-radius: 10px 10px 0 0;'}
+
   box-shadow: 0 -1px 5px -1px rgb(0 0 0 / 25%);
 
   position: fixed;
