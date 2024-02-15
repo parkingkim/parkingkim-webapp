@@ -67,46 +67,47 @@ const SearchBarWrapper = styled.div`
 
 const UserLocation = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   width: 100%;
   height: fit-content;
   padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   gap: 6px;
 `;
 
 const Bar = styled.div`
   width: 100%;
-  min-width: 100%;
   height: 2px;
+  min-width: 100%;
+
   background: #f6f6f6;
 `;
 
 const FavoriteParkingLot = styled.div`
   display: flex;
-  justify-content: flex-start;
   padding: 20px;
+  justify-content: flex-start;
 
   color: #120924;
-  font-family: Pretendard;
   font-size: 15px;
-  font-style: normal;
   font-weight: 600;
+  font-family: Pretendard;
+  font-style: normal;
   line-height: normal;
   letter-spacing: -0.45px;
 `;
 
 const FavoriteLocation = styled.div`
   display: flex;
-  justify-content: flex-start;
   padding: 20px;
+  justify-content: flex-start;
 
   color: #120924;
-  font-family: Pretendard;
   font-size: 15px;
-  font-style: normal;
   font-weight: 600;
+  font-family: Pretendard;
+  font-style: normal;
   line-height: normal;
   letter-spacing: -0.45px;
 `;
