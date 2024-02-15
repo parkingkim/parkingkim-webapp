@@ -5,9 +5,10 @@ import BottomTabBar from '@components/BottomTabBar.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Search from '@pages/Search/index.tsx';
 import MobileView from '@components/MobileView.tsx';
-import Home from '@pages/home/index.tsx';
+import Home from '@pages/Home/index.tsx';
 import OnBoarding from '@pages/OnBoarding/index.tsx';
 import Login from '@pages/Login/index.tsx';
+import ParkingLotDetail from '@pages/ParkingLotDetail/index.tsx';
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/onboarding" element={<OnBoarding />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/parking-detail" element={<ParkingLotDetail />} />
           </Routes>
         </BrowserRouter>
-        {/* <BottomTabBar /> */}
+        <BottomTabBar />
       </MobileView>
     </ThemeProvider>
   );
