@@ -38,6 +38,7 @@ const TabsContainer = styled.nav`
 `;
 
 const Tab = styled.button<{ $isCurrent: boolean }>`
+  width: 3rem;
   background-color: ${({ $isCurrent }) => ($isCurrent ? 'gray' : 'transparent')};
 `;
 

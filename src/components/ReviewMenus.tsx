@@ -33,7 +33,7 @@ const Container = styled.div`
 
 const ReviewBox = styled.button`
   display: flex;
-  height: 30px;
+  height: 39px;
   margin-bottom: 5px;
 
   background-color: #f5f5f5;
