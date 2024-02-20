@@ -1,6 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import theme from './theme.ts';
 import './App.css';
+import './reset.css';
 import BottomTabBar from '@components/BottomTabBar.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Search from '@pages/Search/index.tsx';
