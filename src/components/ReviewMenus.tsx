@@ -13,7 +13,7 @@ const REVIEW_MENUS = [
   '가격이 저렴해요',
 ];
 
-const Review = () => {
+const ReviewMenus = () => {
   return (
     <Container>
       {REVIEW_MENUS.map((reviewMenu) => (
@@ -60,4 +60,4 @@ const ReviewProgress = styled.div<{ $width: number }>`
   font-weight: bold;
 `;
 
-export default Review;
+export default ReviewMenus;
