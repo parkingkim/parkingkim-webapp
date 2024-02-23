@@ -7,3 +7,4 @@ export { default as ArrowLeftIcon } from './arrow_left.svg?react';
 export { default as PictureIcon } from './picture.svg?react';
 export { default as StarIcon } from './star.svg?react';
 export { default as StarFilledIcon } from './star-filled.svg?react';
+export { default as RightArrowIcon } from './arrow-right.svg?react';

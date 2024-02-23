@@ -27,40 +27,43 @@ const ParkingLotCard = ({ title, imgUrl, price, ETA, parkingType, isFavorite }: 
 
 const CardContainer = styled.article`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   width: 100%;
   min-width: 375px;
-  background: rgba(217, 217, 217, 0.23);
   padding: 20px 14px;
+  flex-direction: row;
+  justify-content: space-between;
+
+  background: rgb(217 217 217 / 23%);
 `;
 
 const CardThumbnail = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 104px;
   height: 104px;
-  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+
   background: #d9d9d9;
+  border-radius: 10px;
 `;
 
 const Title = styled.h2`
+  padding: 0;
+  margin: 0 0 12px;
+
   color: #120924;
   font-size: 16px;
-  font-style: normal;
   font-weight: 700;
+  font-style: normal;
   line-height: normal;
   letter-spacing: -0.48px;
-  padding: 0;
-  margin: 0 0 12px 0;
 `;
 
 const CardInfoWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-left: 30px;
   padding: 0;
+  margin-left: 30px;
+  flex-direction: column;
 `;
 
 const CardInfoContainer = styled.div`
