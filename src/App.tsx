@@ -11,9 +11,10 @@ import Coupons from '@pages/Menu/Coupons/index.tsx';
 import Notifications from '@pages/Menu/Notifications/index.tsx';
 import ChangePassword from '@pages/Menu/Profile/ChangePassword/index.tsx';
 import FrequentDestinations from '@pages/Menu/FrequentDestinations/index.tsx';
-import Home from '@pages/home/index.tsx';
 import OnBoarding from '@pages/OnBoarding/index.tsx';
 import Login from '@pages/Login/index.tsx';
+import MyParkingLots from '@pages/MyParkingLots/index.tsx';
+import Home from '@pages/Home/index.tsx';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/frequent-destinations" element={<FrequentDestinations />} />
             <Route path="/onboarding" element={<OnBoarding />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/my-parking-lots" element={<MyParkingLots />} />
           </Routes>
           <BottomTabBar />
         </BrowserRouter>
