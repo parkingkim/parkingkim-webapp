@@ -59,10 +59,6 @@ const MapContainer = styled.div`
   width: 100%;
   height: calc(100vh - 255px);
   position: relative;
-
-  @media screen and (max-width: 768px) {
-    height: 47%;
-  }
 `;
 
 const UserLocationButton = styled.button`
