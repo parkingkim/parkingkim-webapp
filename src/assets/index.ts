@@ -7,4 +7,8 @@ export { default as ArrowLeftIcon } from './arrow_left.svg?react';
 export { default as PictureIcon } from './picture.svg?react';
 export { default as StarIcon } from './star.svg?react';
 export { default as StarFilledIcon } from './star-filled.svg?react';
+export { default as WhiteStarIcon } from './white-star.svg?react';
+export { default as WhiteStarFilledIcon } from './white-star-filled.svg?react';
 export { default as RightArrowIcon } from './arrow-right.svg?react';
+export { default as MoreIcon } from './more.svg?react';
+export { default as FavLotIcon } from './fav-lot.svg?react';
