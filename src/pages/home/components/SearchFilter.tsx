@@ -1,11 +1,14 @@
 import { OptionIcon } from '@assets/index';
+import Text from '@components/Text';
 import styled from 'styled-components';
 
 const SearchFilter = () => {
   return (
     <SearchFilterButton>
       <OptionIcon />
-      주차장 조건설정
+      <Text size="regular" color="btn-gray">
+        주차장 조건설정
+      </Text>
     </SearchFilterButton>
   );
 };
@@ -18,15 +21,13 @@ const SearchFilterButton = styled.button`
   background: none;
   border: none;
 
-  color: #707070;
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.42px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   gap: 5px;
+
+  p {
+    font-weight: 500;
+  }
 
   &:hover {
     border: none;

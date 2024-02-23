@@ -63,6 +63,8 @@ const StyledText = styled.p<{
         return theme.lightGray;
       case 'btn-gray':
         return theme.btnGray;
+      case 'btn-gray':
+        return theme.btnGray;
       default:
         return theme.darkGray;
     }
@@ -91,6 +93,7 @@ const StyledText = styled.p<{
 
   font-style: normal;
   line-height: normal;
+  margin: 0;
 `;
 
 export default Text;

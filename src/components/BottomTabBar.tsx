@@ -46,10 +46,7 @@ const TabsContainer = styled.nav`
 
   position: fixed;
   bottom: 0;
-
-  @media screen and (width <= 415px) {
-    width: 100vw;
-  }
+  background: #fff;
 `;
 
 const Tab = styled.button<{ $isCurrent: boolean }>`

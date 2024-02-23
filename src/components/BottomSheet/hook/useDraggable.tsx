@@ -12,6 +12,10 @@ const useDraggable = (initialHeight: number) => {
     setHeight(nextHeight);
   };
 
+  const fillHeight = () => {
+    setHeight(windowHeight);
+  };
+
   const handleDragStart = useCallback((dragStartY: number) => {
     setLastY(dragStartY);
     setIsDragging(true);
@@ -62,7 +66,7 @@ const useDraggable = (initialHeight: number) => {
     handleDragMove,
     handleDragEnd,
     toggleHeight,
-    setHeight,
+    fillHeight,
   };
 };
 

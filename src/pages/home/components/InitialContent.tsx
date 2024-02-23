@@ -1,0 +1,114 @@
+import { CommonTextStyle } from '@style/CommonTextStyle';
+import styled from 'styled-components';
+import SearchFilter from './SearchFilter';
+import SearchBar from '@components/SearchBar';
+import { Dispatch, SetStateAction } from 'react';
+import Text from '@components/Text';
+
+interface InitialContentProps {
+  setExpanded: Dispatch<SetStateAction<boolean>>;
+}
+
+const InitialContent = ({ setExpanded }: InitialContentProps) => {
+  return (
+    <>
+      <SearchBarWrapper>
+        <Text size="bold">목적지 입력</Text>
+        <SearchBar
+          isFocused={false}
+          expandHeight={() => {
+            setExpanded(true);
+          }}
+        />
+        <SearchFilter />
+      </SearchBarWrapper>
+      <UserLocation>
+        <Text size="bold">현위치</Text>
+        <Text size="md">부산대학교 정문</Text>
+        <Text size="md" color="gray">
+          도로명 주소
+        </Text>
+      </UserLocation>
+      <Bar />
+      <FavoriteParkingLot>
+        <Text size="md">자주가는 주차장</Text>
+      </FavoriteParkingLot>
+      <Bar />
+      <FavoriteLocation>
+        <Text size="md">자주가는 위치 등록</Text>
+      </FavoriteLocation>
+    </>
+  );
+};
+
+const SearchBarWrapper = styled.div`
+  display: flex;
+  padding: 22px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+
+  border-bottom: 7px solid #f6f6f6;
+
+  color: #120924;
+  font-size: 20px;
+  font-weight: 700;
+  ${CommonTextStyle}
+
+  gap: 15px;
+
+  & > :first-child {
+    margin-left: 2px;
+  }
+
+  & > :last-child {
+    margin-left: 8px;
+  }
+`;
+
+const UserLocation = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
+  gap: 6px;
+`;
+
+const Bar = styled.div`
+  width: 100%;
+  min-width: 100%;
+  height: 2px;
+  background: #f6f6f6;
+`;
+
+const FavoriteParkingLot = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+
+  color: #120924;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.45px;
+`;
+
+const FavoriteLocation = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+
+  color: #120924;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.45px;
+`;
+
+export default InitialContent;

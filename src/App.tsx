@@ -1,6 +1,5 @@
 import { ThemeProvider } from 'styled-components';
 import theme from './theme.ts';
-import Home from '@pages/Home';
 import './App.css';
 import BottomTabBar from '@components/BottomTabBar.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -12,6 +11,9 @@ import Coupons from '@pages/Menu/Coupons/index.tsx';
 import Notifications from '@pages/Menu/Notifications/index.tsx';
 import ChangePassword from '@pages/Menu/Profile/ChangePassword/index.tsx';
 import FrequentDestinations from '@pages/Menu/FrequentDestinations/index.tsx';
+import Home from '@pages/home/index.tsx';
+import OnBoarding from '@pages/OnBoarding/index.tsx';
+import Login from '@pages/Login/index.tsx';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/frequent-destinations" element={<FrequentDestinations />} />
+            <Route path="/onboarding" element={<OnBoarding />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
           <BottomTabBar />
         </BrowserRouter>
