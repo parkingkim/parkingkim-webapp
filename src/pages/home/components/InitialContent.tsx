@@ -1,9 +1,9 @@
 import { CommonTextStyle } from '@style/CommonTextStyle';
 import styled from 'styled-components';
-import SearchFilter from './SearchFilter';
 import SearchBar from '@components/SearchBar';
 import { Dispatch, SetStateAction } from 'react';
 import Text from '@components/Text';
+import SearchFilter from './SearchFilter';
 
 interface InitialContentProps {
   setExpanded: Dispatch<SetStateAction<boolean>>;
@@ -13,7 +13,7 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
   return (
     <>
       <SearchBarWrapper>
-        <Text size="bold">목적지 입력</Text>
+        <Text fontStyle="bold">목적지 입력</Text>
         <SearchBar
           isFocused={false}
           expandHeight={() => {
@@ -23,7 +23,7 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
         <SearchFilter />
       </SearchBarWrapper>
       <UserLocation>
-        <Text size="bold">현위치</Text>
+        <Text fontStyle="bold">현위치</Text>
         <Text size="md">부산대학교 정문</Text>
         <Text size="md" color="gray">
           도로명 주소
