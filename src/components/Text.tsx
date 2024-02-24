@@ -30,6 +30,8 @@ const StyledText = styled.p<{
   $color: TextColorType;
   $size: TextSizeType;
 }>`
+  margin: 0;
+
   color: ${({ $color, theme }) => {
     switch ($color) {
       case 'dark-gray':
@@ -70,7 +72,6 @@ const StyledText = styled.p<{
 
   font-style: normal;
   line-height: normal;
-  margin: 0;
 `;
 
 export default Text;

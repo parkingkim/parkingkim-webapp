@@ -92,7 +92,6 @@ const FavoriteParkingLot = styled.div`
   color: #120924;
   font-size: 15px;
   font-weight: 600;
-  font-family: Pretendard;
   font-style: normal;
   line-height: normal;
   letter-spacing: -0.45px;
@@ -106,7 +105,6 @@ const FavoriteLocation = styled.div`
   color: #120924;
   font-size: 15px;
   font-weight: 600;
-  font-family: Pretendard;
   font-style: normal;
   line-height: normal;
   letter-spacing: -0.45px;
