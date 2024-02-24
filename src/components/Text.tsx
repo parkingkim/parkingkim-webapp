@@ -32,6 +32,36 @@ const StyledText = styled.p<{
 }>`
   margin: 0;
 
+  font-weight: ${({ $fontStyle }) => {
+    switch ($fontStyle) {
+      case 'x-bold':
+        return '800';
+      case 'bold':
+        return '700';
+      case 'semi-bold':
+        return '600';
+      case 'md':
+        return '500';
+      default:
+        return '400';
+    }
+  }};
+
+  letter-spacing: ${({ $fontStyle }) => {
+    switch ($fontStyle) {
+      case 'x-bold':
+        return '-0.72px;';
+      case 'semi-bold':
+        return '-0.44px';
+      case 'md':
+        return '-0.64px';
+      case 'regular':
+        return '-0.42px';
+      case 'sm-regular':
+        return '-0.33px';
+    }
+  }};
+
   color: ${({ $color, theme }) => {
     switch ($color) {
       case 'dark-gray':
