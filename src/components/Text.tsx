@@ -32,25 +32,6 @@ const StyledText = styled.p<{
 }>`
   margin: 0;
 
-  ${({ $fontStyle }) => {
-    switch ($fontStyle) {
-      case 'x-bold':
-        return 'font-weight: 800; letter-spacing: -0.72px;';
-      case 'semi-bold':
-        return 'font-weight: 600; letter-spacing: -0.44px;';
-      case 'bold':
-        return 'font-weight: 700; ';
-      case 'md':
-        return 'font-weight: 500; letter-spacing: -0.64px;';
-      case 'regular':
-        return 'font-weight: 400; letter-spacing: -0.42px;';
-      case 'sm-regular':
-        return 'font-weight: 400; letter-spacing: -0.33px;';
-      default:
-        return 'font-weight: 400;';
-    }
-  }}
-
   color: ${({ $color, theme }) => {
     switch ($color) {
       case 'dark-gray':
@@ -61,8 +42,6 @@ const StyledText = styled.p<{
         return theme.gray;
       case 'light-gray':
         return theme.lightGray;
-      case 'btn-gray':
-        return theme.btnGray;
       case 'btn-gray':
         return theme.btnGray;
       default:
@@ -91,9 +70,38 @@ const StyledText = styled.p<{
     }
   }};
 
+  font-weight: ${({ $fontStyle }) => {
+    switch ($fontStyle) {
+      case 'x-bold':
+        return '800';
+      case 'bold':
+        return '700';
+      case 'semi-bold':
+        return '600';
+      case 'md':
+        return '500';
+      default:
+        return '400';
+    }
+  }};
+
   font-style: normal;
   line-height: normal;
-  margin: 0;
+
+  letter-spacing: ${({ $fontStyle }) => {
+    switch ($fontStyle) {
+      case 'x-bold':
+        return '-0.72px;';
+      case 'semi-bold':
+        return '-0.44px';
+      case 'md':
+        return '-0.64px';
+      case 'regular':
+        return '-0.42px';
+      case 'sm-regular':
+        return '-0.33px';
+    }
+  }};
 `;
 
 export default Text;
