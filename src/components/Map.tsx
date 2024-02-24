@@ -1,6 +1,6 @@
 import { SearchIcon } from '@assets/index';
-import useGeoLocation from '@hooks/useGeolocation';
 import { INIT_LAT, INIT_LNG } from '@constants/index';
+import useGeoLocation from '@hooks/useGeoLocation';
 import { useEffect, useRef, useState } from 'react';
 import { GeoLocation } from 'src/types/map';
 import styled from 'styled-components';
@@ -58,6 +58,7 @@ const Map = () => {
 const MapContainer = styled.div`
   width: 100%;
   height: calc(100vh - 255px);
+
   position: relative;
 `;
 
@@ -66,8 +67,8 @@ const UserLocationButton = styled.button`
   height: 42px;
 
   position: absolute;
-  bottom: 55%;
   right: 20px;
+  bottom: 55%;
   cursor: pointer;
 `;
 

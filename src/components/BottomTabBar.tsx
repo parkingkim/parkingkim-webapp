@@ -47,12 +47,15 @@ const TabsContainer = styled.nav`
   padding: 0 2rem;
   justify-content: space-between;
 
+  background: #fff;
+
   position: fixed;
   bottom: 0;
-  background: #fff;
 `;
 
 const Tab = styled.button<{ $isCurrent: boolean }>`
+  width: 3rem;
+
   background-color: ${({ $isCurrent }) => ($isCurrent ? 'gray' : 'transparent')};
 `;
 
