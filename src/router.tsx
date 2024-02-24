@@ -1,7 +1,6 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 import BottomTabBar from '@components/BottomTabBar';
 import MobileView from '@components/MobileView';
-import Home from '@pages/Home';
 import Login from '@pages/Login';
 import Menu from '@pages/Menu';
 import Coupons from '@pages/Menu/Coupons';
@@ -12,6 +11,10 @@ import ChangePassword from '@pages/Menu/Profile/ChangePassword';
 import OnBoarding from '@pages/OnBoarding';
 import ParkingLotDetail from '@pages/ParkingLotDetail';
 import Search from '@pages/Search';
+import MyParkingLots from '@pages/MyParkingLots';
+import Home from '@pages/Home';
+import MyReviews from '@pages/MyParkingLots/MyReviews';
+import MoreReviews from '@pages/MyParkingLots/MoreReviews';
 
 const Root = () => {
   return (
@@ -30,6 +33,7 @@ const BottomTabBarRoot = () => {
   );
 };
 
+//TODO: url 계층 구조 상의
 const router = createBrowserRouter([
   {
     path: '/',
@@ -49,9 +53,12 @@ const router = createBrowserRouter([
     path: '/',
     element: <BottomTabBarRoot />,
     children: [
-      { path: '/', element: <Home /> },
+      { path: '/', element: <Home />, index: true },
       { path: '/search', element: <Search /> },
       { path: '/parking-detail', element: <ParkingLotDetail /> },
+      { path: '/my-parking-lots', element: <MyParkingLots /> },
+      { path: '/my-reviews', element: <MyReviews /> },
+      { path: '/more-reviews', element: <MoreReviews /> },
     ],
   },
 ]);
