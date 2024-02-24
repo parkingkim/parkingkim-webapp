@@ -1,23 +1,23 @@
-import Badge from '@components/ParkingLotCard/Badge';
+import Coupon from '@pages/Menu/Coupons/components/Coupon';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Components/Badge',
-  component: Badge,
+  title: 'Components/Coupon',
+  component: Coupon,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Badge>;
+} satisfies Meta<typeof Coupon>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    price: 4500,
-    ETA: 15,
-    parkingType: '공영',
+    discountRate: 10,
+    discountName: '설날 연휴 공용주차장',
+    expirationDate: '2022-02-28',
   },
   decorators: [
     (Story) => {
@@ -26,8 +26,7 @@ export const Default: Story = {
           style={{
             display: 'flex',
             justifyContent: 'center',
-            background: '#D9D9D93B',
-            padding: '10px',
+            padding: '100px',
           }}
         >
           <Story />

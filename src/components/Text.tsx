@@ -1,41 +1,56 @@
-import { PropsWithChildren } from 'react';
+import { HTMLAttributes, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-type TextSizeType = 'x-bold' | 'semi-bold' | 'bold' | 'md' | 'regular' | 'sm-regular';
+type TextStyleType = 'x-bold' | 'semi-bold' | 'bold' | 'md' | 'regular' | 'sm-regular';
 type TextColorType = 'dark-gray' | 'black' | 'gray' | 'light-gray' | 'btn-gray';
+type TextSizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
 
-interface TextProps extends PropsWithChildren {
-  size?: TextSizeType;
+interface TextProps extends PropsWithChildren, HTMLAttributes<HTMLParagraphElement> {
+  fontStyle?: TextStyleType;
   color?: TextColorType;
+  size?: TextSizeType;
 }
 
-const Text = ({ size = 'regular', color = 'dark-gray', children }: TextProps) => {
+const Text = ({
+  fontStyle = 'md',
+  size = 'md',
+  color = 'dark-gray',
+  children,
+  ...props
+}: TextProps) => {
   return (
-    <StyledText $size={size} $color={color}>
+    <StyledText $fontStyle={fontStyle} $size={size} $color={color} {...props}>
       {children}
     </StyledText>
   );
 };
 
-const StyledText = styled.p<{ $size: TextSizeType; $color: TextColorType }>`
-  ${({ $size }) => {
-    switch ($size) {
+const StyledText = styled.p<{
+  $fontStyle: TextStyleType;
+  $color: TextColorType;
+  $size: TextSizeType;
+}>`
+  margin: 0;
+
+  ${({ $fontStyle }) => {
+    switch ($fontStyle) {
       case 'x-bold':
-        return 'font-size: 24px;  font-weight: 800; letter-spacing: -0.72px;';
+        return 'font-weight: 800; letter-spacing: -0.72px;';
       case 'semi-bold':
-        return 'font-size: 22px; font-weight: 600; letter-spacing: -0.44px;';
+        return 'font-weight: 600; letter-spacing: -0.44px;';
       case 'bold':
-        return 'font-size: 20px; font-weight: 700; ';
+        return 'font-weight: 700; ';
       case 'md':
-        return 'font-size: 16px; font-weight: 500; letter-spacing: -0.64px;';
+        return 'font-weight: 500; letter-spacing: -0.64px;';
       case 'regular':
-        return 'font-size: 14px; font-weight: 400; letter-spacing: -0.42px;';
+        return 'font-weight: 400; letter-spacing: -0.42px;';
       case 'sm-regular':
-        return 'font-size: 11px; font-weight: 400; letter-spacing: -0.33px;';
+        return 'font-weight: 400; letter-spacing: -0.33px;';
       default:
-        return 'font-size: 14px; font-weight: 400;';
+        return 'font-weight: 400;';
     }
   }}
+
   color: ${({ $color, theme }) => {
     switch ($color) {
       case 'dark-gray':
@@ -48,8 +63,31 @@ const StyledText = styled.p<{ $size: TextSizeType; $color: TextColorType }>`
         return theme.lightGray;
       case 'btn-gray':
         return theme.btnGray;
+      case 'btn-gray':
+        return theme.btnGray;
       default:
         return theme.darkGray;
+    }
+  }};
+
+  font-size: ${({ $size }) => {
+    switch ($size) {
+      case 'xs':
+        return '11px';
+      case 'sm':
+        return '14px';
+      case 'md':
+        return '16px';
+      case 'lg':
+        return '18px';
+      case 'xl':
+        return '20px';
+      case 'xxl':
+        return '22px';
+      case 'xxxl':
+        return '24px';
+      default:
+        return '16px';
     }
   }};
 

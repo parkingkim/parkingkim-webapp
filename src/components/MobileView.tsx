@@ -9,10 +9,15 @@ const ViewWrapper = styled.section`
   display: flex;
   width: 500px;
   height: 100vh;
+  height: 100vh;
   flex-direction: column;
 
   background-color: white;
   box-shadow: 0 5px 15px #eee;
+
+  @media screen and (width <= 415px) {
+    width: 100vw;
+  }
 
   position: relative;
 
