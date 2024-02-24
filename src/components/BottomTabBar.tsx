@@ -42,7 +42,8 @@ const BottomTabBar = () => {
 const TabsContainer = styled.nav`
   display: flex;
   box-sizing: border-box;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 80px;
   padding: 0 2rem;
   justify-content: space-between;
@@ -54,7 +55,7 @@ const TabsContainer = styled.nav`
 `;
 
 const Tab = styled.button<{ $isCurrent: boolean }>`
-  width: 3rem;
+  width: 4rem;
 
   background-color: ${({ $isCurrent }) => ($isCurrent ? 'gray' : 'transparent')};
 `;
