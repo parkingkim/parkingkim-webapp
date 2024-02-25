@@ -102,6 +102,7 @@ const Tab = styled.button<{ $isCurrent: boolean }>`
   align-items: center;
 
   background: none;
+  border-radius: 0;
   border-bottom: ${({ theme, $isCurrent }) =>
     $isCurrent ? `2px solid ${theme.darkGray}` : `2px solid transparent`};
 
