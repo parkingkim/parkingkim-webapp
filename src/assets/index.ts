@@ -12,3 +12,6 @@ export { default as RunnerIcon } from './runner.svg?react';
 export { default as ParkingTypeIcon } from './parking_type.svg?react';
 export { default as HumanIcon } from './human.svg?react';
 export { default as RightArrowIcon } from './arrow-right.svg?react';
+export { default as CheckIcon } from './check.svg?react';
+export { default as RadioIcon } from './radio.svg?react';
+export { default as CheckedRadioIcon } from './checked-radio.svg?react';
