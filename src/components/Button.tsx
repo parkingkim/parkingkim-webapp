@@ -21,7 +21,7 @@ const getButtonSize = (size: ButtonSize) => {
       `;
     case 'large':
       return css`
-        padding: 15px 0;
+        padding: 15px 20px;
       `;
     default:
       return '';
@@ -37,10 +37,12 @@ const getButtonColor = (color: ButtonColor) => {
     case 'secondary':
       return css`
         background-color: #bdc4cb;
+        color: white;
       `;
     case 'tertiary':
       return css`
         background-color: #5639ff;
+        color: white;
       `;
     default:
       return '';
