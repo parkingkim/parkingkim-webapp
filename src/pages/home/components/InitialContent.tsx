@@ -4,16 +4,40 @@ import SearchFilter from './SearchFilter';
 import SearchBar from '@components/SearchBar';
 import { Dispatch, SetStateAction } from 'react';
 import Text from '@components/Text';
+import useAddressStore from '@store/addressStore';
+import { CurLocationIcon, ZoomInIcon, ZoomOutIcon } from '@assets/index';
+import useGeoLocation from '@hooks/useGeoLocation';
+import useMapStore from '@store/mapStore';
 
 interface InitialContentProps {
   setExpanded: Dispatch<SetStateAction<boolean>>;
 }
 
 const InitialContent = ({ setExpanded }: InitialContentProps) => {
+  const { address } = useAddressStore((state) => state);
+
+  const { makeUserMaker } = useGeoLocation();
+  const { mapInstance } = useMapStore();
+
   return (
-    <>
+    <InitialContentContainer>
+      <ActionButtonContainer>
+        <ZoomButtonContainer>
+          <button onClick={() => mapInstance?.zoomIn()}>
+            <ZoomInIcon />
+          </button>
+          <button onClick={() => mapInstance?.zoomOut()}>
+            <ZoomOutIcon />
+          </button>
+        </ZoomButtonContainer>
+        <CurLocationButton onClick={makeUserMaker}>
+          <CurLocationIcon />
+        </CurLocationButton>
+      </ActionButtonContainer>
       <SearchBarWrapper>
-        <Text size="bold">목적지 입력</Text>
+        <Text size="xl" fontStyle="bold">
+          목적지 입력
+        </Text>
         <SearchBar
           isFocused={false}
           expandHeight={() => {
@@ -23,21 +47,21 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
         <SearchFilter />
       </SearchBarWrapper>
       <UserLocation>
-        <Text size="bold">현위치</Text>
-        <Text size="md">부산대학교 정문</Text>
-        <Text size="md" color="gray">
-          도로명 주소
+        <Text size="xl" fontStyle="bold">
+          현위치
         </Text>
+        <Text>{address.jibunAddr}</Text>
+        <Text color="gray">{address.roadAddr}</Text>
       </UserLocation>
       <Bar />
       <FavoriteParkingLot>
-        <Text size="md">자주가는 주차장</Text>
+        <Text>자주가는 주차장</Text>
       </FavoriteParkingLot>
       <Bar />
       <FavoriteLocation>
-        <Text size="md">자주가는 위치 등록</Text>
+        <Text>자주가는 위치 등록</Text>
       </FavoriteLocation>
-    </>
+    </InitialContentContainer>
   );
 };
 
@@ -108,6 +132,60 @@ const FavoriteLocation = styled.div`
   font-style: normal;
   line-height: normal;
   letter-spacing: -0.45px;
+`;
+
+const InitialContentContainer = styled.div`
+  position: relative;
+`;
+
+const ActionButtonContainer = styled.div`
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 90px;
+  top: -94px;
+  padding: 20px;
+`;
+
+const CurLocationButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+const ZoomButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  & > :first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #d5d5d5;
+    border-radius: 10px 10px 0 0;
+  }
+
+  & > :last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 12px;
+    background-color: #f5f5f5;
+    border-radius: 0 0 10px 10px;
+  }
 `;
 
 export default InitialContent;

@@ -1,33 +1,77 @@
-import { useRef, useState, useEffect } from 'react';
+import useAddressStore from '@store/addressStore';
+import useMapStore from '@store/mapStore';
+import useUserMarkerStore from '@store/userMarkerStore';
+import parseAddress from '@utils/parseAddress';
+import { useState, useEffect } from 'react';
 import { GeoLocation } from 'src/types/map';
 
-const useGeoLocation = (mapInstance: any) => {
+const useGeoLocation = () => {
   const { Tmapv3 } = window;
+  const { mapInstance } = useMapStore((state) => state);
   const [location, setLocation] = useState<GeoLocation | null>(null);
-  const tmapMarker = useRef<any>(null);
+  const { userMarker, setUserMarker } = useUserMarkerStore();
 
-  useEffect(() => {
-    if (location && mapInstance.current) {
-      const userCoords = new Tmapv3.LatLng(location.lat, location.lng);
+  const { setAddress } = useAddressStore((state) => state);
 
-      mapInstance.current.setCenter(userCoords);
-      mapInstance.current.setZoom(15);
+  const reverseGeo = async () => {
+    const headers = { appKey: 'K7SVqM25ES7kK3FaC0crJ2Uu6XNAoAy54xiQr9I6' };
+    const searchParams = {
+      version: '1',
+      format: 'json',
+      callback: 'result',
+      coordType: 'WGS84GEO',
+      addressType: 'A10',
+      lon: location!.lng.toString(),
+      lat: location!.lat.toString(),
+    };
 
-      if (tmapMarker.current) {
-        tmapMarker.current.setMap(null); // 기존 마커 제거
+    const queryParams = new URLSearchParams(searchParams).toString();
+
+    try {
+      const res = await fetch(
+        `https://apis.openapi.sk.com/tmap/geo/reversegeocoding?${queryParams}`,
+        {
+          headers,
+        },
+      );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
 
-      tmapMarker.current = new Tmapv3.Marker({
-        position: userCoords,
-        icon: 'src/assets/react.svg',
-        map: mapInstance.current,
-      });
+      const data = await res.json();
+      setAddress(parseAddress(data));
+    } catch (error) {
+      console.error('Error fetching data: ', error);
+    }
+  };
+
+  useEffect(() => {
+    if (!mapInstance) return;
+
+    if (location) {
+      const userCoords = new Tmapv3.LatLng(location.lat, location.lng);
+
+      mapInstance.setCenter(userCoords);
+      mapInstance.setZoom(15);
+
+      if (userMarker) {
+        setUserMarker(null);
+        userMarker.setMap(null);
+      }
+
+      setUserMarker(
+        new Tmapv3.Marker({
+          position: userCoords,
+          icon: 'src/assets/react.svg',
+          map: mapInstance,
+        }),
+      );
+      reverseGeo();
     }
   }, [location, mapInstance, Tmapv3]);
 
   const makeUserMaker = () => {
-    if (!mapInstance.current) return;
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setLocation({
