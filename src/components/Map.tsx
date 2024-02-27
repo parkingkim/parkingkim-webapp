@@ -1,6 +1,6 @@
-import { SearchIcon } from '@assets/index';
 import { INIT_LAT, INIT_LNG } from '@constants/index';
 import useGeoLocation from '@hooks/useGeoLocation';
+import useMapStore from '@store/mapStore';
 import { useEffect, useRef, useState } from 'react';
 import { GeoLocation } from 'src/types/map';
 import styled from 'styled-components';
@@ -9,10 +9,10 @@ const Map = () => {
   const { Tmapv3 } = window;
   const ref = useRef<HTMLDivElement>(null);
   const mapInstance = useRef(null);
+  const { setMapInstance } = useMapStore((state) => state);
   const [location, setLocation] = useState<GeoLocation | null>(null);
 
-  const { makeUserMaker } = useGeoLocation(mapInstance);
-
+  const { makeUserMaker } = useGeoLocation();
   useEffect(() => {
     const success = (position: GeolocationPosition) => {
       setLocation({
@@ -41,6 +41,7 @@ const Map = () => {
         zoom: 15,
         scaleBar: true,
       });
+      setMapInstance(mapInstance.current!);
       makeUserMaker();
     }
   }, [location]);
@@ -48,32 +49,15 @@ const Map = () => {
   return (
     <MapContainer>
       <div ref={ref} />
-      <UserLocationButton onClick={makeUserMaker}>
-        <SearchIcon />
-      </UserLocationButton>
     </MapContainer>
   );
 };
 
 const MapContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 255px);
+  height: calc(100vh - 245px);
 
   position: relative;
-
-  @media screen and (width <= 768px) {
-    height: 47%;
-  }
-`;
-
-const UserLocationButton = styled.button`
-  width: 42px;
-  height: 42px;
-
-  position: absolute;
-  right: 20px;
-  bottom: 55%;
-  cursor: pointer;
 `;
 
 export default Map;
