@@ -64,10 +64,12 @@ const BottomSheetContainer = styled.div<{ $height: number; $isExpanded?: boolean
 const DragHandle = styled.div`
   width: 100%;
   height: 30px;
-
+  top: 0;
   position: absolute;
   text-align: center;
+  background-color: transparent;
   cursor: pointer;
+  z-index: 1;
   -webkit-tap-highlight-color: transparent;
 `;
 

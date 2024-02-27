@@ -28,7 +28,7 @@ const BottomTabBar = () => {
   return (
     <TabsContainer>
       {tabs.map((tab, index) => (
-        <Tab $isCurrent={index === currentTabIndex} onClick={changeTab(index)}>
+        <Tab key={tab} $isCurrent={index === currentTabIndex} onClick={changeTab(index)}>
           {tab}
         </Tab>
       ))}
