@@ -12,6 +12,7 @@ import ChangePassword from '@pages/Menu/Profile/ChangePassword';
 import OnBoarding from '@pages/OnBoarding';
 import ParkingLotDetail from '@pages/ParkingLotDetail';
 import Search from '@pages/Search';
+import ParkingLotFilterCondition from '@pages/ParkingLotFilterCondition';
 
 const Root = () => {
   return (
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
       { path: '/notifications', element: <Notifications /> },
       { path: '/change-password', element: <ChangePassword /> },
       { path: '/frequent-destinations', element: <FrequentDestinations /> },
+      { path: '/parking-lot-filter-condition', element: <ParkingLotFilterCondition /> },
     ],
   },
   {
