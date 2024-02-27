@@ -49,7 +49,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <BottomTabBarRoot />,
     children: [
-      { path: '/', element: <Home /> },
+      { path: '/', element: <Home />, index: true },
       { path: '/search', element: <Search /> },
       { path: '/parking-detail', element: <ParkingLotDetail /> },
     ],
