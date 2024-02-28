@@ -12,3 +12,7 @@ export { default as RunnerIcon } from './runner.svg?react';
 export { default as ParkingTypeIcon } from './parking_type.svg?react';
 export { default as HumanIcon } from './human.svg?react';
 export { default as RightArrowIcon } from './arrow-right.svg?react';
+export { default as ElectricAc3 } from './electric-ac3.svg?react';
+export { default as ElectricDcCombo } from './electric-dc-combo.svg?react';
+export { default as ElectricDcDemo } from './electric-dc-demo.svg?react';
+export { default as ElectricFull } from './electric-full.svg?react';

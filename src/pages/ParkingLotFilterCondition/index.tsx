@@ -3,6 +3,8 @@ import ToggleButton from '@components/ToggleButton';
 import useBoolean from '@hooks/useBoolean';
 import styled from 'styled-components';
 import SelectBox from './components/SelectBox';
+import { useState } from 'react';
+import { ElectricAc3, ElectricDcCombo, ElectricDcDemo, ElectricFull } from '@assets/index';
 
 const TERMS = ['1시간', '2시간', '3시간', '4시간', '5시간', '6시간', '7시간'];
 
@@ -21,12 +23,17 @@ const ParkingLotFilterCondition = () => {
   const price = useBoolean();
   const recommend = useBoolean();
   const electric = useBoolean();
-  const parkingTerms = useBoolean();
   const day = useBoolean();
   const DC차데모 = useBoolean();
   const 완속 = useBoolean();
   const DC콤보 = useBoolean();
   const AC3상 = useBoolean();
+
+  const [parkingTerm, setParkingTerm] = useState<(typeof TERMS)[number]>(TERMS[0]);
+
+  const selectParkingTerm = (index: number) => {
+    setParkingTerm(TERMS[index]);
+  };
 
   return (
     <Wrapper>
@@ -131,15 +138,19 @@ const ParkingLotFilterCondition = () => {
               <ElectricType>충전기 유형 선택</ElectricType>
               <ElectricTypeContainer>
                 <FilterButton $width="110px" $checked={DC차데모.value} onClick={DC차데모.toggle}>
+                  <ElectricDcDemo />
                   DC차데모
                 </FilterButton>
                 <FilterButton $width="81px" $checked={완속.value} onClick={완속.toggle}>
+                  <ElectricFull />
                   완속
                 </FilterButton>
                 <FilterButton $width="100px" $checked={DC콤보.value} onClick={DC콤보.toggle}>
+                  <ElectricDcCombo />
                   DC콤보
                 </FilterButton>
                 <FilterButton $width="89px" $checked={AC3상.value} onClick={AC3상.toggle}>
+                  <ElectricAc3 />
                   AC3상
                 </FilterButton>
               </ElectricTypeContainer>
@@ -152,10 +163,10 @@ const ParkingLotFilterCondition = () => {
           <p>우선 순위로 보고 싶은 주차장을 골라주세요!</p>
           <ParkingTerms>
             <SelectBox
+              value={parkingTerm}
               options={TERMS}
-              isCollapsed={parkingTerms.value}
-              isSelected={!day.value}
-              onClick={parkingTerms.toggle}
+              onChange={selectParkingTerm}
+              disabled={day.value}
             />
             <CheckCircleContainer>
               <CheckCircle type="checkbox" id="day" onChange={day.toggle} checked={day.value} />
@@ -178,7 +189,8 @@ const ElectricType = styled.div`
 const ElectricTypeContainer = styled.div`
   padding: 10px 0;
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  justify-content: space-between;
+  grid-template-columns: repeat(3, max-content);
   row-gap: 10px;
 `;
 
@@ -278,6 +290,10 @@ const FilterContainer = styled.div`
 `;
 
 const FilterButton = styled.button<{ $width: string; $checked?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   width: ${(props) => props.$width};
   height: 35px;
   padding: 0;
@@ -287,6 +303,10 @@ const FilterButton = styled.button<{ $width: string; $checked?: boolean }>`
   border-radius: 20px;
 
   color: ${(props) => (props.$checked ? 'white' : '#bdc4cb')};
+
+  & > svg > * {
+    stroke: ${(props) => (props.$checked ? 'white' : '#bdc4cb')};
+  }
 `;
 
 const ElectricCar = styled.div`
