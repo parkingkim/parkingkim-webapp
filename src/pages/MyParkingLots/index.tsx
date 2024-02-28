@@ -1,9 +1,9 @@
 import { ParkingLot } from 'src/types';
-import FavParkingLotsList from './components/FavParkingLotsList';
 import styled from 'styled-components';
 import Text from '@components/Text';
 import VisitedParkingLotPreview from './components/VisitedParkingLotPreview';
 import { useNavigate } from 'react-router-dom';
+import ParkingLotList from './components/ParkingLotList';
 
 export const mockParkingLots: ParkingLot[] = [
   {
@@ -126,7 +126,7 @@ const MyParkingLots = () => {
             </Text>
           </button>
         </ParkingLotsListHeader>
-        <FavParkingLotsList parkingLots={mockParkingLots} />
+        <ParkingLotList parkingLots={mockParkingLots.slice(0, 5)} />
       </ParkingLotsListContainer>
       <VisitedParkingLotPreview />
     </div>

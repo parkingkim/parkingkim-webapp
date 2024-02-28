@@ -1,14 +1,14 @@
-import FavParkingLotItem from '@pages/MyParkingLots/components/FavParkingLotItem';
+import ParkingLotItem from '@pages/MyParkingLots/components/ParkingLotItem';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'Components/FavoriteParkingLotItem',
-  component: FavParkingLotItem,
+  component: ParkingLotItem,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof FavParkingLotItem>;
+} satisfies Meta<typeof ParkingLotItem>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

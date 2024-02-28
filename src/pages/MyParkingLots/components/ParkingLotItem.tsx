@@ -1,16 +1,16 @@
-import { FavLotIcon, MoreIcon } from '@assets/index';
+import { CheckedRadioIcon, FavLotIcon, MoreIcon, RadioIcon } from '@assets/index';
 import Text from '@components/Text';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ParkingLot } from 'src/types';
 import styled from 'styled-components';
 
 interface FavParkingLotItemProps {
   parkingLot: ParkingLot;
   isDeleteMode?: boolean;
-  onSelectParkingLot: (parkingId: string, isSelected: boolean) => void;
+  onSelectParkingLot?: (parkingId: string, isSelected: boolean) => void;
 }
 
-const FavParkingLotItem = ({
+const ParkingLotItem = ({
   parkingLot,
   isDeleteMode = false,
   onSelectParkingLot,
@@ -26,24 +26,29 @@ const FavParkingLotItem = ({
     }
   }, [isDeleteMode]);
 
-  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsSelected(event.target.checked);
-    onSelectParkingLot(parkingLot.parkingId, event.target.checked);
+  const handleCheckboxChange = () => {
+    if (!onSelectParkingLot) return;
+
+    onSelectParkingLot(parkingLot.parkingId, !isSelected);
+    setIsSelected((prev) => !prev);
   };
 
   return (
     <ParkingLotContainer>
       <ParkingLotInfoContainer>
-        {isDeleteMode && (
-          <input type="checkbox" checked={isSelected} onChange={handleCheckboxChange} />
-        )}
+        {isDeleteMode &&
+          (isSelected ? (
+            <CheckedRadioIcon onClick={handleCheckboxChange} />
+          ) : (
+            <RadioIcon onClick={handleCheckboxChange} />
+          ))}
         <FavLotIcon />
         <ParkingLotInfoWrapper>
           <Text size="sm">{parkingLot.parkingName}</Text>
           <Text size="xs" color="gray">{`${distance}km | ${address}`}</Text>
         </ParkingLotInfoWrapper>
       </ParkingLotInfoContainer>
-      {!isDeleteMode && <MoreIcon />}
+      {!isDeleteMode && <MoreIcon style={{ cursor: 'pointer' }} />}
     </ParkingLotContainer>
   );
 };
@@ -60,7 +65,14 @@ const ParkingLotContainer = styled.div`
 
 const ParkingLotInfoContainer = styled.div`
   display: flex;
+  align-items: center;
   gap: 10px;
+
+  & > :first-child {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
 `;
 
 const ParkingLotInfoWrapper = styled.div`
@@ -70,4 +82,4 @@ const ParkingLotInfoWrapper = styled.div`
   gap: 4px;
 `;
 
-export default FavParkingLotItem;
+export default ParkingLotItem;
