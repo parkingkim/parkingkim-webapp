@@ -16,3 +16,6 @@ export { default as HumanIcon } from './human.svg?react';
 export { default as RightArrowIcon } from './arrow-right.svg?react';
 export { default as MoreIcon } from './more.svg?react';
 export { default as FavLotIcon } from './fav-lot.svg?react';
+export { default as CloseIcon } from './close.svg?react';
+export { default as RadioIcon } from './radio.svg?react';
+export { default as CheckedRadioIcon } from './checked-radio.svg?react';
