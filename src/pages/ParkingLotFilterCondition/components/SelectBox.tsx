@@ -1,30 +1,29 @@
 import { ArrowTopIcon } from '@assets/index';
-import { useState } from 'react';
+import useBoolean from '@hooks/useBoolean';
 import styled from 'styled-components';
 
 interface SelectBoxProps {
-  selectedOption?: string;
+  value: string;
   options: string[];
-  isCollapsed: boolean;
-  isSelected: boolean;
-  onClick: () => void;
+  disabled?: boolean;
+  onChange?: (index: number) => void;
 }
 
-const SelectBox = ({ options, isCollapsed, isSelected, onClick }: SelectBoxProps) => {
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+const SelectBox = ({ value, options, disabled, onChange }: SelectBoxProps) => {
+  const isOpen = useBoolean();
 
   const select = (index: number) => () => {
-    setSelectedOption(options[index]);
-    onClick();
+    onChange?.(index);
+    isOpen.off();
   };
 
   return (
     <>
-      <OptionButton $isSelected={isSelected} $isCollapsed={isCollapsed} onClick={onClick}>
-        {selectedOption}
-        <ArrowTopIcon color="black" />
+      <OptionButton disabled={disabled} onClick={isOpen.toggle} $isOpen={isOpen.value}>
+        {value}
+        <ArrowTopIcon />
       </OptionButton>
-      <MoreOptionsContainer $isCollapsed={isCollapsed}>
+      <MoreOptionsContainer $isOpen={isOpen.value}>
         {options.map((term, index) => (
           <MoreOptionButton key={term} onClick={select(index)}>
             {term}
@@ -35,7 +34,7 @@ const SelectBox = ({ options, isCollapsed, isSelected, onClick }: SelectBoxProps
   );
 };
 
-const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolean }>`
+const OptionButton = styled.button<{ $isOpen: boolean }>`
   display: flex;
   width: 100%;
   height: 47px;
@@ -46,18 +45,17 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
 
   background-color: #f5f5f5;
   border: solid 1px #bdc4cb;
-  border-radius: ${({ $isCollapsed }) => ($isCollapsed ? '9px 9px 0 0' : '9px')};
+  border-radius: ${({ $isOpen }) => ($isOpen ? '9px 9px 0 0' : '9px')};
 
-  color: ${({ theme, $isSelected }) => ($isSelected ? 'black' : theme.gray)};
   font-size: 14px;
   text-align: start;
 
-  &:focus {
-    outline: 0;
+  &:disabled {
+    color: #bdc4cb;
   }
 
   & > svg {
-    transform: ${({ $isSelected }) => !$isSelected && 'rotate(180deg)'};
+    transform: ${({ $isOpen }) => !$isOpen && 'rotate(180deg)'};
 
     & > path {
       stroke: #bdc4cb;
@@ -65,8 +63,8 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
   }
 `;
 
-const MoreOptionsContainer = styled.div<{ $isCollapsed: boolean }>`
-  display: ${({ $isCollapsed }) => ($isCollapsed ? 'flex' : 'none')};
+const MoreOptionsContainer = styled.div<{ $isOpen: boolean }>`
+  display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
   box-sizing: border-box;
 
   width: 100%;
