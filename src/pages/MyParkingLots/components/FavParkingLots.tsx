@@ -125,7 +125,7 @@ export const ParkingLotsListHeader = styled.header<{ $isDeleteMode: boolean }>`
 const BackButton = styled.button`
   position: absolute;
   top: 10px;
-  left: 16px;
+  left: 20px;
 `;
 
 export default FavParkingLots;
