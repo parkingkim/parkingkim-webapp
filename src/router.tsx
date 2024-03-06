@@ -42,12 +42,6 @@ const router = createBrowserRouter([
     children: [
       { path: '/login', element: <Login /> },
       { path: '/onboarding', element: <OnBoarding /> },
-      { path: '/menu', element: <Menu /> },
-      { path: '/profile', element: <Profile /> },
-      { path: '/coupons', element: <Coupons /> },
-      { path: '/notifications', element: <Notifications /> },
-      { path: '/change-password', element: <ChangePassword /> },
-      { path: '/frequent-destinations', element: <FrequentDestinations /> },
     ],
   },
   {
@@ -61,6 +55,7 @@ const router = createBrowserRouter([
       { path: '/my-reviews', element: <MyReviews /> },
       { path: '/more-reviews', element: <MoreReviews /> },
       { path: '/menu', element: <Menu /> },
+      { path: '/profile', element: <Profile /> },
       { path: '/coupons', element: <Coupons /> },
       { path: '/notifications', element: <Notifications /> },
       { path: '/change-password', element: <ChangePassword /> },
