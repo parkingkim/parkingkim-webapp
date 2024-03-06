@@ -25,7 +25,7 @@ export const Default: Story = {};
 export const ExtraBold: Story = {
   args: {
     fontStyle: 'x-bold',
-    size: 'xxxl',
+    size: '3xl',
     children: 'Pretendard,ExtraBold,24pt,-3%',
   },
 };

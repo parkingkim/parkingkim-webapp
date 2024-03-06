@@ -7,7 +7,7 @@ const theme = {
   lightGray: '#EBECED',
   btnGray: '#707070',
   font400: '#120924',
-  white: '#FFFFFF',
+  red: '#FF6060',
 } as const;
 
 export default theme;
