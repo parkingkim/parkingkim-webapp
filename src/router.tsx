@@ -1,5 +1,4 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom';
-import BottomTabBar from '@components/BottomTabBar';
 import MobileView from '@components/MobileView';
 import Login from '@pages/Login';
 import Menu from '@pages/Menu';
@@ -16,20 +15,12 @@ import MyReviews from '@pages/MyParkingLots/MyReviews';
 import MoreReviews from '@pages/MyParkingLots/MoreReviews';
 import Withdrawal from '@pages/Menu/Withdrawal';
 import Profile from '@pages/Menu/Profile';
+import BottomTabBarRoot from '@pages/BottomTabBarRoot';
 
 const Root = () => {
   return (
     <MobileView>
       <Outlet />
-    </MobileView>
-  );
-};
-
-const BottomTabBarRoot = () => {
-  return (
-    <MobileView>
-      <Outlet />
-      <BottomTabBar />
     </MobileView>
   );
 };
