@@ -1,4 +1,4 @@
-import MyReviewItem from '@pages/MyParkingLots/MyReviews/components/MyReviewItem';
+import MyReviewItem from '@pages/MyParkingLots/components/MyReviewItem';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

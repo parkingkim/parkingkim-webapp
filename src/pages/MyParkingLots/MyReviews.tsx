@@ -1,13 +1,21 @@
 import MyReviewItem from './components/MyReviewItem';
 import styled from 'styled-components';
 import Text from '@components/Text';
-import { mockParkingLots } from '..';
+import { mockParkingLots } from '.';
+import { useNavigate } from 'react-router-dom';
+import { BackIcon } from '@assets/index';
 
 //TODO: 주차장 데이터 관리 어떻게 할 지 논의(전역, api, props)
 const MyReviews = () => {
+  const navigate = useNavigate();
+  const goToMyParkingLots = () => navigate('/my-parking-lots');
+
   return (
     <>
       <ReviewsHeader>
+        <button onClick={goToMyParkingLots}>
+          <BackIcon />
+        </button>
         <Text fontStyle="bold" size="lg">
           내 리뷰관리
         </Text>
@@ -27,7 +35,7 @@ const MyReviews = () => {
 
 const ReviewsHeader = styled.header`
   text-align: left;
-  padding: 25px 20px 5px 20px;
+  padding: 10px 20px 5px 20px;
 `;
 
 const ReviewsContainer = styled.div`
