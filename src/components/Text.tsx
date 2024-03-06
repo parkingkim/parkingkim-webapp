@@ -45,7 +45,7 @@ const StyledText = styled.p<{
       case 'btn-gray':
         return theme.btnGray;
       case 'white':
-        return theme.white;
+        return 'white';
       case 'red':
         return theme.red;
       default:

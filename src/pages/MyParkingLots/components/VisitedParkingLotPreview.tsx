@@ -89,7 +89,7 @@ const VisitedParkingLotContainer = styled.div`
   overflow: hidden;
   padding-top: 25px;
   border-top: 7px solid #f6f6f6;
-  background-color: ${({ theme }) => theme.white};
+  background-color: white;
 
   & > p {
     margin-left: 20px;
