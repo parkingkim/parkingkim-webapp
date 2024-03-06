@@ -7,6 +7,7 @@ import useAddressStore from '@store/addressStore';
 import { CurLocationIcon, ZoomInIcon, ZoomOutIcon } from '@assets/index';
 import useGeoLocation from '@hooks/useGeoLocation';
 import useMapStore from '@store/mapStore';
+import SearchFilter from './SearchFilter';
 
 interface InitialContentProps {
   setExpanded: Dispatch<SetStateAction<boolean>>;
