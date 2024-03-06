@@ -6,9 +6,7 @@ const SearchFilter = () => {
   return (
     <SearchFilterButton>
       <OptionIcon />
-      <Text size="regular" color="btn-gray">
-        주차장 조건설정
-      </Text>
+      <Text color="btn-gray">주차장 조건설정</Text>
     </SearchFilterButton>
   );
 };
