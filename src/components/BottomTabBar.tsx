@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const tabs = ['홈', '?', '메뉴'];
+const tabs = ['홈', '내 주차장', '메뉴'];
 
 const BottomTabBar = () => {
   const navigate = useNavigate();
@@ -16,6 +16,9 @@ const BottomTabBar = () => {
     switch (index) {
       case 0:
         navigate('/');
+        break;
+      case 1:
+        navigate('/my-parking-lots');
         break;
       case 2:
         navigate('/menu');
@@ -52,7 +55,7 @@ const TabsContainer = styled.nav`
 `;
 
 const Tab = styled.button<{ $isCurrent: boolean }>`
-  width: 3rem;
+  width: 4rem;
 
   background-color: ${({ $isCurrent }) => ($isCurrent ? 'gray' : 'transparent')};
 `;

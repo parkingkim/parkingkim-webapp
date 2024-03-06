@@ -2,8 +2,8 @@ import { HTMLAttributes, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 type TextStyleType = 'x-bold' | 'semi-bold' | 'bold' | 'md' | 'regular' | 'sm-regular';
-type TextColorType = 'dark-gray' | 'black' | 'gray' | 'light-gray' | 'btn-gray';
-type TextSizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl';
+type TextColorType = 'dark-gray' | 'black' | 'gray' | 'light-gray' | 'btn-gray' | 'white' | 'red';
+type TextSizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 interface TextProps extends PropsWithChildren, HTMLAttributes<HTMLParagraphElement> {
   fontStyle?: TextStyleType;
@@ -44,6 +44,10 @@ const StyledText = styled.p<{
         return theme.lightGray;
       case 'btn-gray':
         return theme.btnGray;
+      case 'white':
+        return 'white';
+      case 'red':
+        return theme.red;
       default:
         return theme.darkGray;
     }
@@ -61,9 +65,9 @@ const StyledText = styled.p<{
         return '18px';
       case 'xl':
         return '20px';
-      case 'xxl':
+      case '2xl':
         return '22px';
-      case 'xxxl':
+      case '3xl':
         return '24px';
       default:
         return '16px';

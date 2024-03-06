@@ -33,6 +33,10 @@ const Menu = () => {
     navigate('/frequent-destinations');
   };
 
+  const goToWithdrawal = () => {
+    navigate('/withdrawal');
+  };
+
   return (
     <>
       <UserInfoContainer>
@@ -72,12 +76,12 @@ const Menu = () => {
       <Bar />
       <SubMenuButton>
         <Text size="sm" color="gray">
-          고객센터
+          로그아웃
         </Text>
       </SubMenuButton>
-      <SubMenuButton>
+      <SubMenuButton onClick={goToWithdrawal}>
         <Text size="sm" color="gray">
-          로그아웃
+          계정 삭제
         </Text>
       </SubMenuButton>
     </>

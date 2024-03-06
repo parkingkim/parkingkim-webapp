@@ -1,6 +1,5 @@
 import { CommonTextStyle } from '@style/CommonTextStyle';
 import styled from 'styled-components';
-import SearchFilter from './SearchFilter';
 import SearchBar from '@components/SearchBar';
 import { Dispatch, SetStateAction } from 'react';
 import Text from '@components/Text';
