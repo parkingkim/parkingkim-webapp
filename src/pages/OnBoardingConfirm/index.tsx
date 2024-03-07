@@ -102,19 +102,20 @@ const List = styled.ul`
 
 const Item = styled.li`
   display: flex;
-  align-items: center;
+  box-sizing: border-box;
   width: 100%;
   height: 63px;
-  margin-top: 1rem;
-  font-size: 20px;
-  color: #bdc4cb;
-  font-weight: bold;
   padding-left: 20px;
-  gap: 10px;
-  box-sizing: border-box;
+  margin-top: 1rem;
+  align-items: center;
 
   background-color: #f5f5f5;
   border-radius: 10px;
+
+  color: #bdc4cb;
+  font-size: 20px;
+  font-weight: bold;
+  gap: 10px;
 
   & > svg > * {
     stroke: #bdc4cb;

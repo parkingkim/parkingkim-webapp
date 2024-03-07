@@ -27,10 +27,10 @@ const Button = styled.button<ButtonProps>`
 
   border: 0;
   border-radius: 10px;
-  font-size: 20px;
-  font-weight: bold;
 
   color: white;
+  font-size: 20px;
+  font-weight: bold;
 
   &:hover {
     opacity: 0.8;
