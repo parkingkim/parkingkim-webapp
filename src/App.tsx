@@ -1,7 +1,6 @@
 import { ThemeProvider } from 'styled-components';
 import theme from './theme.ts';
 import './index.css';
-import './reset.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './router.tsx';
 

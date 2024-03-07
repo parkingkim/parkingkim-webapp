@@ -1,0 +1,14 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="9.9987" cy="9.9987" r="8.16667" stroke="#BDC4CB"/>
+<circle cx="10" cy="10" r="9.75" stroke="#BDC4CB" stroke-width="0.5"/>
+<circle cx="9.9987" cy="5.33464" r="2.41667" stroke="#BDC4CB" stroke-width="0.5"/>
+<circle cx="9.9987" cy="13.9987" r="2.41667" stroke="#BDC4CB" stroke-width="0.5"/>
+<circle cx="5.33464" cy="9.9987" r="2.41667" stroke="#BDC4CB" stroke-width="0.5"/>
+<circle cx="5.33333" cy="10.0013" r="1.33333" fill="#BDC4CB"/>
+<circle cx="14.6654" cy="10.0013" r="1.33333" fill="#BDC4CB"/>
+<circle cx="14.6667" cy="9.9987" r="2.41667" stroke="#BDC4CB" stroke-width="0.5"/>
+<line y1="-0.25" x2="3.54685" y2="-0.25" transform="matrix(-0.659261 -0.751914 0.632988 -0.774161 11.334 6.66699)" stroke="#BDC4CB" stroke-width="0.5"/>
+<line y1="-0.25" x2="3.54202" y2="-0.25" transform="matrix(-0.665384 0.746501 -0.62673 -0.779236 11.0254 4)" stroke="#BDC4CB" stroke-width="0.5"/>
+<line y1="-0.25" x2="3.54685" y2="-0.25" transform="matrix(-0.659261 -0.751914 0.632988 -0.774161 11.334 15.333)" stroke="#BDC4CB" stroke-width="0.5"/>
+<line y1="-0.25" x2="3.54202" y2="-0.25" transform="matrix(-0.665384 0.746501 -0.62673 -0.779236 11.0254 12.666)" stroke="#BDC4CB" stroke-width="0.5"/>
+</svg>

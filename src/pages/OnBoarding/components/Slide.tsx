@@ -117,7 +117,7 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
 const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
   display: ${({ $isSelected }) => ($isSelected ? 'flex' : 'none')};
 
-  width: 80%;
+  width: 100%;
   max-height: 190px;
   overflow: scroll;
   flex-direction: column;
