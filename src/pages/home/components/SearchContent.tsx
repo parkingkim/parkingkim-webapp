@@ -112,6 +112,7 @@ const SearchContent = ({ reduceHeight }: SearchContentProps) => {
           <LocationIcon style={{ cursor: 'pointer' }} role="button" />
         </SearchOptionWrapper>
       </SearchBarWrapper>
+      <ThickBar />
       <ResultContainer>
         {searchResults.map((result) => (
           <SearchItem
@@ -139,14 +140,20 @@ const SearchContainer = styled.div`
 
 const SearchBarWrapper = styled.div`
   display: flex;
-  padding: 0 20px 14px;
+  padding: 0 13px 14px;
   flex-direction: column;
-
-  border-bottom: 7px solid #f6f6f6;
 
   & > :first-child {
     cursor: pointer;
   }
+`;
+
+const ThickBar = styled.div`
+  width: 100%;
+  height: 7px;
+  min-width: 100%;
+
+  background: linear-gradient(to bottom, #dcdcdc 0%, #f6f6f6 30%);
 `;
 
 const SearchOptionWrapper = styled.div`

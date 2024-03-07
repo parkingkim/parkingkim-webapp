@@ -63,9 +63,10 @@ const Map = () => {
 const MapContainer = styled.div<{ isVisible: boolean }>`
   width: 100%;
   height: ${({ isVisible }) => (isVisible ? 'calc(100vh - 245px)' : '0')};
+  overflow: hidden;
+
   position: relative;
   z-index: 0;
-  overflow: hidden;
 `;
 
 export default Map;

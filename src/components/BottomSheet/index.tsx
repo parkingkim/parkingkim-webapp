@@ -50,7 +50,7 @@ const BottomSheetContainer = styled.div<{ $height: number; $isExpanded?: boolean
 
   ${({ $isExpanded }) => !$isExpanded && 'border-radius: 10px 10px 0 0;'}
 
-  box-shadow: 0 -1px 5px -1px rgb(0 0 0 / 25%);
+  box-shadow: 0 -1px 10px 1px rgb(0 0 0 / 25%);
 
   position: fixed;
   bottom: 0;
@@ -64,12 +64,14 @@ const BottomSheetContainer = styled.div<{ $height: number; $isExpanded?: boolean
 const DragHandle = styled.div`
   width: 100%;
   height: 30px;
-  top: 0;
-  position: absolute;
-  text-align: center;
+
   background-color: transparent;
-  cursor: pointer;
+
+  position: absolute;
+  top: 0;
   z-index: 1;
+  text-align: center;
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 `;
 

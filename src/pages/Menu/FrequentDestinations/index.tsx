@@ -95,8 +95,9 @@ const DestinationTabContainer = styled.div`
 const DestinationTab = styled.button<{ $isSelected: boolean }>`
   display: flex;
   width: 50%;
-  flex-direction: column;
   padding: 16px 20px;
+  flex-direction: column;
+
   background: ${({ $isSelected }) => ($isSelected ? '#f5f5f5' : 'none')};
   gap: 12px;
 `;

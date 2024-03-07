@@ -37,11 +37,13 @@ const getButtonColor = (color: ButtonColor) => {
     case 'secondary':
       return css`
         background-color: #bdc4cb;
+
         color: white;
       `;
     case 'tertiary':
       return css`
         background-color: #5639ff;
+
         color: white;
       `;
     default:

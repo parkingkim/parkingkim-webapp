@@ -19,9 +19,9 @@ const SearchItem = ({ name, address }: SearchItemProps) => {
 
 const SearchItemWrapper = styled.li`
   display: flex;
+  padding: 18px 20px;
   flex-direction: column;
   align-items: flex-start;
-  padding: 18px 20px;
 `;
 
 export default SearchItem;
