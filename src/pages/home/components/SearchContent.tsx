@@ -4,6 +4,7 @@ import SearchItem from '@components/SearchItem';
 import SearchFilter from '@pages/Home/components/SearchFilter';
 import useMapStore from '@store/mapStore';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { SearchResult } from 'src/types';
 import styled from 'styled-components';
 
 interface SearchContentProps {
@@ -13,7 +14,7 @@ interface SearchContentProps {
 const SearchContent = ({ reduceHeight }: SearchContentProps) => {
   const { Tmapv3 } = window;
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const { mapInstance } = useMapStore();
   const [markerArr, setMarkerArr] = useState<Marker[]>([]); // 마커 배열을 상태로 관리
 
@@ -38,7 +39,9 @@ const SearchContent = ({ reduceHeight }: SearchContentProps) => {
           reqCoordType: 'WGS84GEO',
           count: 5,
         };
-        Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
+        (Object.keys(params) as Array<keyof typeof params>).forEach((key) =>
+          url.searchParams.append(key, String(params[key])),
+        );
 
         const response = await fetch(url, {
           method: 'GET',
