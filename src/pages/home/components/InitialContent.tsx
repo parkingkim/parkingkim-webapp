@@ -8,6 +8,7 @@ import { CurLocationIcon, ZoomInIcon, ZoomOutIcon } from '@assets/index';
 import useGeoLocation from '@hooks/useGeoLocation';
 import useMapStore from '@store/mapStore';
 import SearchFilter from './SearchFilter';
+import { useNavigate } from 'react-router-dom';
 
 interface InitialContentProps {
   setExpanded: Dispatch<SetStateAction<boolean>>;
@@ -15,9 +16,12 @@ interface InitialContentProps {
 
 const InitialContent = ({ setExpanded }: InitialContentProps) => {
   const { address } = useAddressStore((state) => state);
+  const navigate = useNavigate();
 
   const { makeUserMaker } = useGeoLocation();
   const { mapInstance } = useMapStore();
+
+  const goToMyParkingLots = () => navigate('/my-parking-lots');
 
   return (
     <InitialContentContainer>
@@ -54,7 +58,7 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
         <Text color="gray">{address.roadAddr}</Text>
       </UserLocation>
       <Bar />
-      <FavoriteParkingLot>
+      <FavoriteParkingLot onClick={goToMyParkingLots}>
         <Text>자주가는 주차장</Text>
       </FavoriteParkingLot>
       <Bar />
@@ -108,7 +112,7 @@ const Bar = styled.div`
   background: #f6f6f6;
 `;
 
-const FavoriteParkingLot = styled.div`
+const FavoriteParkingLot = styled.button`
   display: flex;
   padding: 20px;
   justify-content: flex-start;
@@ -121,7 +125,7 @@ const FavoriteParkingLot = styled.div`
   letter-spacing: -0.45px;
 `;
 
-const FavoriteLocation = styled.div`
+const FavoriteLocation = styled.button`
   display: flex;
   padding: 20px;
   justify-content: flex-start;
