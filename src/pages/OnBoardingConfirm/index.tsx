@@ -1,3 +1,4 @@
+import Button from '@components/Button';
 import styled from 'styled-components';
 
 const OnBoardingConfirm = () => {
@@ -24,7 +25,6 @@ const OnBoardingConfirm = () => {
         <Item>fdfd</Item>
         <Filter />
       </List>
-
       <Button>시작하기</Button>
     </Container>
   );
@@ -77,7 +77,5 @@ const Filter = styled.div`
   position: sticky;
   bottom: 0;
 `;
-
-const Button = styled.button``;
 
 export default OnBoardingConfirm;

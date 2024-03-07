@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { OnBoardingContent } from '../components/Slide';
+import { OnBoardingContent } from '../components/OnboardingSlide';
 
 const checkAlternative = (contents: OnBoardingContent[], index: number) => {
   contents = contents.map((content, i) => {
@@ -9,9 +9,14 @@ const checkAlternative = (contents: OnBoardingContent[], index: number) => {
 };
 
 const initialParkingTypes = [
+  { key: 'outside', name: '노외', isSelected: false },
+  { key: 'road', name: '노상', isSelected: false },
+  { key: 'mechanical', name: '기계식', isSelected: false },
+];
+
+const initialParkingManagement = [
   { key: 'public', name: '공영', isSelected: false },
   { key: 'private', name: '민영', isSelected: false },
-  { key: 'mechanical', name: '기계식', isSelected: false },
 ];
 
 const initialParkingPrices = [
@@ -55,11 +60,18 @@ const initialPriorityConditions = [
 
 const useOnBoardingContents = () => {
   const [parkingTypes, setParkingTypes] = useState<OnBoardingContent[]>(initialParkingTypes);
+  const [parkingManagements, setParkingManagements] =
+    useState<OnBoardingContent[]>(initialParkingManagement);
   const [parkingPrices, setParkingPrices] = useState<OnBoardingContent[]>(initialParkingPrices);
   const [parkingTerms, setParkingTerms] = useState<OnBoardingContent[]>(initialParkingTerms);
   const [electricCars, setElectricCars] = useState<OnBoardingContent[]>(initialElecticCars);
   const [priorityConditions, setPriorityConditions] =
     useState<OnBoardingContent[]>(initialPriorityConditions);
+
+  const selectParkingManagement = (index: number) => () => {
+    parkingManagements[index].isSelected = !parkingManagements[index].isSelected;
+    setParkingManagements([...parkingManagements]);
+  };
 
   const selectParkingType = (index: number) => () => {
     parkingTypes[index].isSelected = !parkingTypes[index].isSelected;
@@ -90,11 +102,13 @@ const useOnBoardingContents = () => {
   };
 
   return {
+    parkingManagements,
     parkingTypes,
     parkingPrices,
     parkingTerms,
     electricCars,
     priorityConditions,
+    selectParkingManagement,
     selectParkingType,
     selectParkingPrice,
     selectParkingTerm,

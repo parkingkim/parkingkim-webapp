@@ -1,63 +1,34 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-type ButtonSize = 'small' | 'medium' | 'large';
-type ButtonColor = 'primary' | 'secondary' | 'tertiary';
+type ButtonColor = 'primary' | 'secondary';
 
 interface ButtonProps {
-  size?: ButtonSize;
+  width?: string;
   color?: ButtonColor;
   disabled?: boolean;
 }
 
-const getButtonSize = (size: ButtonSize) => {
-  switch (size) {
-    case 'small':
-      return css`
-        padding: 6px 12px;
-      `;
-    case 'medium':
-      return css`
-        padding: 8px 16px;
-      `;
-    case 'large':
-      return css`
-        padding: 15px 20px;
-      `;
-    default:
-      return '';
-  }
-};
-
 const getButtonColor = (color: ButtonColor) => {
   switch (color) {
     case 'primary':
-      return css`
-        background-color: transparent;
-      `;
+      return '#5639ff';
     case 'secondary':
-      return css`
-        background-color: #bdc4cb;
-        color: white;
-      `;
-    case 'tertiary':
-      return css`
-        background-color: #5639ff;
-        color: white;
-      `;
-    default:
-      return '';
+      return '#bdc4cb';
   }
 };
 
 const Button = styled.button<ButtonProps>`
   box-sizing: border-box;
-  width: 100%;
+  width: ${({ width = '90%' }) => width};
+  height: 54px;
+  align-self: center;
 
-  border: ${({ color }) => (color === 'primary' ? '1px solid #bdc4cb' : 'none')};
+  background-color: ${({ color = 'primary' }) => getButtonColor(color)};
+
+  border: 0;
   border-radius: 10px;
-  cursor: pointer;
-  ${({ size = 'medium' }) => getButtonSize(size)};
-  ${({ color = 'primary' }) => getButtonColor(color)};
+
+  color: white;
 
   &:hover {
     opacity: 0.8;

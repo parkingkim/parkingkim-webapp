@@ -79,17 +79,19 @@ const VisitedParkingLotPreview = () => {
 };
 
 const VisitedParkingLotContainer = styled.div`
-  position: absolute;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   width: 100%;
   max-width: 500px;
   min-height: 200px;
-  overflow: hidden;
   padding-top: 25px;
-  border-top: 7px solid #f6f6f6;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: flex-start;
+
   background-color: white;
+  border-top: 7px solid #f6f6f6;
+
+  position: absolute;
 
   & > p {
     margin-left: 20px;
@@ -97,25 +99,27 @@ const VisitedParkingLotContainer = styled.div`
 `;
 
 const PreviewContainer = styled.div`
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
   width: 100%;
   max-width: 500px;
-  overflow: scroll;
   padding: 20px;
+  overflow: scroll;
   gap: 15px;
 `;
 
 const PreviewItem = styled.div`
-  position: relative;
-  box-sizing: border-box;
   display: flex;
-  justify-content: flex-start;
-  min-width: 140px;
+  box-sizing: border-box;
   height: 150px;
-  border-radius: 10px;
+  min-width: 140px;
   padding: 15px;
+  justify-content: flex-start;
+
   background-color: ${({ theme }) => theme.gray};
+  border-radius: 10px;
+
+  position: relative;
 `;
 
 export default VisitedParkingLotPreview;
