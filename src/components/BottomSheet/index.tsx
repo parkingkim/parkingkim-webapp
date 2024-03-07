@@ -12,7 +12,7 @@ const BottomSheet = ({ isExpanded, children }: BottomSheetProps) => {
     useDraggable(initialHeight);
 
   useEffect(() => {
-    isExpanded ? fillHeight() : toggleHeight();
+    isExpanded && fillHeight();
   }, [isExpanded]);
 
   const handleEvent =
