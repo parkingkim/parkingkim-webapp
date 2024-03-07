@@ -18,6 +18,7 @@ import MyReviews from '@pages/MyParkingLots/MyReviews';
 import MoreReviews from '@pages/MyParkingLots/MoreReviews';
 import Withdrawal from '@pages/Menu/Withdrawal';
 import OnBoardingConfirm from '@pages/OnBoardingConfirm';
+import OnboardingStart from '@pages/OnBoardingStart';
 
 const Root = () => {
   return (
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/login', element: <Login /> },
       { path: '/onboarding', element: <OnBoarding /> },
+      { path: '/onboarding/start', element: <OnboardingStart /> },
       { path: '/onboarding/confirm', element: <OnBoardingConfirm /> },
       { path: '/menu', element: <Menu /> },
       { path: '/profile', element: <Profile /> },

@@ -44,8 +44,8 @@ const OnBoarding = () => {
 
   const slickNext = () => {
     if (!sliderRef.current) return;
-    if (slideIndex === 4) {
-      navigate('/onboading/confirm');
+    if (slideIndex === 5) {
+      navigate('/onboarding/confirm');
       return;
     }
     sliderRef.current.slickNext();

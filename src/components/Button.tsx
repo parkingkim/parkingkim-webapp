@@ -11,7 +11,7 @@ interface ButtonProps {
 const getButtonColor = (color: ButtonColor) => {
   switch (color) {
     case 'primary':
-      return '#5639ff';
+      return '#0DC5FF';
     case 'secondary':
       return '#bdc4cb';
   }
@@ -27,6 +27,8 @@ const Button = styled.button<ButtonProps>`
 
   border: 0;
   border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
 
   color: white;
 
