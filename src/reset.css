@@ -65,7 +65,6 @@ video {
 button {
   background: none;
   border: 0;
-  box-sizing: initial;
   color: inherit;
   cursor: pointer;
   font: inherit;

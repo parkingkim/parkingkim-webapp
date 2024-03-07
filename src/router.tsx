@@ -11,6 +11,7 @@ import ChangePassword from '@pages/Menu/Profile/ChangePassword';
 import OnBoarding from '@pages/OnBoarding';
 import ParkingLotDetail from '@pages/ParkingLotDetail';
 import Search from '@pages/Search';
+import ParkingLotFilterCondition from '@pages/ParkingLotFilterCondition';
 import MyParkingLots from '@pages/MyParkingLots';
 import Home from '@pages/Home';
 import MyReviews from '@pages/MyParkingLots/MyReviews';
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
       { path: '/onboarding', element: <OnBoarding /> },
       { path: '/profile', element: <Profile /> },
+      { path: '/coupons', element: <Coupons /> },
+      { path: '/notifications', element: <Notifications /> },
+      { path: '/change-password', element: <ChangePassword /> },
+      { path: '/frequent-destinations', element: <FrequentDestinations /> },
+      { path: '/parking-lot-filter-condition', element: <ParkingLotFilterCondition /> },
     ],
   },
   {
