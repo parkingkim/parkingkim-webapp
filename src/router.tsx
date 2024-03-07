@@ -1,7 +1,6 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 import BottomTabBar from '@components/BottomTabBar';
 import MobileView from '@components/MobileView';
-import Home from '@pages/Home';
 import Login from '@pages/Login';
 import Menu from '@pages/Menu';
 import Coupons from '@pages/Menu/Coupons';
@@ -13,6 +12,11 @@ import OnBoarding from '@pages/OnBoarding';
 import ParkingLotDetail from '@pages/ParkingLotDetail';
 import Search from '@pages/Search';
 import ParkingLotFilterCondition from '@pages/ParkingLotFilterCondition';
+import MyParkingLots from '@pages/MyParkingLots';
+import Home from '@pages/Home';
+import MyReviews from '@pages/MyParkingLots/MyReviews';
+import MoreReviews from '@pages/MyParkingLots/MoreReviews';
+import Withdrawal from '@pages/Menu/Withdrawal';
 
 const Root = () => {
   return (
@@ -31,6 +35,7 @@ const BottomTabBarRoot = () => {
   );
 };
 
+//TODO: url 계층 구조 상의
 const router = createBrowserRouter([
   {
     path: '/',
@@ -38,7 +43,6 @@ const router = createBrowserRouter([
     children: [
       { path: '/login', element: <Login /> },
       { path: '/onboarding', element: <OnBoarding /> },
-      { path: '/menu', element: <Menu /> },
       { path: '/profile', element: <Profile /> },
       { path: '/coupons', element: <Coupons /> },
       { path: '/notifications', element: <Notifications /> },
@@ -51,9 +55,18 @@ const router = createBrowserRouter([
     path: '/',
     element: <BottomTabBarRoot />,
     children: [
-      { path: '/', element: <Home /> },
+      { path: '/', element: <Home />, index: true },
       { path: '/search', element: <Search /> },
       { path: '/parking-detail', element: <ParkingLotDetail /> },
+      { path: '/my-parking-lots', element: <MyParkingLots /> },
+      { path: '/my-reviews', element: <MyReviews /> },
+      { path: '/more-reviews', element: <MoreReviews /> },
+      { path: '/menu', element: <Menu /> },
+      { path: '/coupons', element: <Coupons /> },
+      { path: '/notifications', element: <Notifications /> },
+      { path: '/change-password', element: <ChangePassword /> },
+      { path: '/frequent-destinations', element: <FrequentDestinations /> },
+      { path: '/withdrawal', element: <Withdrawal /> },
     ],
   },
 ]);

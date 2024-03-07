@@ -60,10 +60,6 @@ const MapContainer = styled.div`
   height: calc(100vh - 255px);
 
   position: relative;
-
-  @media screen and (width <= 768px) {
-    height: 47%;
-  }
 `;
 
 const UserLocationButton = styled.button`
