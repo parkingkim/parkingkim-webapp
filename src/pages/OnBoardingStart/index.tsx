@@ -24,10 +24,14 @@ const OnboardingStart = () => {
 };
 
 const Container = styled.div`
+  display: flex;
+  height: 100%;
   padding: 5rem 2rem;
-  text-align: start;
+  flex-direction: column;
+  justify-content: space-between;
 
   line-height: 28px;
+  text-align: start;
 
   & > span {
     color: #bdc4cb;
