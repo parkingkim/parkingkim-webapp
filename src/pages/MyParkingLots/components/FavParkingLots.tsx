@@ -84,9 +84,9 @@ const FavParkingLots = ({ parkingLots }: FavParkingLotsListProps) => {
 
 const HeaderActionWrapper = styled.div`
   display: flex;
+  height: 42px;
   flex-direction: row;
   align-items: center;
-  height: 42px;
   gap: 20px;
 
   svg {
@@ -97,10 +97,10 @@ const HeaderActionWrapper = styled.div`
 
 const HeaderWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 44px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const HeaderContainer = styled.div`
@@ -111,13 +111,15 @@ const HeaderContainer = styled.div`
 export const ParkingLotsListHeader = styled.header<{ $isDeleteMode: boolean }>`
   box-sizing: border-box;
   padding: ${({ $isDeleteMode }) => ($isDeleteMode ? '0 20px 0 10px' : '0 20px 10px 20px')};
+
   background-color: white;
   ${({ $isDeleteMode }) =>
     $isDeleteMode && 'border-bottom: 2px solid #f6f6f6; margin-bottom: 8px;'};
 
   & > :last-child {
-    background-color: transparent;
     padding: 4px;
+
+    background-color: transparent;
     cursor: pointer;
   }
 `;

@@ -43,9 +43,9 @@ const ItemContainer = styled.div`
 
 const ItemInfoContainer = styled.div`
   display: flex;
+  margin-bottom: 10px;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 10px;
 `;
 
 const ItemInfoWrapper = styled.div`
@@ -57,9 +57,10 @@ const ItemInfoWrapper = styled.div`
 const ImageWrapper = styled.div`
   width: 100%;
   height: 200px;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.gray};
   margin-top: 20px;
+
+  background-color: ${({ theme }) => theme.gray};
+  border-radius: 10px;
 `;
 
 export default MyReviewItem;

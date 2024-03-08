@@ -35,24 +35,24 @@ const MyReviews = () => {
 
 const ReviewsHeader = styled.header`
   text-align: left;
-  padding: 10px 20px 5px 20px;
+  padding: 10px 20px 5px;
 `;
 
 const ReviewsContainer = styled.div`
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
   height: calc(100% - 140px);
-  flex-direction: column;
   padding: 20px;
-  gap: 30px;
   overflow: scroll;
+  flex-direction: column;
+  gap: 30px;
 `;
 
 const EmptyReview = styled.div`
   display: flex;
+  height: 100%;
   justify-content: center;
   align-items: center;
-  height: 100%;
 `;
 
 export default MyReviews;

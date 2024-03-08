@@ -135,15 +135,17 @@ const MyParkingLots = () => {
 
 const MyParkingLotsHeader = styled.header`
   display: flex;
+  padding: 25px 20px;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 20px;
+
   border-bottom: 2px solid #f6f6f6;
 
   button {
+    padding: 7px 14px;
+
     background-color: #f5f5f5;
     border-radius: 10px;
-    padding: 7px 14px;
   }
 `;
 
@@ -154,14 +156,16 @@ const ParkingLotsListContainer = styled.div`
 
 export const ParkingLotsListHeader = styled.header`
   display: flex;
+  padding: 25px 20px 8px;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 20px 8px 20px;
+
   background-color: white;
 
   button {
-    background-color: transparent;
     padding: 4px;
+
+    background-color: transparent;
     cursor: pointer;
   }
 `;
