@@ -17,6 +17,7 @@ import Home from '@pages/Home';
 import MyReviews from '@pages/MyParkingLots/MyReviews';
 import MoreReviews from '@pages/MyParkingLots/MoreReviews';
 import Withdrawal from '@pages/Menu/Withdrawal';
+import Signup from '@pages/Signup';
 
 const Root = () => {
   return (
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { path: '/login', element: <Login /> },
+      { path: '/signup', element: <Signup /> },
       { path: '/onboarding', element: <OnBoarding /> },
       { path: '/profile', element: <Profile /> },
       { path: '/coupons', element: <Coupons /> },
