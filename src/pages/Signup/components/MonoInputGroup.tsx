@@ -30,19 +30,9 @@ const MonoInputGroup = ({
           <CloseIcon />
         </InputCloseContainer>
       )}
-      {(id === 'password' || id === 'againPassword') && (
-        <PasswordRule>영어 대,소문자 포함 10자 이상</PasswordRule>
-      )}
     </Group>
   );
 };
-
-const PasswordRule = styled.p`
-  margin-top: 18px;
-  align-self: start;
-
-  color: #d9d9d9;
-`;
 
 const Group = styled.section`
   display: flex !important;
