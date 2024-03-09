@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import useNumbersRefs from './hooks/useNumbersRefs';
+import MonoInputGroup from './components/MonoInputGroup';
+import SixInputsGroup from './components/SixInputsGroup';
 
 const Signup = () => {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -61,9 +63,9 @@ const Signup = () => {
     setAgainPassword(e.target.value);
   };
 
-  const removeAll = () => {
-    setName('');
-  };
+  // const removeAll = () => {
+  //   setName('');
+  // };
 
   const slickNext = () => {
     if (!sliderRef.current) return;
@@ -114,73 +116,45 @@ const Signup = () => {
         <CloseIcon />
       </CloseContainer>
       <Slider {...sliderSettings} ref={sliderRef}>
-        <Group>
-          <Label>
-            파킹킴과 함께 할 <br />
-            이름을 알려주세요!
-          </Label>
-          <MonoInput type="text" value={name} onChange={changeName} placeholder="이름 입력" />
-          {name.length > 0 && (
-            <InputCloseContainer onClick={removeAll}>
-              <CloseIcon />
-            </InputCloseContainer>
-          )}
-        </Group>
-        <Group>
-          <Label>
-            회원가입을 위한 <br />
-            이메일을 입력해주세요!
-          </Label>
-          <MonoInput type="text" value={email} onChange={changeEmail} placeholder="이메일 입력" />
-        </Group>
-        <Group>
-          <Label>
-            본인확인을 위해 <br />
-            이메일로 인증번호를 전송했어요!
-          </Label>
-          <Timer>2분13초</Timer>
-          <Numbers>
-            {[...Array(6)].map((_, index) => (
-              <NumberInput
-                value={numbers[index]}
-                ref={inputRefs[index]}
-                type="number"
-                maxLength={1}
-                onChange={changeNumbers(index)}
-              />
-            ))}
-          </Numbers>
-          <ResendButton>
-            <CheckIcon />
-            재전송
-          </ResendButton>
-        </Group>
-        <Group>
-          <Label>
-            보안을 위해 <br />
-            비밀번호를 입력해주세요!
-          </Label>
-          <MonoInput
-            type="password"
-            value={password}
-            onChange={changePassword}
-            placeholder="비밀번호 입력"
-          />
-          <PasswordRule>영어 대,소문자 포함 10자 이상</PasswordRule>
-        </Group>
-        <Group>
-          <Label>
-            확인을 위해 <br />
-            재입력해주세요!
-          </Label>
-          <MonoInput
-            type="password"
-            value={againPassword}
-            onChange={changeAgainPassword}
-            placeholder="비밀번호 재입력"
-          />
-          <PasswordRule>영어 대,소문자 포함 10자 이상</PasswordRule>
-        </Group>
+        <MonoInputGroup
+          id="name"
+          label={'파킹킴과 함께 할 \n이름을 알려주세요!'}
+          type="text"
+          value={name}
+          onChange={changeName}
+          placeholder="이름 입력"
+        />
+        <MonoInputGroup
+          id="email"
+          label={'회원가입을 위한\n 이메일을 입력해주세요!'}
+          type="text"
+          value={email}
+          onChange={changeEmail}
+          placeholder="이메일 입력"
+        />
+        <SixInputsGroup
+          id="numbers"
+          label={'본인확인을 위해\n이메일로 인증번호를 전송했어요!'}
+          numbers={numbers}
+          inputRefs={inputRefs}
+          onChange={changeNumbers}
+        />
+        <MonoInputGroup
+          id="password"
+          label={'보안을 위해 비밀번호를 입력해주세요!'}
+          type="password"
+          value={password}
+          onChange={changePassword}
+          placeholder="비밀번호 입력"
+        />
+        <MonoInputGroup
+          id="againPassword"
+          label={'확인을 위해\n 재입력해주세요!'}
+          type="password"
+          value={againPassword}
+          onChange={changeAgainPassword}
+          placeholder="비밀번호 재입력"
+        />
       </Slider>
       <Button color="secondary" onClick={slickNext}>
         다음
@@ -219,37 +193,6 @@ const Signup = () => {
   );
 };
 
-const PasswordRule = styled.p`
-  align-self: start;
-  color: #d9d9d9;
-  margin-top: 18px;
-`;
-
-const ResendButton = styled.button`
-  display: flex;
-  align-items: center;
-  align-self: start;
-  margin-bottom: 30px;
-  gap: 5px;
-  color: rgba(0, 0, 0, 0.3);
-  & > svg > * {
-    stroke: rgba(0, 0, 0, 0.3);
-  }
-`;
-
-const Timer = styled.span`
-  align-self: start;
-
-  margin-top: 5px;
-  color: rgba(0, 0, 0, 0.3);
-`;
-
-const Numbers = styled.div`
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-`;
-
 const Agreement = styled.section`
   display: flex;
   flex-direction: column;
@@ -281,70 +224,10 @@ const AgreeButton = styled.button<{ isAgreed: boolean }>`
   }
 `;
 
-const Group = styled.section`
-  display: flex !important;
-  box-sizing: border-box;
-  padding: 0 2rem;
-  margin-top: 130px;
-  flex-direction: column;
-  align-items: center;
-
-  position: relative;
-`;
-
-const Label = styled.label`
-  align-self: start;
-
-  font-size: 24px;
-  font-weight: bold;
-  text-align: start;
-`;
-
-const MonoInput = styled.input`
-  width: 100%;
-  height: 40px;
-  padding-left: 10px;
-
-  margin-top: 30px;
-
-  border: 0;
-  border-bottom: 1px solid #120924;
-
-  font-size: 18px;
-
-  &::placeholder {
-    color: #bdc4cb;
-    font-size: 18px;
-  }
-`;
-
-const NumberInput = styled.input`
-  width: 40px;
-  font-size: 40px;
-  height: 50px;
-  text-align: center;
-
-  border: 0;
-  border-bottom: 1px solid #120924;
-`;
-
 const CloseContainer = styled.div`
   position: absolute;
   top: 3.5rem;
   right: 3rem;
-  z-index: 1;
-  cursor: pointer;
-
-  & > svg > * {
-    stroke: #120924;
-    opacity: 0.5;
-  }
-`;
-
-const InputCloseContainer = styled.div`
-  position: absolute;
-  right: 21px;
-  bottom: 11px;
   z-index: 1;
   cursor: pointer;
 
