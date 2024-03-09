@@ -7,7 +7,7 @@ interface BottomSheetProps extends PropsWithChildren {
 }
 
 const BottomSheet = ({ isExpanded, children }: BottomSheetProps) => {
-  const initialHeight = 0;
+  const initialHeight = window.innerHeight * 0.6;
   const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight, fillHeight } =
     useDraggable(initialHeight);
 
