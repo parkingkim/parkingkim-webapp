@@ -221,6 +221,7 @@ const Slide = styled.div`
     margin-top: 10px;
     margin-left: 30px;
     text-align: start;
+
     color: #ff6060;
   }
 `;
