@@ -7,30 +7,41 @@ const useSignup = () => {
   const [password, setPassword] = useState('');
   const [againPassword, setAgainPassword] = useState('');
 
-  const changeName = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-
-  const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
   const changeNumbers = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
     numbers[index] = e.target.valueAsNumber;
     setNumbers([...numbers]);
-    // moveFocus(index);
   };
 
-  const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+  const changeValue = (id: string) => (e: ChangeEvent<HTMLInputElement>) => {
+    switch (id) {
+      case 'name':
+        setName(e.target.value);
+        break;
+      case 'email':
+        setEmail(e.target.value);
+        break;
+      case 'password':
+        setPassword(e.target.value);
+        break;
+      case 'againPassword':
+        setAgainPassword(e.target.value);
+    }
   };
 
-  const changeAgainPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setAgainPassword(e.target.value);
-  };
-
-  const clearName = () => {
-    setName('');
+  const clear = (id: string) => () => {
+    switch (id) {
+      case 'name':
+        setName('');
+        break;
+      case 'email':
+        setEmail('');
+        break;
+      case 'password':
+        setPassword('');
+        break;
+      case 'againPassword':
+        setAgainPassword('');
+    }
   };
 
   return {
@@ -39,12 +50,9 @@ const useSignup = () => {
     numbers,
     password,
     againPassword,
-    changeName,
-    changeEmail,
+    changeValue,
     changeNumbers,
-    changePassword,
-    changeAgainPassword,
-    clearName,
+    clear,
   };
 };
 

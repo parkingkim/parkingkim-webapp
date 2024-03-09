@@ -1,5 +1,5 @@
 import { CloseIcon } from '@assets/index';
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
 interface MonoInputGroup {
@@ -8,8 +8,8 @@ interface MonoInputGroup {
   type: string;
   value: string;
   placeholder: string;
-  clear?: () => void;
-  onChange: ChangeEventHandler;
+  clear: (id: string) => MouseEventHandler;
+  onChange: (id: string) => ChangeEventHandler;
 }
 
 const MonoInputGroup = ({
@@ -24,9 +24,15 @@ const MonoInputGroup = ({
   return (
     <Group>
       <Label>{label}</Label>
-      <MonoInput id={id} type={type} value={value} onChange={onChange} placeholder={placeholder} />
+      <MonoInput
+        id={id}
+        type={type}
+        value={value}
+        onChange={onChange(id)}
+        placeholder={placeholder}
+      />
       {value.length > 0 && (
-        <InputCloseContainer onClick={clear}>
+        <InputCloseContainer onClick={clear(id)}>
           <CloseIcon />
         </InputCloseContainer>
       )}

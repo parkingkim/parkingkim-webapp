@@ -29,19 +29,8 @@ const Signup = () => {
   const 서비스동의 = useBoolean();
   const 본인확인동의 = useBoolean();
   const 마케팅동의 = useBoolean();
-  const {
-    name,
-    email,
-    numbers,
-    password,
-    againPassword,
-    changeName,
-    changeEmail,
-    changeNumbers,
-    changePassword,
-    changeAgainPassword,
-    clearName,
-  } = useSignup();
+  const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
+    useSignup();
 
   const sliderSettings = {
     dots: true,
@@ -123,8 +112,8 @@ const Signup = () => {
             label={'파킹킴과 함께 할 \n이름을 알려주세요!'}
             type="text"
             value={name}
-            clear={clearName}
-            onChange={changeName}
+            clear={clear}
+            onChange={changeValue}
             placeholder="이름 입력"
           />
         </Slide>
@@ -134,7 +123,8 @@ const Signup = () => {
             label={'회원가입을 위한\n 이메일을 입력해주세요!'}
             type="text"
             value={email}
-            onChange={changeEmail}
+            clear={clear}
+            onChange={changeValue}
             placeholder="이메일 입력"
           />
           {!REGEX.email.test(email) && email.length > 0 && (
@@ -156,7 +146,8 @@ const Signup = () => {
             label={'보안을 위해 비밀번호를 입력해주세요!'}
             type="password"
             value={password}
-            onChange={changePassword}
+            clear={clear}
+            onChange={changeValue}
             placeholder="비밀번호 입력"
           />
           {password.length === 0 ? (
@@ -171,7 +162,8 @@ const Signup = () => {
             label={'확인을 위해\n 재입력해주세요!'}
             type="password"
             value={againPassword}
-            onChange={changeAgainPassword}
+            clear={clear}
+            onChange={changeValue}
             placeholder="비밀번호 재입력"
           />
           {againPassword.length !== 0 && password !== againPassword && (
