@@ -1,4 +1,4 @@
-// import { CloseIcon } from '@assets/index';
+import { CloseIcon } from '@assets/index';
 import { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
 
@@ -8,29 +8,40 @@ interface MonoInputGroup {
   type: string;
   value: string;
   placeholder: string;
+  clear?: () => void;
   onChange: ChangeEventHandler;
 }
 
-const MonoInputGroup = ({ id, label, type, value, onChange, placeholder }: MonoInputGroup) => {
+const MonoInputGroup = ({
+  id,
+  label,
+  type,
+  value,
+  clear,
+  onChange,
+  placeholder,
+}: MonoInputGroup) => {
   return (
     <Group>
       <Label>{label}</Label>
       <MonoInput id={id} type={type} value={value} onChange={onChange} placeholder={placeholder} />
-      {/* {id === 'name' && value.length > 0 && (
-        <InputCloseContainer onClick={removeAll}>
+      {id === 'name' && value.length > 0 && (
+        <InputCloseContainer onClick={clear}>
           <CloseIcon />
         </InputCloseContainer>
-      )} */}
-      {id === 'password' ||
-        (id === 'password' && <PasswordRule>영어 대,소문자 포함 10자 이상</PasswordRule>)}
+      )}
+      {(id === 'password' || id === 'againPassword') && (
+        <PasswordRule>영어 대,소문자 포함 10자 이상</PasswordRule>
+      )}
     </Group>
   );
 };
 
 const PasswordRule = styled.p`
-  align-self: start;
-  color: #d9d9d9;
   margin-top: 18px;
+  align-self: start;
+
+  color: #d9d9d9;
 `;
 
 const Group = styled.section`
@@ -47,6 +58,7 @@ const Group = styled.section`
 const Label = styled.label`
   align-self: start;
   white-space: pre-line;
+
   font-size: 24px;
   font-weight: bold;
   text-align: start;
@@ -70,16 +82,17 @@ const MonoInput = styled.input`
   }
 `;
 
-// const InputCloseContainer = styled.div`
-//   position: absolute;
-//   right: 21px;
-//   bottom: 11px;
-//   z-index: 1;
-//   cursor: pointer;
+const InputCloseContainer = styled.div`
+  position: absolute;
+  right: 21px;
+  bottom: 11px;
+  z-index: 1;
+  cursor: pointer;
 
-//   & > svg > * {
-//     stroke: #120924;
-//     opacity: 0.5;
-//   }
-// `;
+  & > svg > * {
+    stroke: #120924;
+    opacity: 0.5;
+  }
+`;
+
 export default MonoInputGroup;
