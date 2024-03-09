@@ -12,20 +12,13 @@ import SixInputsGroup from './components/SixInputsGroup';
 import useSignup from './hooks/useSignup';
 import { REGEX } from '@constants/index';
 
-const WARNING_COMMENT: Record<string, string> = {
-  email: '올바른 이메일 형식으로 작성해주세요!',
-  numbers: '인증번호가 일치하지 않습니다.',
-  password: '영어 대,소문자 포함 10자 이상으로 입력해주세요!',
-  againPassword: '비밀번호가 일치하지 않습니다.',
-} as const;
-
 const SLIDE_INDEX = {
   name: 0,
   email: 1,
   numbers: 2,
   password: 3,
   againPassword: 4,
-};
+} as const;
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -49,7 +42,6 @@ const Signup = () => {
     changeAgainPassword,
     clearName,
   } = useSignup();
-  const isWrongInput = useBoolean(false);
 
   const sliderSettings = {
     dots: true,
@@ -74,9 +66,7 @@ const Signup = () => {
   const openAgreement = () => {
     if (REGEX.email.test(email)) {
       isModalOpen.on();
-      return;
     }
-    isWrongInput.on();
   };
 
   const slickNext = () => {
@@ -127,46 +117,67 @@ const Signup = () => {
         <CloseIcon />
       </CloseContainer>
       <Slider {...sliderSettings} ref={sliderRef}>
-        <MonoInputGroup
-          id="name"
-          label={'파킹킴과 함께 할 \n이름을 알려주세요!'}
-          type="text"
-          value={name}
-          clear={clearName}
-          onChange={changeName}
-          placeholder="이름 입력"
-        />
-        <MonoInputGroup
-          id="email"
-          label={'회원가입을 위한\n 이메일을 입력해주세요!'}
-          type="text"
-          value={email}
-          onChange={changeEmail}
-          placeholder="이메일 입력"
-        />
-        <SixInputsGroup
-          id="numbers"
-          label={'본인확인을 위해\n이메일로 인증번호를 전송했어요!'}
-          numbers={numbers}
-          inputRefs={inputRefs}
-          onChange={moveNumbersFocus}
-        />
-        <MonoInputGroup
-          id="password"
-          label={'보안을 위해 비밀번호를 입력해주세요!'}
-          type="password"
-          value={password}
-          onChange={changePassword}
-          placeholder="비밀번호 입력"
-        />
-        <MonoInputGroup
-          id="againPassword"
-          label={'확인을 위해\n 재입력해주세요!'}
-          type="password"
-          value={againPassword}
-          onChange={changeAgainPassword}
-          placeholder="비밀번호 재입력"
-        />
+        <Slide>
+          <MonoInputGroup
+            id="name"
+            label={'파킹킴과 함께 할 \n이름을 알려주세요!'}
+            type="text"
+            value={name}
+            clear={clearName}
+            onChange={changeName}
+            placeholder="이름 입력"
+          />
+        </Slide>
+        <Slide>
+          <MonoInputGroup
+            id="email"
+            label={'회원가입을 위한\n 이메일을 입력해주세요!'}
+            type="text"
+            value={email}
+            onChange={changeEmail}
+            placeholder="이메일 입력"
+          />
+          {!REGEX.email.test(email) && email.length > 0 && (
+            <p>올바른 이메일 형식으로 작성해주세요!</p>
+          )}
+        </Slide>
+        <Slide>
+          <SixInputsGroup
+            id="numbers"
+            label={'본인확인을 위해\n이메일로 인증번호를 전송했어요!'}
+            numbers={numbers}
+            inputRefs={inputRefs}
+            onChange={moveNumbersFocus}
+          />
+        </Slide>
+        <Slide>
+          <MonoInputGroup
+            id="password"
+            label={'보안을 위해 비밀번호를 입력해주세요!'}
+            type="password"
+            value={password}
+            onChange={changePassword}
+            placeholder="비밀번호 입력"
+          />
+          {password.length === 0 ? (
+            <Description>영어 대,소문자 포함 10자 이상</Description>
+          ) : (
+            !REGEX.password.test(password) && <p>영어 대,소문자 포함 10자 이상으로 입력해주세요!</p>
+          )}
+        </Slide>
+        <Slide>
+          <MonoInputGroup
+            id="againPassword"
+            label={'확인을 위해\n 재입력해주세요!'}
+            type="password"
+            value={againPassword}
+            onChange={changeAgainPassword}
+            placeholder="비밀번호 재입력"
+          />
+          {againPassword.length !== 0 && password !== againPassword && (
+            <p>비밀번호가 일치하지 않습니다.</p>
+          )}
+        </Slide>
       </Slider>
       <Button color="secondary" onClick={slickNext}>
         다음
@@ -205,11 +216,17 @@ const Signup = () => {
   );
 };
 
-const Warning = styled.p`
-  margin-top: 18px;
-  align-self: start;
+const Slide = styled.div`
+  & > p {
+    margin-top: 10px;
+    margin-left: 30px;
+    text-align: start;
+    color: #ff6060;
+  }
+`;
 
-  color: #ff6060;
+const Description = styled.p`
+  color: #d9d9d9 !important;
 `;
 
 const Agreement = styled.section`
