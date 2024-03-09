@@ -25,7 +25,7 @@ const MonoInputGroup = ({
     <Group>
       <Label>{label}</Label>
       <MonoInput id={id} type={type} value={value} onChange={onChange} placeholder={placeholder} />
-      {id === 'name' && value.length > 0 && (
+      {value.length > 0 && (
         <InputCloseContainer onClick={clear}>
           <CloseIcon />
         </InputCloseContainer>
@@ -74,7 +74,7 @@ const MonoInput = styled.input`
 
 const InputCloseContainer = styled.div`
   position: absolute;
-  right: 21px;
+  right: 30px;
   bottom: 11px;
   z-index: 1;
   cursor: pointer;
