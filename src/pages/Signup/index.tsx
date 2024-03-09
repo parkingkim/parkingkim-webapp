@@ -2,30 +2,54 @@ import { CheckIcon, CloseIcon } from '@assets/index';
 import Modal from '@components/Modal';
 import Button from '@components/Button';
 import useBoolean from '@hooks/useBoolean';
-import { ChangeEvent, ReactElement, useRef, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import useNumbersRefs from './hooks/useNumbersRefs';
 import MonoInputGroup from './components/MonoInputGroup';
 import SixInputsGroup from './components/SixInputsGroup';
+import useSignup from './hooks/useSignup';
+import { REGEX } from '@constants/index';
+
+const WARNING_COMMENT: Record<string, string> = {
+  email: '올바른 이메일 형식으로 작성해주세요!',
+  numbers: '인증번호가 일치하지 않습니다.',
+  password: '영어 대,소문자 포함 10자 이상으로 입력해주세요!',
+  againPassword: '비밀번호가 일치하지 않습니다.',
+} as const;
+
+const SLIDE_INDEX = {
+  name: 0,
+  email: 1,
+  numbers: 2,
+  password: 3,
+  againPassword: 4,
+};
 
 const Signup = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
   const navigate = useNavigate();
+  const [slideIndex, setSlideIndex] = useState(0);
   const { inputRefs, moveFocus } = useNumbersRefs();
-
   const sliderRef = useRef<Slider>(null);
   const isModalOpen = useBoolean(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [numbers, setNumbers] = useState<number[]>([]);
-  const [password, setPassword] = useState('');
-  const [againPassword, setAgainPassword] = useState('');
-
   const 서비스동의 = useBoolean();
   const 본인확인동의 = useBoolean();
   const 마케팅동의 = useBoolean();
+  const {
+    name,
+    email,
+    numbers,
+    password,
+    againPassword,
+    changeName,
+    changeEmail,
+    changeNumbers,
+    changePassword,
+    changeAgainPassword,
+    clearName,
+  } = useSignup();
+  const isWrongInput = useBoolean(false);
 
   const sliderSettings = {
     dots: true,
@@ -38,55 +62,42 @@ const Signup = () => {
     afterChange: (index: number) => setSlideIndex(index),
   };
 
+  const moveNumbersFocus = (index: number) => () => {
+    changeNumbers(index);
+    moveFocus(index);
+  };
+
   const goLogin = () => {
     navigate('/login');
   };
 
-  const changeName = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+  const openAgreement = () => {
+    if (REGEX.email.test(email)) {
+      isModalOpen.on();
+      return;
+    }
+    isWrongInput.on();
   };
-
-  const changeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const changeNumbers = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
-    numbers[index] = e.target.valueAsNumber;
-    setNumbers([...numbers]);
-    moveFocus(index);
-  };
-
-  const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-  const changeAgainPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setAgainPassword(e.target.value);
-  };
-
-  // const removeAll = () => {
-  //   setName('');
-  // };
 
   const slickNext = () => {
     if (!sliderRef.current) return;
 
     switch (slideIndex) {
-      case 0:
+      case SLIDE_INDEX.name:
         sliderRef.current.slickNext();
         break;
-      case 1:
-        // TODO: 이메일 유효성 검사
-        isModalOpen.on();
+      case SLIDE_INDEX.email:
+        openAgreement();
         break;
-      case 2:
+      case SLIDE_INDEX.numbers:
         // TODO: 인증번호 유효성 검사
         sliderRef.current.slickNext();
         break;
-      case 3:
+      case SLIDE_INDEX.password:
         // TODO: 비번 유효성 검사
         sliderRef.current.slickNext();
         break;
-      case 4:
+      case SLIDE_INDEX.againPassword:
         // TODO: 재입력 비번 검사
         navigate('/onboarding/start');
     }
@@ -97,16 +108,16 @@ const Signup = () => {
       서비스동의.off();
       본인확인동의.off();
       마케팅동의.off();
-    } else {
-      서비스동의.on();
-      본인확인동의.on();
-      마케팅동의.on();
+      return;
     }
+    서비스동의.on();
+    본인확인동의.on();
+    마케팅동의.on();
   };
 
   const slickEmail = () => {
     if (!sliderRef.current) return;
-    sliderRef.current.slickGoTo(2);
+    sliderRef.current.slickGoTo(SLIDE_INDEX.numbers);
     isModalOpen.off();
   };
 
@@ -121,6 +132,7 @@ const Signup = () => {
           label={'파킹킴과 함께 할 \n이름을 알려주세요!'}
           type="text"
           value={name}
+          clear={clearName}
           onChange={changeName}
           placeholder="이름 입력"
         />
@@ -137,7 +149,7 @@ const Signup = () => {
           label={'본인확인을 위해\n이메일로 인증번호를 전송했어요!'}
           numbers={numbers}
           inputRefs={inputRefs}
-          onChange={changeNumbers}
+          onChange={moveNumbersFocus}
         />
         <MonoInputGroup
           id="password"
@@ -193,30 +205,40 @@ const Signup = () => {
   );
 };
 
+const Warning = styled.p`
+  margin-top: 18px;
+  align-self: start;
+
+  color: #ff6060;
+`;
+
 const Agreement = styled.section`
   display: flex;
+  height: 100%;
+  padding: 2rem;
   flex-direction: column;
   align-items: flex-start;
-  padding: 2rem;
-  height: 100%;
+
   & > h1 {
-    font-size: 20px;
     margin-bottom: 20px;
+
+    font-size: 20px;
   }
 `;
 
 const AgreeButton = styled.button<{ isAgreed: boolean }>`
-  font-size: 18px;
-  color: ${({ isAgreed }) => (isAgreed ? 'black' : '#bdc4cb')};
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
   width: 100%;
   padding: 0;
   margin-bottom: 18px;
-  letter-spacing: -1px;
+  justify-content: flex-start;
+  align-items: center;
+
+  color: ${({ isAgreed }) => (isAgreed ? 'black' : '#bdc4cb')};
+  font-size: 18px;
   font-weight: 600;
+  letter-spacing: -1px;
+  gap: 10px;
 
   & > svg > * {
     stroke: ${({ isAgreed }) => (isAgreed ? 'black' : '#bdc4cb')};

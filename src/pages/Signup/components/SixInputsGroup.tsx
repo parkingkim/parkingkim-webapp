@@ -56,37 +56,41 @@ const Label = styled.label`
 
 const ResendButton = styled.button`
   display: flex;
+  margin-bottom: 30px;
   align-items: center;
   align-self: start;
-  margin-bottom: 30px;
+
+  color: rgb(0 0 0 / 30%);
   gap: 5px;
-  color: rgba(0, 0, 0, 0.3);
+
   & > svg > * {
-    stroke: rgba(0, 0, 0, 0.3);
+    stroke: rgb(0 0 0 / 30%);
   }
 `;
 
 const Timer = styled.span`
-  align-self: start;
 
   margin-top: 5px;
-  color: rgba(0, 0, 0, 0.3);
+  align-self: start;
+
+  color: rgb(0 0 0 / 30%);
 `;
 
 const Numbers = styled.div`
-  margin-top: 20px;
   display: flex;
+  margin-top: 20px;
   gap: 10px;
 `;
 
 const NumberInput = styled.input`
   width: 40px;
-  font-size: 40px;
   height: 50px;
-  text-align: center;
 
   border: 0;
   border-bottom: 1px solid #120924;
+
+  font-size: 40px;
+  text-align: center;
 `;
 
 export default SixInputsGroup;
