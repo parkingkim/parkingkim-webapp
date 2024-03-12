@@ -104,7 +104,6 @@ const CouponNumberInput = styled.input`
 const CouponInputButton = styled.button`
   height: 48px;
   min-width: 60px;
-  padding: 15px;
 
   background: #f5f5f5;
   border-radius: 10px;

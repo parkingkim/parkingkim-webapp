@@ -31,7 +31,7 @@ const BottomTabBar = () => {
   return (
     <TabsContainer>
       {tabs.map((tab, index) => (
-        <Tab $isCurrent={index === currentTabIndex} onClick={changeTab(index)}>
+        <Tab key={tab} $isCurrent={index === currentTabIndex} onClick={changeTab(index)}>
           {tab}
         </Tab>
       ))}
@@ -43,8 +43,8 @@ const TabsContainer = styled.nav`
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  max-width: 500px;
   height: 80px;
+  max-width: 500px;
   padding: 0 2rem;
   justify-content: space-between;
 

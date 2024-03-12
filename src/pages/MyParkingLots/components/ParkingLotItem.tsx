@@ -54,13 +54,13 @@ const ParkingLotItem = ({
 };
 
 const ParkingLotContainer = styled.div`
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 20px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 12px 20px;
 `;
 
 const ParkingLotInfoContainer = styled.div`

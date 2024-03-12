@@ -1,14 +1,15 @@
-import { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { SearchIcon } from '@assets/index';
 import { CommonTextStyle } from '@style/CommonTextStyle';
+import { ChangeEvent } from 'react';
 
-interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
+interface SearchBarProps {
   isFocused?: boolean;
   expandHeight?: () => void;
+  onChangeSearchKeyword?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SearchBar = ({ expandHeight, isFocused }: SearchBarProps) => {
+const SearchBar = ({ expandHeight, isFocused, onChangeSearchKeyword }: SearchBarProps) => {
   const focusAndExpand = () => {
     if (!isFocused && expandHeight) expandHeight();
   };
@@ -16,7 +17,7 @@ const SearchBar = ({ expandHeight, isFocused }: SearchBarProps) => {
   return (
     <SearchBarWrapper onClick={focusAndExpand}>
       {isFocused ? (
-        <StyledSearchBar placeholder="목적지 검색" autoFocus />
+        <StyledSearchBar onChange={onChangeSearchKeyword} placeholder="목적지 검색" autoFocus />
       ) : (
         <IconWrapper>
           <SearchIcon />

@@ -24,3 +24,6 @@ export { default as CloseIcon } from './close.svg?react';
 export { default as RadioIcon } from './radio.svg?react';
 export { default as CheckedRadioIcon } from './checked-radio.svg?react';
 export { default as CheckIcon } from './check.svg?react';
+export { default as CurLocationIcon } from './cur-location.svg?react';
+export { default as ZoomOutIcon } from './zoom-out.svg?react';
+export { default as ZoomInIcon } from './zoom-in.svg?react';

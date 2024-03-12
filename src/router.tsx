@@ -1,12 +1,10 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom';
-import BottomTabBar from '@components/BottomTabBar';
 import MobileView from '@components/MobileView';
 import Login from '@pages/Login';
 import Menu from '@pages/Menu';
 import Coupons from '@pages/Menu/Coupons';
 import FrequentDestinations from '@pages/Menu/FrequentDestinations';
 import Notifications from '@pages/Menu/Notifications';
-import Profile from '@pages/Menu/Profile';
 import ChangePassword from '@pages/Menu/Profile/ChangePassword';
 import OnBoarding from '@pages/OnBoarding';
 import ParkingLotDetail from '@pages/ParkingLotDetail';
@@ -17,20 +15,13 @@ import Home from '@pages/Home';
 import MyReviews from '@pages/MyParkingLots/MyReviews';
 import MoreReviews from '@pages/MyParkingLots/MoreReviews';
 import Withdrawal from '@pages/Menu/Withdrawal';
+import Profile from '@pages/Menu/Profile';
+import BottomTabBarRoot from '@pages/BottomTabBarRoot';
 
 const Root = () => {
   return (
     <MobileView>
       <Outlet />
-    </MobileView>
-  );
-};
-
-const BottomTabBarRoot = () => {
-  return (
-    <MobileView>
-      <Outlet />
-      <BottomTabBar />
     </MobileView>
   );
 };
@@ -43,12 +34,6 @@ const router = createBrowserRouter([
     children: [
       { path: '/login', element: <Login /> },
       { path: '/onboarding', element: <OnBoarding /> },
-      { path: '/profile', element: <Profile /> },
-      { path: '/coupons', element: <Coupons /> },
-      { path: '/notifications', element: <Notifications /> },
-      { path: '/change-password', element: <ChangePassword /> },
-      { path: '/frequent-destinations', element: <FrequentDestinations /> },
-      { path: '/parking-lot-filter-condition', element: <ParkingLotFilterCondition /> },
     ],
   },
   {
@@ -62,11 +47,13 @@ const router = createBrowserRouter([
       { path: '/my-reviews', element: <MyReviews /> },
       { path: '/more-reviews', element: <MoreReviews /> },
       { path: '/menu', element: <Menu /> },
+      { path: '/profile', element: <Profile /> },
       { path: '/coupons', element: <Coupons /> },
       { path: '/notifications', element: <Notifications /> },
       { path: '/change-password', element: <ChangePassword /> },
       { path: '/frequent-destinations', element: <FrequentDestinations /> },
       { path: '/withdrawal', element: <Withdrawal /> },
+      { path: '/parking-lot-filter-condition', element: <ParkingLotFilterCondition /> },
     ],
   },
 ]);
