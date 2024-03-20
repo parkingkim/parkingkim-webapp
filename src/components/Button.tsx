@@ -14,6 +14,8 @@ const getButtonColor = (color: ButtonColor) => {
       return '#0DC5FF';
     case 'secondary':
       return '#bdc4cb';
+    case 'teritiary':
+      return '#5639ff';
   }
 };
 

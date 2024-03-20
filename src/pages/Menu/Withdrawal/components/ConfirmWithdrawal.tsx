@@ -96,6 +96,7 @@ const Description = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-align: left;
   gap: 15px;
 
   svg {
