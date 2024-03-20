@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-type ButtonColor = 'primary' | 'secondary';
+type ButtonColor = 'primary' | 'secondary' | 'teritiary';
 
 interface ButtonProps {
   width?: string;
