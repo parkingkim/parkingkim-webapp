@@ -8,3 +8,12 @@ export interface ParkingLot {
   latitude: string;
   longitude: string;
 }
+
+export interface SearchResult {
+  name: string;
+  newAddressList: {
+    newAddress: {
+      fullAddressRoad: string;
+    }[];
+  };
+}

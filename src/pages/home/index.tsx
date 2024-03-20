@@ -1,4 +1,3 @@
-import Map from '@components/Map';
 import BottomSheet from '@components/BottomSheet';
 import { useState } from 'react';
 import SearchContent from './components/SearchContent';
@@ -12,7 +11,6 @@ const Home = () => {
 
   return (
     <>
-      <Map />
       <BottomSheet isExpanded={isExpanded}>
         {isExpanded ? (
           <SearchContent reduceHeight={reduceHeight} />

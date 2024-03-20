@@ -1,10 +1,14 @@
 import { OptionIcon } from '@assets/index';
 import Text from '@components/Text';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SearchFilter = () => {
+  const navigate = useNavigate();
+  const goToFilterCondition = () => navigate('/parking-lot-filter-condition');
+
   return (
-    <SearchFilterButton>
+    <SearchFilterButton onClick={goToFilterCondition}>
       <OptionIcon />
       <Text color="btn-gray">주차장 조건설정</Text>
     </SearchFilterButton>
