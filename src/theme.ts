@@ -9,6 +9,7 @@ const theme = {
   btnGray: '#707070',
   font400: '#120924',
   red: '#FF6060',
+  blue100: '#0DC5FF',
 } as const;
 
 export default theme;

@@ -37,7 +37,7 @@ const SearchContent = ({ reduceHeight }: SearchContentProps) => {
           searchKeyword: searchKeyword,
           resCoordType: 'EPSG3857',
           reqCoordType: 'WGS84GEO',
-          count: 5,
+          count: 10,
         };
         (Object.keys(params) as Array<keyof typeof params>).forEach((key) =>
           url.searchParams.append(key, String(params[key])),
@@ -52,44 +52,48 @@ const SearchContent = ({ reduceHeight }: SearchContentProps) => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        // 검색
         const responseData = await response.json();
         const resultpoisData = responseData.searchPoiInfo.pois.poi;
         setSearchResults(resultpoisData);
 
-        markerArr.forEach((marker) => marker.setMap(null));
-        setMarkerArr([]);
+        // // 마커 초기화
+        // markerArr.forEach((marker) => marker.setMap(null));
+        // setMarkerArr([]);
 
-        const latlngBounds = new Tmapv3.LatLngBounds();
-        const newMarkers: Marker[] = [];
-        for (const poi of resultpoisData) {
-          const noorLng = Number(poi.noorLon);
-          const noorLat = Number(poi.noorLat);
-          const name = poi.name;
+        // const latlngBounds = new Tmapv3.LatLngBounds();
+        // const newMarkers: Marker[] = [];
 
-          const pointCng = new Tmapv3.Point(noorLng, noorLat);
-          const projectionCng = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(pointCng);
+        // // 마커 그리기
+        // for (const poi of resultpoisData) {
+        //   const noorLng = Number(poi.noorLon);
+        //   const noorLat = Number(poi.noorLat);
+        //   const name = poi.name;
 
-          const lat = projectionCng._lat;
-          const lng = projectionCng._lng;
+        //   const pointCng = new Tmapv3.Point(noorLng, noorLat);
+        //   const projectionCng = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(pointCng);
 
-          const markerPosition = new Tmapv3.LatLng(lat, lng);
+        //   const lat = projectionCng._lat;
+        //   const lng = projectionCng._lng;
 
-          const marker = new Tmapv3.Marker({
-            position: markerPosition,
-            icon: 'src/assets/react.svg',
-            iconSize: new Tmapv3.Size(24, 38),
-            title: name,
-            map: mapInstance,
-          });
+        //   const markerPosition = new Tmapv3.LatLng(lat, lng);
 
-          newMarkers.push(marker);
+        //   const marker = new Tmapv3.Marker({
+        //     position: markerPosition,
+        //     icon: 'src/assets/react.svg',
+        //     iconSize: new Tmapv3.Size(24, 38),
+        //     title: name,
+        //     map: mapInstance,
+        //   });
 
-          latlngBounds.extend(markerPosition);
-        }
+        //   newMarkers.push(marker);
 
-        setMarkerArr(newMarkers);
-        mapInstance.setCenter(latlngBounds.getCenter());
-        mapInstance.fitBounds(latlngBounds);
+        //   latlngBounds.extend(markerPosition);
+        // }
+
+        // setMarkerArr(newMarkers);
+        // mapInstance.setCenter(latlngBounds.getCenter());
+        // mapInstance.fitBounds(latlngBounds);
       } catch (error: unknown) {
         console.error('Failed to fetch data:', error);
       }
@@ -103,6 +107,47 @@ const SearchContent = ({ reduceHeight }: SearchContentProps) => {
 
     return () => clearTimeout(debounceTimeout);
   }, [searchKeyword]);
+
+  const drawMarker = (result: SearchResult) => {
+    if (!mapInstance) return;
+
+    // 마커 초기화
+    markerArr.forEach((marker) => marker.setMap(null));
+    setMarkerArr([]);
+
+    const latlngBounds = new Tmapv3.LatLngBounds();
+    const newMarkers: Marker[] = [];
+
+    // 마커 그리기
+
+    const noorLng = Number(result.noorLon);
+    const noorLat = Number(result.noorLat);
+    const name = result.name;
+
+    const pointCng = new Tmapv3.Point(noorLng, noorLat);
+    const projectionCng = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(pointCng);
+
+    const lat = projectionCng._lat;
+    const lng = projectionCng._lng;
+
+    const markerPosition = new Tmapv3.LatLng(lat, lng);
+
+    const marker = new Tmapv3.Marker({
+      position: markerPosition,
+      icon: 'src/assets/react.svg',
+      iconSize: new Tmapv3.Size(24, 38),
+      title: name,
+      map: mapInstance,
+    });
+
+    newMarkers.push(marker);
+
+    latlngBounds.extend(markerPosition);
+
+    setMarkerArr(newMarkers);
+    mapInstance.setCenter(latlngBounds.getCenter());
+    mapInstance.fitBounds(latlngBounds);
+  };
 
   return (
     <SearchContainer>
@@ -118,17 +163,22 @@ const SearchContent = ({ reduceHeight }: SearchContentProps) => {
       <ThickBar />
       <ResultContainer>
         {searchResults.map((result) => (
-          <SearchItem
-            name={result.name}
-            address={result.newAddressList.newAddress[0].fullAddressRoad}
-          />
+          <SearchButton onClick={() => drawMarker(result)}>
+            <SearchItem keyword={searchKeyword} searchResult={result} />
+          </SearchButton>
         ))}
       </ResultContainer>
     </SearchContainer>
   );
 };
 
+const SearchButton = styled.button`
+  width: 100%;
+  padding: 0;
+`;
+
 const ResultContainer = styled.ul`
+  height: calc(100vh - 257px);
   overflow: scroll;
 `;
 

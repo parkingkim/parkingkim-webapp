@@ -31,7 +31,7 @@ const StyledText = styled.p<{
   $size: TextSizeType;
 }>`
   margin: 0;
-
+  display: flex;
   color: ${({ $color, theme }) => {
     switch ($color) {
       case 'dark-gray':
