@@ -181,14 +181,15 @@ const ParkingLotFilterCondition = () => {
 };
 
 const ElectricType = styled.div`
-  font-size: 11px;
-  color: #bdc4cb;
   margin-top: 10px;
+
+  color: #bdc4cb;
+  font-size: 11px;
 `;
 
 const ElectricTypeContainer = styled.div`
-  padding: 10px 0;
   display: grid;
+  padding: 10px 0;
   justify-content: space-between;
   grid-template-columns: repeat(3, max-content);
   row-gap: 10px;
@@ -229,9 +230,10 @@ const CheckCircle = styled.input`
   appearance: none;
 
   &:checked {
+    padding: 3px;
+
     background-color: #d9d9d9;
     background-clip: content-box;
-    padding: 3px;
   }
 `;
 
@@ -291,18 +293,18 @@ const FilterContainer = styled.div`
 
 const FilterButton = styled.button<{ $width: string; $checked?: boolean }>`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
   width: ${(props) => props.$width};
   height: 35px;
   padding: 0;
+  justify-content: center;
+  align-items: center;
 
   background-color: ${(props) => (props.$checked ? '#D9D9D9' : 'white')};
   border: solid 1px #bdc4cb;
   border-radius: 20px;
 
   color: ${(props) => (props.$checked ? 'white' : '#bdc4cb')};
+  gap: 5px;
 
   & > svg > * {
     stroke: ${(props) => (props.$checked ? 'white' : '#bdc4cb')};
