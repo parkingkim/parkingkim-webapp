@@ -40,13 +40,6 @@ const router = createBrowserRouter([
       { path: '/onboarding', element: <OnBoarding /> },
       { path: '/onboarding/start', element: <OnboardingStart /> },
       { path: '/onboarding/confirm', element: <OnBoardingConfirm /> },
-      { path: '/menu', element: <Menu /> },
-      { path: '/profile', element: <Profile /> },
-      { path: '/coupons', element: <Coupons /> },
-      { path: '/notifications', element: <Notifications /> },
-      { path: '/change-password', element: <ChangePassword /> },
-      { path: '/frequent-destinations', element: <FrequentDestinations /> },
-      { path: '/parking-lot-filter-condition', element: <ParkingLotFilterCondition /> },
     ],
   },
   {
