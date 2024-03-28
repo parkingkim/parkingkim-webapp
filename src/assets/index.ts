@@ -27,3 +27,8 @@ export { default as CheckIcon } from './check.svg?react';
 export { default as CurLocationIcon } from './cur-location.svg?react';
 export { default as ZoomOutIcon } from './zoom-out.svg?react';
 export { default as ZoomInIcon } from './zoom-in.svg?react';
+export { default as ParkingWalkIcon } from './parking-walk.svg?react';
+export { default as ParkingPriceIcon } from './parking-price.svg?react';
+export { default as ParkingParkIcon } from './parking-park.svg?react';
+export { default as UserLocationIcon } from './user-location.svg?react';
+export { default as DestOneIcon } from './dest-one.svg?react';
