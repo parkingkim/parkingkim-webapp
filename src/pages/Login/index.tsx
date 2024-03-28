@@ -1,3 +1,5 @@
+import { GoogleLogo, KakaoLogo } from '@assets/index';
+import Button from '@components/Button';
 import { REGEX } from '@constants/index';
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
@@ -40,7 +42,7 @@ const Login = () => {
         <Input
           id="id"
           value={id}
-          placeholder="아이디 입력"
+          placeholder="이메일 입력"
           minLength={5}
           maxLength={20}
           onChange={typeId}
@@ -54,11 +56,12 @@ const Login = () => {
           maxLength={20}
           onChange={typePassword}
         />
-        <Button disabled={!(isValidId(id) && isValidPassword(password))}>로그인</Button>
+        <Button width={'80%'} disabled={!(isValidId(id) && isValidPassword(password))}>
+          다음
+        </Button>
       </Form>
       <OptionContainer>
         <button>회원가입</button>
-        <button>아이디 찾기</button>
         <button>비밀번호 찾기</button>
       </OptionContainer>
       <Footer>
@@ -67,10 +70,31 @@ const Login = () => {
           소셜 계정으로 로그인
           <hr />
         </Title>
+        <SocialAccountsContainer>
+          <KakaoLogo />
+          <GoogleLogo />
+        </SocialAccountsContainer>
+        <NonMemberButton>비회원으로 접속하기 {'>'}</NonMemberButton>
       </Footer>
     </>
   );
 };
+
+const NonMemberButton = styled.button`
+  align-self: end;
+  color: #ababab;
+`;
+
+const SocialAccountsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 0;
+
+  & > svg {
+    cursor: pointer;
+  }
+`;
 
 const Header = styled.header`
   display: flex;
@@ -83,11 +107,14 @@ const Header = styled.header`
     font-size: 24px;
     font-weight: 800;
     line-height: 30px;
+    letter-spacing: -3%;
   }
 
   & > h2 {
-    color: ${({ theme }) => theme.gray};
+    margin-top: 20px;
+    color: #ababab;
     font-size: 14px;
+    font-weight: 400;
   }
 `;
 
@@ -104,10 +131,12 @@ const Input = styled.input`
   height: 50px;
   padding: 0 15px;
 
-  border: 1px solid ${({ theme }) => theme.gray};
   border-radius: 10px;
+  background-color: #f5f5f5;
+  border: 0;
 
   font-size: 14px;
+  color: #ababab;
 
   &::placeholder {
     color: ${({ theme }) => theme.gray};
@@ -118,32 +147,18 @@ const Input = styled.input`
 
     outline: none;
   }
-`;
-
-const Button = styled.button<{ disabled: boolean }>`
-  width: 80%;
-  height: 54px;
-  margin-top: 5px;
-
-  background-color: ${({ theme, disabled }) => (disabled ? theme.gray : 'black')};
-  border: none;
-  border-radius: 10px;
-
-  color: white;
-  font-size: 16px;
-
-  &:focus {
-    outline: 0;
+  &:last-of-type {
+    margin-bottom: 20px;
   }
 `;
 
 const OptionContainer = styled.div`
   display: grid;
-  width: 70%;
+  width: 40%;
   height: 15px;
   margin: 20px;
   align-self: center;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 
   & > button {
     height: 17px;
@@ -153,8 +168,9 @@ const OptionContainer = styled.div`
     border: 0;
     border-radius: 0;
 
-    color: ${({ theme }) => theme.gray};
+    color: #ababab;
     font-size: 14px;
+    font-weight: 500;
     outline: 0;
 
     &:not(:first-child) {
@@ -171,14 +187,14 @@ const Footer = styled.footer`
   align-self: center;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   display: flex;
-
-  color: ${({ theme }) => theme.gray};
-  font-size: 16px;
+  justify-content: space-between;
+  color: #848484;
+  font-size: 14px;
 
   & > hr {
-    width: 20%;
+    width: 30%;
     height: 1px;
 
     background-color: ${({ theme }) => theme.gray};

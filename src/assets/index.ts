@@ -27,3 +27,5 @@ export { default as CheckIcon } from './check.svg?react';
 export { default as CurLocationIcon } from './cur-location.svg?react';
 export { default as ZoomOutIcon } from './zoom-out.svg?react';
 export { default as ZoomInIcon } from './zoom-in.svg?react';
+export { default as KakaoLogo } from './kakao-logo.svg?react';
+export { default as GoogleLogo } from './google-logo.svg?react';
