@@ -37,7 +37,8 @@ const Button = styled.button<ButtonProps>`
 
   border: 0;
   border-radius: 10px;
-  box-shadow: 2px 2px 4px rgb(0 0 0 / 20%);
+
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 
   color: white;
   font-size: 20px;
