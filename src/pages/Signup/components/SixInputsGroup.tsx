@@ -19,6 +19,7 @@ const SixInputsGroup = ({ id, label, numbers, inputRefs, onChange }: SixInputsGr
         {[...Array(6)].map((_, index) => (
           <NumberInput
             id={id}
+            key={index + 1}
             value={numbers[index]}
             ref={inputRefs[index]}
             type="number"
@@ -38,6 +39,7 @@ const SixInputsGroup = ({ id, label, numbers, inputRefs, onChange }: SixInputsGr
 const Group = styled.section`
   display: flex !important;
   box-sizing: border-box;
+
   padding: 0 2rem;
   margin-top: 130px;
   flex-direction: column;
@@ -48,7 +50,7 @@ const Group = styled.section`
 
 const Label = styled.label`
   align-self: start;
-
+  white-space: pre-line;
   font-size: 24px;
   font-weight: bold;
   text-align: start;
@@ -69,7 +71,6 @@ const ResendButton = styled.button`
 `;
 
 const Timer = styled.span`
-
   margin-top: 5px;
   align-self: start;
 
@@ -80,10 +81,13 @@ const Numbers = styled.div`
   display: flex;
   margin-top: 20px;
   gap: 10px;
+  width: 100%;
+  justify-content: space-between;
 `;
 
 const NumberInput = styled.input`
-  width: 40px;
+  min-width: 45px;
+  width: 20%;
   height: 50px;
 
   border: 0;
@@ -91,6 +95,12 @@ const NumberInput = styled.input`
 
   font-size: 40px;
   text-align: center;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 export default SixInputsGroup;

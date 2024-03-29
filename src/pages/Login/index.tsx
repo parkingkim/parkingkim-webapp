@@ -1,21 +1,17 @@
 import { GoogleLogo, KakaoLogo } from '@assets/index';
 import Button from '@components/Button';
-import { REGEX } from '@constants/index';
+import { isValidEmail, isValidPassword } from '@utils/index';
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-// TODO: 유효성 규칙대로 설정
-const isValidId = (id: string) => id.length > 5 && REGEX.id.test(id);
-
-// TODO: 유효성 규칙대로 설정
-const isValidPassword = (password: string) => password.length > 7 && REGEX.password.test(password);
-
 const Login = () => {
-  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const typeId = (e: ChangeEvent<HTMLInputElement>) => {
-    setId(e.target.value);
+  const typeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   const typePassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +20,10 @@ const Login = () => {
 
   const enter = () => {
     // TODO: 로그인 성공 혹은 실패로직
+  };
+
+  const goSignup = () => {
+    navigate('/signup');
   };
 
   return (
@@ -40,12 +40,12 @@ const Login = () => {
       </Header>
       <Form onSubmit={enter}>
         <Input
-          id="id"
-          value={id}
+          id="email"
+          value={email}
           placeholder="이메일 입력"
-          minLength={5}
-          maxLength={20}
-          onChange={typeId}
+          minLength={20}
+          maxLength={50}
+          onChange={typeEmail}
         />
         <Input
           id="password"
@@ -56,12 +56,12 @@ const Login = () => {
           maxLength={20}
           onChange={typePassword}
         />
-        <Button width={'80%'} disabled={!(isValidId(id) && isValidPassword(password))}>
+        <Button width={'80%'} disabled={!(isValidEmail(email) && isValidPassword(password))}>
           다음
         </Button>
       </Form>
       <OptionContainer>
-        <button>회원가입</button>
+        <button onClick={goSignup}>회원가입</button>
         <button>비밀번호 찾기</button>
       </OptionContainer>
       <Footer>

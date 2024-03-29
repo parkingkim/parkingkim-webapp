@@ -18,13 +18,24 @@ import Withdrawal from '@pages/Menu/Withdrawal';
 import OnBoardingConfirm from '@pages/OnBoardingConfirm';
 import OnboardingStart from '@pages/OnBoardingStart';
 import Profile from '@pages/Menu/Profile';
-import BottomTabBarRoot from '@pages/BottomTabBarRoot';
 import Signup from '@pages/Signup';
+import Map from '@components/Map';
+import BottomTabBar from '@components/BottomTabBar';
 
 const Root = () => {
   return (
     <MobileView>
       <Outlet />
+    </MobileView>
+  );
+};
+
+const BottomTabBarRoot = () => {
+  return (
+    <MobileView>
+      <Map />
+      <Outlet />
+      <BottomTabBar />
     </MobileView>
   );
 };

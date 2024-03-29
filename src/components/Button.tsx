@@ -41,6 +41,7 @@ const Button = styled.button<ButtonProps>`
 
   &:disabled {
     opacity: 0.5;
+    background-color: #848484;
     cursor: not-allowed;
   }
 `;

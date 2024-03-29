@@ -8,4 +8,5 @@ export const REGEX = {
   password: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d!@#$%^*+=-]{7,30}$/,
   email: /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   phoneNumber: /[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/,
+  name: /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/,
 } as const;

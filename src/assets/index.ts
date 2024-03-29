@@ -29,3 +29,4 @@ export { default as ZoomOutIcon } from './zoom-out.svg?react';
 export { default as ZoomInIcon } from './zoom-in.svg?react';
 export { default as KakaoLogo } from './kakao-logo.svg?react';
 export { default as GoogleLogo } from './google-logo.svg?react';
+export { default as BlueCheckIcon } from './blue-check.svg?react';
