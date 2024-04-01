@@ -15,46 +15,50 @@ interface SlideProps {
   onClick: (index: number) => () => void;
 }
 
-const Slide = ({ title, isMultipleSelection, contents, onClick }: SlideProps) => {
+const OnboardingSlide = ({ title, isMultipleSelection, contents, onClick }: SlideProps) => {
   return (
     <Container>
       <h1>
         {title}
         {isMultipleSelection && <p>*중복 선택이 가능합니다.</p>}
       </h1>
-      {contents.map((content, index) => {
-        return (
-          <>
-            <OptionButton
-              key={content.key}
-              $isSelected={content.isSelected}
-              $isCollapsed={content.moreOptions && content.isSelected}
-              onClick={onClick(index)}
-            >
-              {content.name} {isMultipleSelection && '주차장'}
-              {content.moreOptions && <ArrowTopIcon />}
-            </OptionButton>
-            <MoreOptionsContainer $isSelected={content.isSelected}>
-              {content.moreOptions?.map((moreOption) => (
-                <MoreOptionButton key={moreOption} $isSelected={content.isSelected}>
-                  {moreOption}
-                </MoreOptionButton>
-              ))}
-            </MoreOptionsContainer>
-          </>
-        );
-      })}
+      {contents.map((content, index) => (
+        <OptionContainer key={content.key}>
+          <OptionButton
+            $isSelected={content.isSelected}
+            $isCollapsed={content.moreOptions && content.isSelected}
+            onClick={onClick(index)}
+          >
+            {content.name} {isMultipleSelection && '주차장'}
+            {content.moreOptions && <ArrowTopIcon />}
+          </OptionButton>
+          <MoreOptionsContainer $isSelected={content.isSelected}>
+            {content.moreOptions?.map((moreOption) => (
+              <MoreOptionButton key={moreOption} $isSelected={content.isSelected}>
+                {moreOption}
+              </MoreOptionButton>
+            ))}
+          </MoreOptionsContainer>
+        </OptionContainer>
+      ))}
     </Container>
   );
 };
 
-const Container = styled.div`
+const OptionContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
 
   & > h1 {
-    padding: 10rem 3rem 4rem;
+    padding: 150px 0 35px 2rem;
     margin-bottom: 5px;
     align-self: flex-start;
 
@@ -68,14 +72,6 @@ const Container = styled.div`
   }
 
   & > h1 > p {
-    padding: 0 0 3rem 3rem;
-    margin: 0;
-    align-self: flex-start;
-
-    position: absolute;
-    bottom: -1rem;
-    left: 0;
-
     color: ${({ theme }) => theme.gray};
     font-size: 16px;
     font-weight: 500;
@@ -85,7 +81,8 @@ const Container = styled.div`
 
 const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolean }>`
   display: flex;
-  width: 80%;
+  box-sizing: border-box;
+  width: 90%;
   height: 63px;
   padding: 0 2rem;
   margin-top: 0.5rem;
@@ -116,31 +113,34 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
 
 const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
   display: ${({ $isSelected }) => ($isSelected ? 'flex' : 'none')};
-
   width: 100%;
-  max-height: 190px;
+  max-height: 150px;
   overflow: scroll;
   flex-direction: column;
+  align-items: center;
+
+  border-radius: 0 0 10px 10px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MoreOptionButton = styled.button<{ $isSelected: boolean }>`
-  width: 100%;
+  width: 90%;
   min-height: 55px;
   padding: 0 2rem;
 
-  background: '#f5f5f5';
-  border: 0;
-  border-radius: 0;
+  background-color: #f5f5f5;
 
   color: ${({ theme }) => theme.gray};
   font-size: 20px;
   font-weight: bold;
   text-align: start;
-  visibility: ${({ $isSelected }) => ($isSelected ? 'visible' : 'hidden')};
 
   &:focus {
     outline: 0;
   }
 `;
 
-export default Slide;
+export default OnboardingSlide;

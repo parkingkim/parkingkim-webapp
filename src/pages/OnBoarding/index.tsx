@@ -1,18 +1,24 @@
 import { ArrowLeftIcon } from '@assets/index';
-import { ReactElement, useRef } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
-import Slide from './components/Slide';
 import useOnBoardingContents from './hooks/useOnBoardingContents';
+import Button from '@components/Button';
+import { useNavigate } from 'react-router-dom';
+import OnboardingSlide from './components/OnboardingSlide';
 
 const OnBoarding = () => {
+  const navigate = useNavigate();
   const sliderRef = useRef<Slider>(null);
+  const [slideIndex, setSlideIndex] = useState(0);
   const {
+    parkingManagements,
     parkingTypes,
     parkingPrices,
     parkingTerms,
     electricCars,
     priorityConditions,
+    selectParkingManagement,
     selectParkingType,
     selectParkingPrice,
     selectParkingTerm,
@@ -20,52 +26,97 @@ const OnBoarding = () => {
     selectPriorityCondition,
   } = useOnBoardingContents();
 
+  const sliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    appendDots: (dots: ReactElement[]) => <DotsContainer>{dots}</DotsContainer>,
+    afterChange: (index: number) => setSlideIndex(index),
+  };
+
   const slickPrev = () => {
     if (!sliderRef.current) return;
     sliderRef.current.slickPrev();
   };
 
+  const slickNext = () => {
+    if (!sliderRef.current) return;
+    if (slideIndex === 5) {
+      navigate('/onboarding/confirm');
+      return;
+    }
+    sliderRef.current.slickNext();
+  };
+
   return (
     <>
-      <ArrowContainer onClick={slickPrev}>
-        <ArrowLeftIcon />
-      </ArrowContainer>
+      {slideIndex !== 0 && (
+        <ArrowContainer onClick={slickPrev}>
+          <ArrowLeftIcon />
+        </ArrowContainer>
+      )}
       <Slider {...sliderSettings} ref={sliderRef}>
-        <Slide
-          title={'선호하는 주차장 \n유형을 알려주세요!'}
+        <OnboardingSlide
+          key="parkingType"
+          title={'선호하는 주차장 \n운영 방식을 알려주세요!'}
           isMultipleSelection={true}
           contents={parkingTypes}
           onClick={selectParkingType}
         />
-        <Slide
+        <OnboardingSlide
+          key="parkingManagement"
+          title={'선호하는 주차장 \n유형을 알려주세요!'}
+          isMultipleSelection={true}
+          contents={parkingManagements}
+          onClick={selectParkingManagement}
+        />
+        <OnboardingSlide
+          key="parkingPrice"
           title={'선호하는 주차장 \n유형을 알려주세요!'}
           isMultipleSelection={true}
           contents={parkingPrices}
           onClick={selectParkingPrice}
         />
-        <Slide
+        <OnboardingSlide
+          key="parkingTerm"
           title={'평균적인 주차시간을 \n알려주세요!'}
           isMultipleSelection={false}
           contents={parkingTerms}
           onClick={selectParkingTerm}
         />
-        <Slide
+        <OnboardingSlide
+          key="electricCar"
           title={'전기차를 이용하시나요? \n선호하는 방식을 선택하세요!'}
           isMultipleSelection={false}
           contents={electricCars}
           onClick={selectElectricCar}
         />
-        <Slide
+        <OnboardingSlide
+          key="priorityCondition"
           title={'우선순위로 보여줄 \n주차장 조건을 선택하세요!'}
           isMultipleSelection={false}
           contents={priorityConditions}
           onClick={selectPriorityCondition}
         />
       </Slider>
-      <Notice>*조건설정은 언제든지 수정할 수 있어요</Notice>
+      <ButtonContainer>
+        <Button color="secondary" onClick={slickNext}>
+          확인
+        </Button>
+      </ButtonContainer>
     </>
   );
 };
+
+const ButtonContainer = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 50px;
+  left: 0;
+`;
 
 const ArrowContainer = styled.div`
   position: absolute;
@@ -88,26 +139,5 @@ const DotsContainer = styled.div`
     font-size: 8px !important;
   }
 `;
-
-const Notice = styled.p`
-  align-self: center;
-
-  position: absolute;
-  bottom: 5rem;
-
-  color: ${({ theme }) => theme.gray};
-  font-size: 16px;
-  text-align: center;
-`;
-
-const sliderSettings = {
-  dots: true,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: false,
-  appendDots: (dots: ReactElement[]) => <DotsContainer>{dots}</DotsContainer>,
-};
 
 export default OnBoarding;

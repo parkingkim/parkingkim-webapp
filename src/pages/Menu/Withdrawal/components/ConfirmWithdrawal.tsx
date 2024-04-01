@@ -66,7 +66,7 @@ const ConfirmWithdrawal = ({ cancelWithdrawal }: ConfirmWithdrawalProps) => {
             </Option>
           ))}
         </OptionWrapper>
-        <Button size="large" color="secondary">
+        <Button color="secondary">
           <Text fontStyle="bold" color="white" size="lg">
             탈퇴하기
           </Text>
