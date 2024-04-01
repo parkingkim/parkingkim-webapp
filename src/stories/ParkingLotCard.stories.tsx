@@ -3,7 +3,7 @@ import ParkingLotCard from '@components/ParkingLotCard';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'Components/Card',
+  title: 'Components/ParkingLotCard',
   component: ParkingLotCard,
   tags: ['autodocs'],
   parameters: {
