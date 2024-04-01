@@ -1,174 +1,44 @@
-import { BackIcon, LocationIcon } from '@assets/index';
+import { BackIcon } from '@assets/index';
 import SearchBar from '@components/SearchBar';
 import SearchItem from '@components/SearchItem';
 import SearchFilter from '@pages/Home/components/SearchFilter';
-import useMapStore from '@store/mapStore';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { SearchResult } from 'src/types';
 import styled from 'styled-components';
+import ResultContent from './ResultContent';
+import useSearch from '../hooks/useSearch';
 
 interface SearchContentProps {
   reduceHeight: () => void;
+  showResult: () => void;
 }
 
-const SearchContent = ({ reduceHeight }: SearchContentProps) => {
-  const { Tmapv3 } = window;
-  const [searchKeyword, setSearchKeyword] = useState('');
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const { mapInstance } = useMapStore();
-  const [markerArr, setMarkerArr] = useState<Marker[]>([]); // 마커 배열을 상태로 관리
-
-  const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value);
-  };
-
-  useEffect(() => {
-    if (!mapInstance) return;
-
-    const handleSearch = async () => {
-      try {
-        const headers = new Headers();
-        headers.append('appKey', 'K7SVqM25ES7kK3FaC0crJ2Uu6XNAoAy54xiQr9I6');
-
-        const url = new URL(
-          'https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result',
-        );
-        const params = {
-          searchKeyword: searchKeyword,
-          resCoordType: 'EPSG3857',
-          reqCoordType: 'WGS84GEO',
-          count: 10,
-        };
-        (Object.keys(params) as Array<keyof typeof params>).forEach((key) =>
-          url.searchParams.append(key, String(params[key])),
-        );
-
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: headers,
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        // 검색
-        const responseData = await response.json();
-        const resultpoisData = responseData.searchPoiInfo.pois.poi;
-        setSearchResults(resultpoisData);
-
-        // // 마커 초기화
-        // markerArr.forEach((marker) => marker.setMap(null));
-        // setMarkerArr([]);
-
-        // const latlngBounds = new Tmapv3.LatLngBounds();
-        // const newMarkers: Marker[] = [];
-
-        // // 마커 그리기
-        // for (const poi of resultpoisData) {
-        //   const noorLng = Number(poi.noorLon);
-        //   const noorLat = Number(poi.noorLat);
-        //   const name = poi.name;
-
-        //   const pointCng = new Tmapv3.Point(noorLng, noorLat);
-        //   const projectionCng = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(pointCng);
-
-        //   const lat = projectionCng._lat;
-        //   const lng = projectionCng._lng;
-
-        //   const markerPosition = new Tmapv3.LatLng(lat, lng);
-
-        //   const marker = new Tmapv3.Marker({
-        //     position: markerPosition,
-        //     icon: 'src/assets/react.svg',
-        //     iconSize: new Tmapv3.Size(24, 38),
-        //     title: name,
-        //     map: mapInstance,
-        //   });
-
-        //   newMarkers.push(marker);
-
-        //   latlngBounds.extend(markerPosition);
-        // }
-
-        // setMarkerArr(newMarkers);
-        // mapInstance.setCenter(latlngBounds.getCenter());
-        // mapInstance.fitBounds(latlngBounds);
-      } catch (error: unknown) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-
-    const debounceTimeout = setTimeout(() => {
-      if (searchKeyword) {
-        handleSearch();
-      }
-    }, 1000);
-
-    return () => clearTimeout(debounceTimeout);
-  }, [searchKeyword]);
-
-  const drawMarker = (result: SearchResult) => {
-    if (!mapInstance) return;
-
-    // 마커 초기화
-    markerArr.forEach((marker) => marker.setMap(null));
-    setMarkerArr([]);
-
-    const latlngBounds = new Tmapv3.LatLngBounds();
-    const newMarkers: Marker[] = [];
-
-    // 마커 그리기
-
-    const noorLng = Number(result.noorLon);
-    const noorLat = Number(result.noorLat);
-    const name = result.name;
-
-    const pointCng = new Tmapv3.Point(noorLng, noorLat);
-    const projectionCng = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(pointCng);
-
-    const lat = projectionCng._lat;
-    const lng = projectionCng._lng;
-
-    const markerPosition = new Tmapv3.LatLng(lat, lng);
-
-    const marker = new Tmapv3.Marker({
-      position: markerPosition,
-      icon: 'src/assets/react.svg',
-      iconSize: new Tmapv3.Size(24, 38),
-      title: name,
-      map: mapInstance,
-    });
-
-    newMarkers.push(marker);
-
-    latlngBounds.extend(markerPosition);
-
-    setMarkerArr(newMarkers);
-    mapInstance.setCenter(latlngBounds.getCenter());
-    mapInstance.fitBounds(latlngBounds);
-  };
+const SearchContent = ({ reduceHeight, showResult }: SearchContentProps) => {
+  const { isResultVisible, result, handleSearchWord, searchResults, drawMarker, searchKeyword } =
+    useSearch(showResult);
 
   return (
-    <SearchContainer>
-      <SearchBarWrapper>
-        <BackIcon onClick={reduceHeight} role="button" />
-        <SearchBar isFocused={true} onChangeSearchKeyword={handleSearchWord} />
-        <SearchOptionWrapper>
-          <SearchFilter />
-          <Partition />
-          <LocationIcon style={{ cursor: 'pointer' }} role="button" />
-        </SearchOptionWrapper>
-      </SearchBarWrapper>
-      <ThickBar />
-      <ResultContainer>
-        {searchResults.map((result) => (
-          <SearchButton onClick={() => drawMarker(result)}>
-            <SearchItem keyword={searchKeyword} searchResult={result} />
-          </SearchButton>
-        ))}
-      </ResultContainer>
-    </SearchContainer>
+    <>
+      {isResultVisible ? (
+        <ResultContent result={result!} />
+      ) : (
+        <SearchContainer>
+          <SearchBarWrapper>
+            <BackIcon onClick={reduceHeight} role="button" />
+            <SearchBar isFocused={true} onChangeSearchKeyword={handleSearchWord} />
+            <SearchOptionWrapper>
+              <SearchFilter />
+            </SearchOptionWrapper>
+          </SearchBarWrapper>
+          <ThickBar />
+          <ResultContainer>
+            {searchResults.map((result) => (
+              <SearchButton onClick={() => drawMarker(result)}>
+                <SearchItem keyword={searchKeyword} searchResult={result} />
+              </SearchButton>
+            ))}
+          </ResultContainer>
+        </SearchContainer>
+      )}
+    </>
   );
 };
 
@@ -216,13 +86,6 @@ const SearchOptionWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 11px;
-`;
-
-const Partition = styled.div`
-  width: 1px;
-  height: 24px;
-
-  background: rgb(0 0 0 / 21%);
 `;
 
 export default SearchContent;
