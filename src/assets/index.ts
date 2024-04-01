@@ -32,3 +32,5 @@ export { default as ParkingPriceIcon } from './parking-price.svg?react';
 export { default as ParkingParkIcon } from './parking-park.svg?react';
 export { default as UserLocationIcon } from './user-location.svg?react';
 export { default as DestOneIcon } from './dest-one.svg?react';
+export { default as HomeIcon } from './home.svg?react';
+export { default as CompanyIcon } from './company.svg?react';
