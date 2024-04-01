@@ -3,7 +3,6 @@ import Text from '@components/Text';
 import { useState } from 'react';
 import { SearchResult } from 'src/types';
 import styled from 'styled-components';
-import ParkingLotContent from './ParkingLotContent';
 
 const mockLots = [
   {
@@ -86,36 +85,33 @@ interface ResultContentProps {
 
 const ResultContent = ({ result }: ResultContentProps) => {
   // TODO: 바텀싯 높이 관련 로직을 전역으로 바꿔야 구현에 용이할듯 함
+  // 아래 상태는 이후 경로 안내에 필요한 상태입니다.
   const [isSelect, setIsSelect] = useState(false);
   return (
     <>
-      {isSelect ? (
-        <ParkingLotContent goBack={setIsSelect} result={result} />
-      ) : (
-        <ResultContainer>
-          <Handle />
-          <DestinationWrapper>
-            <Text fontStyle="bold" size="xl">
-              목적지
-            </Text>
-            <Text>{result.name}</Text>
-            <Text color="btn-gray">{result.newAddressList.newAddress[0].fullAddressRoad}</Text>
-          </DestinationWrapper>
-          <CardContainer>
-            {mockLots.map((lot) => (
-              <ParkingLotCard
-                title={lot.title}
-                price={lot.price}
-                ETA={lot.ETA}
-                parkingType={lot.parkingType}
-                imgUrl={lot.imgUrl}
-                isFavorite={lot.isFavorite}
-                goToResult={setIsSelect}
-              />
-            ))}
-          </CardContainer>
-        </ResultContainer>
-      )}
+      <ResultContainer>
+        <Handle />
+        <DestinationWrapper>
+          <Text fontStyle="bold" size="xl">
+            목적지
+          </Text>
+          <Text>{result.name}</Text>
+          <Text color="btn-gray">{result.newAddressList.newAddress[0].fullAddressRoad}</Text>
+        </DestinationWrapper>
+        <CardContainer>
+          {mockLots.map((lot) => (
+            <ParkingLotCard
+              title={lot.title}
+              price={lot.price}
+              ETA={lot.ETA}
+              parkingType={lot.parkingType}
+              imgUrl={lot.imgUrl}
+              isFavorite={lot.isFavorite}
+              goToResult={setIsSelect}
+            />
+          ))}
+        </CardContainer>
+      </ResultContainer>
     </>
   );
 };
