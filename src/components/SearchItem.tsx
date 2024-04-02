@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Text from './Text';
 import { Bar } from '@pages/Menu';
 import { SearchResult } from 'src/types';
+import highlightKeyword from '@utils/highlightKeyword';
 
 interface SearchItemProps {
   keyword: string;
@@ -9,20 +10,10 @@ interface SearchItemProps {
 }
 
 const SearchItem = ({ keyword, searchResult }: SearchItemProps) => {
-  const nameParts = searchResult.name
-    .split(new RegExp(`(${keyword})`, 'gi'))
-    .map((part, index) =>
-      part.toLowerCase() === keyword.toLowerCase() ? (
-        <HighlightText key={index}>{part}</HighlightText>
-      ) : (
-        part
-      ),
-    );
-
   return (
     <>
       <SearchItemWrapper key={searchResult.name}>
-        <Text>{nameParts}</Text>
+        <Text>{highlightKeyword(searchResult.name, keyword)}</Text>
         <Text size="sm" color="btn-gray">
           {searchResult.newAddressList.newAddress[0].fullAddressRoad}
         </Text>
@@ -31,10 +22,6 @@ const SearchItem = ({ keyword, searchResult }: SearchItemProps) => {
     </>
   );
 };
-
-const HighlightText = styled.p`
-  color: ${({ theme }) => theme.blue100};
-`;
 
 const SearchItemWrapper = styled.li`
   display: flex;
