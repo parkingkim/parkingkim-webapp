@@ -16,40 +16,36 @@ const SearchContent = ({ reduceHeight, showResult }: SearchContentProps) => {
   const { isResultVisible, result, handleSearchWord, searchResults, drawMarker, searchKeyword } =
     useSearch(showResult);
 
+  if (isResultVisible) return <ResultContent result={result!} />;
+
   return (
-    <>
-      {isResultVisible ? (
-        <ResultContent result={result!} />
-      ) : (
-        <SearchContainer>
-          <SearchBarWrapper>
-            <BackIcon onClick={reduceHeight} role="button" />
-            <SearchBar isFocused={true} onChangeSearchKeyword={handleSearchWord} />
-            <SearchOptionWrapper>
-              <HomeAndCompany>
-                <FavButton>
-                  <HomeIcon />
-                  <Text color="btn-gray">집</Text>
-                </FavButton>
-                <FavButton>
-                  <CompanyIcon />
-                  <Text color="btn-gray">회사</Text>
-                </FavButton>
-              </HomeAndCompany>
-              <SearchFilter />
-            </SearchOptionWrapper>
-          </SearchBarWrapper>
-          <ThickBar />
-          <ResultContainer>
-            {searchResults.map((result) => (
-              <SearchButton onClick={() => drawMarker(result)}>
-                <SearchItem keyword={searchKeyword} searchResult={result} />
-              </SearchButton>
-            ))}
-          </ResultContainer>
-        </SearchContainer>
-      )}
-    </>
+    <SearchContainer>
+      <SearchBarWrapper>
+        <BackIcon onClick={reduceHeight} role="button" />
+        <SearchBar isFocused={true} onChangeSearchKeyword={handleSearchWord} />
+        <SearchOptionWrapper>
+          <HomeAndCompany>
+            <FavButton>
+              <HomeIcon />
+              <Text color="btn-gray">집</Text>
+            </FavButton>
+            <FavButton>
+              <CompanyIcon />
+              <Text color="btn-gray">회사</Text>
+            </FavButton>
+          </HomeAndCompany>
+          <SearchFilter />
+        </SearchOptionWrapper>
+      </SearchBarWrapper>
+      <ThickBar />
+      <ResultContainer>
+        {searchResults.map((result) => (
+          <SearchButton onClick={() => drawMarker(result)}>
+            <SearchItem keyword={searchKeyword} searchResult={result} />
+          </SearchButton>
+        ))}
+      </ResultContainer>
+    </SearchContainer>
   );
 };
 
