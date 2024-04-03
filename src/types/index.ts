@@ -16,4 +16,6 @@ export interface SearchResult {
       fullAddressRoad: string;
     }[];
   };
+  noorLat: string;
+  noorLon: string;
 }
