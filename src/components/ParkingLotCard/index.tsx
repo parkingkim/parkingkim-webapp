@@ -1,19 +1,33 @@
 import styled from 'styled-components';
 import Badge, { BadgeProps } from './Badge';
 import { PictureIcon, StarFilledIcon, StarIcon } from '@assets/index';
+import { Dispatch, SetStateAction } from 'react';
 
 interface CardProps extends BadgeProps {
   title: string;
   imgUrl?: string;
   isFavorite: boolean;
+  goToResult: Dispatch<SetStateAction<boolean>>;
 }
 
-const ParkingLotCard = ({ title, imgUrl, price, ETA, parkingType, isFavorite }: CardProps) => {
+const ParkingLotCard = ({
+  title,
+  imgUrl,
+  price,
+  ETA,
+  parkingType,
+  isFavorite,
+  goToResult,
+}: CardProps) => {
   return (
-    <CardContainer>
+    <CardContainer onClick={() => goToResult(true)}>
       <CardInfoContainer>
         <CardThumbnail>
-          {imgUrl ? <img src={imgUrl} alt={imgUrl} /> : <PictureIcon />}
+          {imgUrl ? (
+            <img src={imgUrl} alt={imgUrl} style={{ borderRadius: '10px' }} />
+          ) : (
+            <PictureIcon />
+          )}
         </CardThumbnail>
         <CardInfoWrapper>
           <Title>{title}</Title>
@@ -26,14 +40,15 @@ const ParkingLotCard = ({ title, imgUrl, price, ETA, parkingType, isFavorite }: 
 };
 
 const CardContainer = styled.article`
+  box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-width: 375px;
   padding: 20px 14px;
   flex-direction: row;
   justify-content: space-between;
-
-  background: rgb(217 217 217 / 23%);
+  border-radius: 10px;
+  box-shadow: 4px 4px 10px 1px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 `;
 
 const CardThumbnail = styled.div`
@@ -57,6 +72,7 @@ const Title = styled.h2`
   font-style: normal;
   line-height: normal;
   letter-spacing: -0.48px;
+  text-align: left;
 `;
 
 const CardInfoWrapper = styled.div`

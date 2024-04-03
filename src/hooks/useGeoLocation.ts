@@ -63,7 +63,8 @@ const useGeoLocation = () => {
       setUserMarker(
         new Tmapv3.Marker({
           position: userCoords,
-          icon: 'src/assets/react.svg',
+          icon: 'src/assets/user-location.svg',
+          iconSize: new Tmapv3.Size(42, 42),
           map: mapInstance,
         }),
       );
@@ -85,7 +86,7 @@ const useGeoLocation = () => {
     );
   };
 
-  return { makeUserMaker };
+  return { makeUserMaker, location };
 };
 
 export default useGeoLocation;
