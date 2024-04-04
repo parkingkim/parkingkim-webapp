@@ -219,11 +219,11 @@ const Signup = () => {
 
 const Label = styled.label`
   align-self: start;
-  white-space: pre-line;
-  letter-spacing: -3%;
 
   font-size: 24px;
   font-weight: bold;
+  letter-spacing: -3%;
+  white-space: pre-line;
   text-align: start;
 
   & > span {
@@ -233,6 +233,7 @@ const Label = styled.label`
 
 const Slide = styled.div`
   max-width: 95%;
+
   & > p {
     margin-top: 10px;
     margin-left: 30px;
@@ -262,6 +263,7 @@ const CloseContainer = styled.div`
 const DotsContainer = styled.div`
   height: 10px;
   pointer-events: none;
+
   top: 3rem;
 
   & > li {

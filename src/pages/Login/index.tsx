@@ -82,14 +82,15 @@ const Login = () => {
 
 const NonMemberButton = styled.button`
   align-self: end;
+
   color: #ababab;
 `;
 
 const SocialAccountsContainer = styled.div`
   display: flex;
+  padding: 20px 0;
   justify-content: center;
   gap: 15px;
-  padding: 20px 0;
 
   & > svg {
     cursor: pointer;
@@ -112,6 +113,7 @@ const Header = styled.header`
 
   & > h2 {
     margin-top: 20px;
+
     color: #ababab;
     font-size: 14px;
     font-weight: 400;
@@ -131,12 +133,14 @@ const Input = styled.input`
   height: 50px;
   padding: 0 15px;
 
-  border-radius: 10px;
   background-color: #f5f5f5;
   border: 0;
 
-  font-size: 14px;
+  border-radius: 10px;
+
   color: #ababab;
+
+  font-size: 14px;
 
   &::placeholder {
     color: ${({ theme }) => theme.gray};
@@ -147,6 +151,7 @@ const Input = styled.input`
 
     outline: none;
   }
+
   &:last-of-type {
     margin-bottom: 20px;
   }
@@ -161,6 +166,7 @@ const OptionContainer = styled.div`
   & > button {
     height: 17px;
     padding: 0;
+    padding: 0 10px;
 
     background-color: transparent;
     border: 0;
@@ -170,7 +176,6 @@ const OptionContainer = styled.div`
     font-size: 14px;
     font-weight: 500;
     outline: 0;
-    padding: 0 10px;
 
     &:not(:first-child) {
       border-left: 1px solid ${({ theme }) => theme.gray};
@@ -187,10 +192,11 @@ const Footer = styled.footer`
 
 const Title = styled.div`
   display: flex;
+  margin-top: 20px;
   justify-content: space-between;
+
   color: #848484;
   font-size: 14px;
-  margin-top: 20px;
 
   & > hr {
     width: 30%;

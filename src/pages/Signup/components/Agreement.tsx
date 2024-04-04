@@ -69,6 +69,7 @@ const Wrapper = styled.section`
 
   & > h1 {
     margin-bottom: 30px;
+
     font-size: 20px;
   }
 `;

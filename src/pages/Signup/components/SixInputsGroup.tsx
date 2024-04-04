@@ -71,16 +71,16 @@ const Timer = styled.span`
 
 const Numbers = styled.div`
   display: flex;
-  margin-top: 20px;
-  gap: 10px;
   width: 100%;
+  margin-top: 20px;
   justify-content: space-between;
+  gap: 10px;
 `;
 
 const NumberInput = styled.input`
-  min-width: 45px;
   width: 20%;
   height: 50px;
+  min-width: 45px;
 
   border: 0;
   border-bottom: 2px solid #ababab;
@@ -90,9 +90,10 @@ const NumberInput = styled.input`
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    appearance: none;
     margin: 0;
   }
+
   &:focus {
     border-color: #2e2e2e;
   }

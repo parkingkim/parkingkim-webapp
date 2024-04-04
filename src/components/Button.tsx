@@ -29,7 +29,7 @@ const Button = styled.button<ButtonProps>`
 
   border: 0;
   border-radius: 10px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px rgb(0 0 0 / 20%);
 
   color: white;
   font-size: 20px;
@@ -41,6 +41,7 @@ const Button = styled.button<ButtonProps>`
 
   &:disabled {
     opacity: 0.5;
+
     background-color: #848484;
     cursor: not-allowed;
   }
