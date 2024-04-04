@@ -37,8 +37,12 @@ const Button = styled.button<ButtonProps>`
 
   border: 0;
   border-radius: 10px;
+<<<<<<< HEAD
 
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+=======
+  box-shadow: 2px 2px 4px rgb(0 0 0 / 20%);
+>>>>>>> 7f6106b (style: stylelint 구동)
 
   color: white;
   font-size: 20px;
