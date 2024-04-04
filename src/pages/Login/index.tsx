@@ -34,7 +34,7 @@ const Login = () => {
           <br /> 주차 생활을 시작해요!
         </h1>
         <h2>
-          • 파킹킴은 목적지와 사용자의 취향을 분석해 가장 적합한 주차장을 추천해 드려요. <br />•
+          파킹킴은 목적지와 사용자의 취향을 분석해 가장 적합한 주차장을 추천해 드려요. <br />
           파킹킴은 주차장뿐 아니라 목적지까지의 경로도 알려드려요.
         </h2>
       </Header>
@@ -153,12 +153,10 @@ const Input = styled.input`
 `;
 
 const OptionContainer = styled.div`
-  display: grid;
-  width: 40%;
+  display: flex;
   height: 15px;
   margin: 20px;
   align-self: center;
-  grid-template-columns: repeat(2, 1fr);
 
   & > button {
     height: 17px;
@@ -172,6 +170,7 @@ const OptionContainer = styled.div`
     font-size: 14px;
     font-weight: 500;
     outline: 0;
+    padding: 0 10px;
 
     &:not(:first-child) {
       border-left: 1px solid ${({ theme }) => theme.gray};
@@ -182,7 +181,6 @@ const OptionContainer = styled.div`
 const Footer = styled.footer`
   display: flex;
   width: 80%;
-  padding: 2rem 0;
   flex-direction: column;
   align-self: center;
 `;
@@ -192,6 +190,7 @@ const Title = styled.div`
   justify-content: space-between;
   color: #848484;
   font-size: 14px;
+  margin-top: 20px;
 
   & > hr {
     width: 30%;

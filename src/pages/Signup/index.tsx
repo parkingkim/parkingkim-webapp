@@ -113,7 +113,12 @@ const Signup = () => {
         <Slide key="nameSlide">
           <MonoInputGroup
             id="name"
-            label={'파킹킴과 함께 할 \n이름을 알려주세요!'}
+            label={
+              <Label>
+                파킹킴과 함께 할 <br />
+                <span>이름</span>을 알려주세요!
+              </Label>
+            }
             type="text"
             value={name}
             clear={clear}
@@ -124,7 +129,13 @@ const Signup = () => {
         <Slide key="emailSlide">
           <MonoInputGroup
             id="email"
-            label={'아이디로 사용할\n 이메일을 입력해주세요!'}
+            label={
+              <Label>
+                아이디로 사용할
+                <br />
+                <span>이메일</span>을 입력해주세요!
+              </Label>
+            }
             type="text"
             value={email}
             clear={clear}
@@ -136,7 +147,13 @@ const Signup = () => {
         <Slide key="numbersSlide">
           <SixInputsGroup
             id="numbers"
-            label={'본인확인을 위해\n이메일로 인증번호를 전송했어요!'}
+            label={
+              <Label>
+                본인확인을 위해 <br />
+                이메일로&nbsp;
+                <span>인증번호</span> 를 전송했어요!
+              </Label>
+            }
             numbers={numbers}
             inputRefs={inputRefs}
             onChange={moveNumbersFocus}
@@ -145,7 +162,13 @@ const Signup = () => {
         <Slide key="passwordSlide">
           <MonoInputGroup
             id="password"
-            label={'보안을 위해 사용할\n 비밀번호를 입력해주세요!'}
+            label={
+              <Label>
+                보안을 위해 사용할
+                <br />
+                <span>비밀번호</span>를 입력해주세요!
+              </Label>
+            }
             type="password"
             value={password}
             clear={clear}
@@ -161,14 +184,22 @@ const Signup = () => {
         <Slide key="againPasswordSlide">
           <MonoInputGroup
             id="againPassword"
-            label={'확인을 위해\n 재입력해주세요!'}
+            label={
+              <Label>
+                확인을 위해
+                <br />
+                <span>재입력</span>해주세요!
+              </Label>
+            }
             type="password"
             value={againPassword}
             clear={clear}
             onChange={changeValue}
             placeholder="비밀번호 재입력"
           />
-          {!isValidAgainPassword(againPassword, password) && <p>비밀번호가 일치하지 않습니다.</p>}
+          {againPassword.length !== 0 && !isValidAgainPassword(againPassword, password) && (
+            <p>비밀번호가 일치하지 않습니다.</p>
+          )}
         </Slide>
       </Slider>
       <Button width="90%" onClick={slickNext} disabled={!canSlickNext()}>
@@ -185,6 +216,20 @@ const Signup = () => {
     </>
   );
 };
+
+const Label = styled.label`
+  align-self: start;
+  white-space: pre-line;
+  letter-spacing: -3%;
+
+  font-size: 24px;
+  font-weight: bold;
+  text-align: start;
+
+  & > span {
+    color: #0dc5ff;
+  }
+`;
 
 const Slide = styled.div`
   max-width: 95%;

@@ -1,10 +1,10 @@
 import { CheckIcon } from '@assets/index';
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface SixInputsGroupProps {
   id: string;
-  label: string;
+  label: ReactNode;
   numbers: number[];
   inputRefs: React.RefObject<HTMLInputElement>[];
   onChange: (index: number) => ChangeEventHandler;
@@ -13,7 +13,7 @@ interface SixInputsGroupProps {
 const SixInputsGroup = ({ id, label, numbers, inputRefs, onChange }: SixInputsGroupProps) => {
   return (
     <Group>
-      <Label>{label}</Label>
+      {label}
       <Timer>2분13초</Timer>
       <Numbers>
         {[...Array(6)].map((_, index) => (
@@ -46,14 +46,6 @@ const Group = styled.section`
   align-items: center;
 
   position: relative;
-`;
-
-const Label = styled.label`
-  align-self: start;
-  white-space: pre-line;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: start;
 `;
 
 const ResendButton = styled.button`
@@ -91,7 +83,7 @@ const NumberInput = styled.input`
   height: 50px;
 
   border: 0;
-  border-bottom: 1px solid #120924;
+  border-bottom: 2px solid #ababab;
 
   font-size: 40px;
   text-align: center;
@@ -100,6 +92,9 @@ const NumberInput = styled.input`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+  &:focus {
+    border-color: #2e2e2e;
   }
 `;
 
