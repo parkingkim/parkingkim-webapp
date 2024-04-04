@@ -93,7 +93,6 @@ const NumberInput = styled.input`
     appearance: none;
     margin: 0;
   }
-
   &:focus {
     border-color: #2e2e2e;
   }

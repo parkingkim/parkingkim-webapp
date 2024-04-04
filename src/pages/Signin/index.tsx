@@ -188,6 +188,7 @@ const OptionContainer = styled.div`
     font-size: 14px;
     font-weight: 500;
     outline: 0;
+    padding: 0 10px;
 
     &:not(:first-child) {
       border-left: 1px solid ${({ theme }) => theme.gray};
@@ -209,6 +210,7 @@ const Title = styled.div`
 
   color: #848484;
   font-size: 14px;
+  margin-top: 20px;
 
   & > hr {
     width: 30%;
