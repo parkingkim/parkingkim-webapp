@@ -108,7 +108,15 @@ const useSearch = (showResult: () => void) => {
     setIsResultVisible(true);
   };
 
-  return { searchResults, isResultVisible, result, drawMarker, handleSearchWord, searchKeyword };
+  return {
+    searchResults,
+    isResultVisible,
+    setIsResultVisible,
+    result,
+    drawMarker,
+    handleSearchWord,
+    searchKeyword,
+  };
 };
 
 export default useSearch;
