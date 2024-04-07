@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-type ButtonColor = 'primary' | 'secondary' | 'teritiary';
+type ButtonColor = 'primary' | 'secondary' | 'tertiary';
 
 interface ButtonProps {
   width?: string;
@@ -14,7 +14,7 @@ const getButtonColor = (color: ButtonColor) => {
       return '#0DC5FF';
     case 'secondary':
       return '#bdc4cb';
-    case 'teritiary':
+    case 'tertiary':
       return '#5639ff';
   }
 };
