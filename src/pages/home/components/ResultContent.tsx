@@ -1,8 +1,13 @@
+import { BackIcon } from '@assets/index';
 import ParkingLotCard from '@components/ParkingLotCard';
 import Text from '@components/Text';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { SearchResult } from 'src/types';
 import styled from 'styled-components';
+import ParkingLotContent from './ParkingLotContent';
+import ZoomButtons from './ZoomButtons';
+import useMapStore from '@store/mapStore';
+import useBottomSheetStore from '@store/bottomSheetStore';
 
 const mockLots = [
   {
@@ -81,40 +86,67 @@ const mockLots = [
 
 interface ResultContentProps {
   result: SearchResult;
+  setIsResultVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-const ResultContent = ({ result }: ResultContentProps) => {
-  // TODO: 바텀싯 높이 관련 로직을 전역으로 바꿔야 구현에 용이할듯 함
+const ResultContent = ({ result, setIsResultVisible }: ResultContentProps) => {
   // 아래 상태는 이후 경로 안내에 필요한 상태입니다.
   const [isSelect, setIsSelect] = useState(false);
+  const { setHeight, fillHeight } = useBottomSheetStore();
+  const { mapInstance } = useMapStore();
+
+  useEffect(() => {
+    setHeight(window.innerHeight * 0.4);
+  }, []);
+
+  const goBackToSearch = () => {
+    fillHeight();
+    setIsResultVisible(false);
+  };
+
+  if (isSelect) return <ParkingLotContent result={result} goBack={setIsSelect} />;
+
   return (
-    <>
-      <ResultContainer>
-        <Handle />
-        <DestinationWrapper>
-          <Text fontStyle="bold" size="xl">
-            목적지
-          </Text>
-          <Text>{result.name}</Text>
-          <Text color="btn-gray">{result.newAddressList.newAddress[0].fullAddressRoad}</Text>
-        </DestinationWrapper>
-        <CardContainer>
-          {mockLots.map((lot) => (
-            <ParkingLotCard
-              title={lot.title}
-              price={lot.price}
-              ETA={lot.ETA}
-              parkingType={lot.parkingType}
-              imgUrl={lot.imgUrl}
-              isFavorite={lot.isFavorite}
-              goToResult={setIsSelect}
-            />
-          ))}
-        </CardContainer>
-      </ResultContainer>
-    </>
+    <ResultContainer>
+      <ButtonContainer>
+        <BackButton onClick={goBackToSearch}>
+          <BackIcon />
+        </BackButton>
+        <ZoomButtons mapInstance={mapInstance} />
+      </ButtonContainer>
+      <Handle />
+      <DestinationWrapper>
+        <Text fontStyle="bold" size="xl">
+          목적지
+        </Text>
+        <Text>{result.name}</Text>
+        <Text color="btn-gray">{result.newAddressList.newAddress[0].fullAddressRoad}</Text>
+      </DestinationWrapper>
+      <CardContainer>
+        {mockLots.map((lot) => (
+          <ParkingLotCard
+            title={lot.title}
+            price={lot.price}
+            ETA={lot.ETA}
+            parkingType={lot.parkingType}
+            imgUrl={lot.imgUrl}
+            isFavorite={lot.isFavorite}
+            goToResult={setIsSelect}
+          />
+        ))}
+      </CardContainer>
+    </ResultContainer>
   );
 };
+
+const BackButton = styled.button`
+  position: absolute;
+  bottom: 20vh;
+  left: 0;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
+`;
 
 const Handle = styled.div`
   width: 45px;
@@ -142,6 +174,11 @@ const DestinationWrapper = styled.div`
   & > :first-child {
     margin-bottom: 8px;
   }
+`;
+
+const ButtonContainer = styled.div`
+  position: absolute;
+  top: -120px;
 `;
 
 export default ResultContent;

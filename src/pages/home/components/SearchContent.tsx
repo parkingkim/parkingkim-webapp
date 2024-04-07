@@ -6,13 +6,14 @@ import styled from 'styled-components';
 import ResultContent from './ResultContent';
 import useSearch from '../../../hooks/useSearch';
 import Text from '@components/Text';
+import useBottomSheetStore from '@store/bottomSheetStore';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 interface SearchContentProps {
-  reduceHeight: () => void;
-  showResult: () => void;
+  setIsExpanded: Dispatch<SetStateAction<boolean>>;
 }
 
-const SearchContent = ({ reduceHeight, showResult }: SearchContentProps) => {
+const SearchContent = ({ setIsExpanded }: SearchContentProps) => {
   const {
     isResultVisible,
     setIsResultVisible,
@@ -21,7 +22,15 @@ const SearchContent = ({ reduceHeight, showResult }: SearchContentProps) => {
     searchResults,
     drawMarker,
     searchKeyword,
-  } = useSearch(showResult);
+  } = useSearch();
+
+  const { fillHeight } = useBottomSheetStore();
+
+  useEffect(() => fillHeight, []);
+
+  const goBackInitial = () => {
+    setIsExpanded(false);
+  };
 
   if (isResultVisible)
     return <ResultContent result={result!} setIsResultVisible={setIsResultVisible} />;
@@ -29,8 +38,12 @@ const SearchContent = ({ reduceHeight, showResult }: SearchContentProps) => {
   return (
     <SearchContainer>
       <SearchBarWrapper>
-        <BackIcon onClick={reduceHeight} role="button" />
-        <SearchBar isFocused={true} onChangeSearchKeyword={handleSearchWord} />
+        <BackIcon onClick={goBackInitial} role="button" />
+        <SearchBar
+          isFocused={true}
+          expandHeight={fillHeight}
+          onChangeSearchKeyword={handleSearchWord}
+        />
         <SearchOptionWrapper>
           <HomeAndCompany>
             <FavButton>

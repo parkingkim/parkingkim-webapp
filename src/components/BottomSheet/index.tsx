@@ -1,24 +1,10 @@
-import { MouseEvent, PropsWithChildren, TouchEvent, useEffect } from 'react';
+import { MouseEvent, PropsWithChildren, TouchEvent } from 'react';
 import styled from 'styled-components';
-import useDraggable from './hook/useDraggable';
+import useBottomSheetStore from '@store/bottomSheetStore';
 
-interface BottomSheetProps extends PropsWithChildren {
-  isExpanded?: boolean;
-  isResult?: boolean;
-}
-
-const BottomSheet = ({ isExpanded, isResult, children }: BottomSheetProps) => {
-  const initialHeight = window.innerHeight * 0.6;
-  const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight, fillHeight } =
-    useDraggable(initialHeight);
-
-  useEffect(() => {
-    isExpanded ? fillHeight() : toggleHeight();
-  }, [isExpanded]);
-
-  useEffect(() => {
-    isResult && toggleHeight();
-  }, [isResult]);
+const BottomSheet = ({ children }: PropsWithChildren) => {
+  const { height, handleDragStart, handleDragMove, handleDragEnd, toggleHeight } =
+    useBottomSheetStore();
 
   const handleEvent =
     (handler: (clientY: number) => void) =>
@@ -32,7 +18,7 @@ const BottomSheet = ({ isExpanded, isResult, children }: BottomSheetProps) => {
   };
 
   return (
-    <BottomSheetContainer $height={height} $isExpanded={isExpanded} $isResult={isResult}>
+    <BottomSheetContainer $height={height} $isExpanded={height == window.innerHeight}>
       <DragHandle
         onMouseDown={handleEvent(handleDragStart)}
         onTouchStart={handleEvent(handleDragStart)}
@@ -47,8 +33,7 @@ const BottomSheet = ({ isExpanded, isResult, children }: BottomSheetProps) => {
 
 const BottomSheetContainer = styled.div<{
   $height: number;
-  $isExpanded?: boolean;
-  $isResult?: boolean;
+  $isExpanded: boolean;
 }>`
   box-sizing: border-box;
   width: 100%;
@@ -57,8 +42,7 @@ const BottomSheetContainer = styled.div<{
 
   background-color: #fff;
 
-  ${({ $isExpanded, $isResult }) =>
-    (!$isExpanded || ($isExpanded && $isResult)) && 'border-radius: 10px 10px 0 0;'}
+  ${({ $isExpanded }) => !$isExpanded && 'border-radius: 10px 10px 0 0;'}
 
   box-shadow: 0 -1px 10px 1px rgb(0 0 0 / 25%);
 

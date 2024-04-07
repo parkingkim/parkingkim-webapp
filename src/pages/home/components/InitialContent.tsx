@@ -4,11 +4,12 @@ import SearchBar from '@components/SearchBar';
 import { Dispatch, SetStateAction } from 'react';
 import Text from '@components/Text';
 import useAddressStore from '@store/addressStore';
-import { CurLocationIcon, ZoomInIcon, ZoomOutIcon } from '@assets/index';
+import { CurLocationIcon } from '@assets/index';
 import useGeoLocation from '@hooks/useGeoLocation';
 import useMapStore from '@store/mapStore';
 import SearchFilter from './SearchFilter';
 import { useNavigate } from 'react-router-dom';
+import ZoomButtons from './ZoomButtons';
 
 interface InitialContentProps {
   setExpanded: Dispatch<SetStateAction<boolean>>;
@@ -26,14 +27,7 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
   return (
     <InitialContentContainer>
       <ActionButtonContainer>
-        <ZoomButtonContainer>
-          <button onClick={() => mapInstance?.zoomIn()}>
-            <ZoomInIcon />
-          </button>
-          <button onClick={() => mapInstance?.zoomOut()}>
-            <ZoomOutIcon />
-          </button>
-        </ZoomButtonContainer>
+        <ZoomButtons mapInstance={mapInstance} />
         <CurLocationButton onClick={makeUserMaker}>
           <CurLocationIcon />
         </CurLocationButton>
@@ -173,36 +167,6 @@ const CurLocationButton = styled.button`
   background-color: #f5f5f5;
   border-radius: 10px;
   box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
-`;
-
-const ZoomButtonContainer = styled.div`
-  display: flex;
-  height: fit-content;
-  flex-direction: column;
-
-  border-radius: 10px;
-  box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
-
-  & > :first-child {
-    display: flex;
-    padding: 12px;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #f5f5f5;
-    border-radius: 10px 10px 0 0;
-    border-bottom: 1px solid #d5d5d5;
-  }
-
-  & > :last-child {
-    display: flex;
-    padding: 16px 12px;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #f5f5f5;
-    border-radius: 0 0 10px 10px;
-  }
 `;
 
 export default InitialContent;

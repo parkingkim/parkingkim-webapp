@@ -1,25 +1,22 @@
 import BottomSheet from '@components/BottomSheet';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchContent from './components/SearchContent';
 import InitialContent from './components/InitialContent';
+import useBottomSheetStore from '@store/bottomSheetStore';
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isResult, setIsResult] = useState(false);
+  const { toggleHeight } = useBottomSheetStore();
 
-  const reduceHeight = () => {
-    setIsExpanded(false);
-  };
-
-  const showResult = () => {
-    setIsResult(true);
-  };
+  useEffect(() => {
+    !isExpanded && toggleHeight();
+  }, [isExpanded]);
 
   return (
     <>
-      <BottomSheet isExpanded={isExpanded} isResult={isResult}>
+      <BottomSheet>
         {isExpanded ? (
-          <SearchContent reduceHeight={reduceHeight} showResult={showResult} />
+          <SearchContent setIsExpanded={setIsExpanded} />
         ) : (
           <InitialContent setExpanded={setIsExpanded} />
         )}
