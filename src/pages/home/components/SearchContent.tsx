@@ -4,7 +4,7 @@ import SearchItem from '@components/SearchItem';
 import SearchFilter from '@pages/Home/components/SearchFilter';
 import styled from 'styled-components';
 import ResultContent from './ResultContent';
-import useSearch from '../hooks/useSearch';
+import useSearch from '../../../hooks/useSearch';
 import Text from '@components/Text';
 
 interface SearchContentProps {
@@ -13,10 +13,18 @@ interface SearchContentProps {
 }
 
 const SearchContent = ({ reduceHeight, showResult }: SearchContentProps) => {
-  const { isResultVisible, result, handleSearchWord, searchResults, drawMarker, searchKeyword } =
-    useSearch(showResult);
+  const {
+    isResultVisible,
+    setIsResultVisible,
+    result,
+    handleSearchWord,
+    searchResults,
+    drawMarker,
+    searchKeyword,
+  } = useSearch(showResult);
 
-  if (isResultVisible) return <ResultContent result={result!} />;
+  if (isResultVisible)
+    return <ResultContent result={result!} setIsResultVisible={setIsResultVisible} />;
 
   return (
     <SearchContainer>
