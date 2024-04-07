@@ -3,9 +3,10 @@ import Button from '@components/Button';
 import { isValidEmail, isValidPassword } from '@utils/index';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../../apis/axios';
 import styled from 'styled-components';
 
-const Login = () => {
+const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -18,8 +19,15 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const enter = () => {
-    // TODO: 로그인 성공 혹은 실패로직
+  const postSignIn = () => {
+    return api.post('/signin', { email: email, password: password });
+  };
+
+  const enter = async () => {
+    console.log('^^');
+    const response = await postSignIn();
+
+    console.log(response);
   };
 
   const goSignup = () => {
@@ -56,7 +64,11 @@ const Login = () => {
           maxLength={20}
           onChange={typePassword}
         />
-        <Button width={'80%'} disabled={!(isValidEmail(email) && isValidPassword(password))}>
+        <Button
+          width={'80%'}
+          disabled={!(isValidEmail(email) && isValidPassword(password))}
+          onClick={enter}
+        >
           다음
         </Button>
       </Form>
@@ -207,4 +219,4 @@ const Title = styled.div`
   }
 `;
 
-export default Login;
+export default Signin;

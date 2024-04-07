@@ -18,6 +18,7 @@ import {
   isValidPassword,
 } from '@utils/index';
 import Agreement from './components/Agreement';
+import usePostSignup from './hooks/usePostSignup';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -38,14 +39,15 @@ const Signup = () => {
   const 마케팅동의 = useBoolean();
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
+  const { mutate } = usePostSignup();
 
   const moveNumbersFocus = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
     changeNumbers(index)(e.target.valueAsNumber);
     moveFocus(index);
   };
 
-  const goLogin = () => {
-    navigate('/login');
+  const goSignin = () => {
+    navigate('/Signin');
   };
 
   const slickEmail = () => {
@@ -71,7 +73,7 @@ const Signup = () => {
         sliderRef.current.slickNext();
         break;
       case SLIDE_INDEX.againPassword:
-        navigate('/onboarding/start');
+        mutate({ name, email, password, nickname: 'f' });
     }
   };
 
@@ -106,7 +108,7 @@ const Signup = () => {
 
   return (
     <>
-      <CloseContainer onClick={goLogin}>
+      <CloseContainer onClick={goSignin}>
         <CloseIcon />
       </CloseContainer>
       <Slider {...sliderSettings} ref={sliderRef}>

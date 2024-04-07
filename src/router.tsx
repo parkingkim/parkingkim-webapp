@@ -1,6 +1,5 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 import MobileView from '@components/MobileView';
-import Login from '@pages/Login';
 import Menu from '@pages/Menu';
 import Coupons from '@pages/Menu/Coupons';
 import FrequentDestinations from '@pages/Menu/FrequentDestinations';
@@ -21,6 +20,7 @@ import Profile from '@pages/Menu/Profile';
 import Signup from '@pages/Signup';
 import Map from '@components/Map';
 import BottomTabBar from '@components/BottomTabBar';
+import Signin from '@pages/Signin';
 
 const Root = () => {
   return (
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     children: [
-      { path: '/login', element: <Login /> },
+      { path: '/signin', element: <Signin /> },
       { path: '/signup', element: <Signup /> },
       { path: '/onboarding', element: <OnBoarding /> },
       { path: '/onboarding/start', element: <OnboardingStart /> },
