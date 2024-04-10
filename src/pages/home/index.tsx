@@ -5,15 +5,21 @@ import InitialContent from './components/InitialContent';
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isResult, setIsResult] = useState(false);
+
   const reduceHeight = () => {
     setIsExpanded(false);
   };
 
+  const showResult = () => {
+    setIsResult(true);
+  };
+
   return (
     <>
-      <BottomSheet isExpanded={isExpanded}>
+      <BottomSheet isExpanded={isExpanded} isResult={isResult}>
         {isExpanded ? (
-          <SearchContent reduceHeight={reduceHeight} />
+          <SearchContent reduceHeight={reduceHeight} showResult={showResult} />
         ) : (
           <InitialContent setExpanded={setIsExpanded} />
         )}
