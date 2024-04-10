@@ -1,10 +1,10 @@
 import { CloseIcon } from '@assets/index';
-import { ChangeEventHandler, MouseEventHandler } from 'react';
+import { ChangeEventHandler, MouseEventHandler, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface MonoInputGroup {
   id: string;
-  label: string;
+  label: ReactNode;
   type: string;
   value: string;
   placeholder: string;
@@ -23,7 +23,7 @@ const MonoInputGroup = ({
 }: MonoInputGroup) => {
   return (
     <Group>
-      <Label>{label}</Label>
+      {label}
       <MonoInput
         id={id}
         type={type}
@@ -49,15 +49,6 @@ const Group = styled.section`
   align-items: center;
 
   position: relative;
-`;
-
-const Label = styled.label`
-  align-self: start;
-  white-space: pre-line;
-
-  font-size: 24px;
-  font-weight: bold;
-  text-align: start;
 `;
 
 const MonoInput = styled.input`

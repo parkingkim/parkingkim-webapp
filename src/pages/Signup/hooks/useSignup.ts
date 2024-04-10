@@ -7,8 +7,8 @@ const useSignup = () => {
   const [password, setPassword] = useState('');
   const [againPassword, setAgainPassword] = useState('');
 
-  const changeNumbers = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
-    numbers[index] = e.target.valueAsNumber;
+  const changeNumbers = (index: number) => (value: number) => {
+    numbers[index] = value;
     setNumbers([...numbers]);
   };
 
