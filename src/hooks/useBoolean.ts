@@ -1,6 +1,13 @@
 import { useCallback, useState } from 'react';
 
-const useBoolean = (initialValue = false) => {
+export interface UseBoolean {
+  value: boolean;
+  on: () => void;
+  off: () => void;
+  toggle: () => void;
+}
+
+const useBoolean = (initialValue = false): UseBoolean => {
   const [value, setValue] = useState(initialValue);
 
   const on = useCallback(() => {

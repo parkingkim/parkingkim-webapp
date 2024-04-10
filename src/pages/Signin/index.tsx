@@ -1,27 +1,37 @@
-import { REGEX } from '@constants/index';
+import { GoogleLogo, KakaoLogo } from '@assets/index';
+import Button from '@components/Button';
+import { isValidEmail, isValidPassword } from '@utils/index';
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { api } from '../../apis/axios';
 import styled from 'styled-components';
 
-// TODO: 유효성 규칙대로 설정
-const isValidId = (id: string) => id.length > 5 && REGEX.id.test(id);
-
-// TODO: 유효성 규칙대로 설정
-const isValidPassword = (password: string) => password.length > 7 && REGEX.password.test(password);
-
-const Login = () => {
-  const [id, setId] = useState('');
+const Signin = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const typeId = (e: ChangeEvent<HTMLInputElement>) => {
-    setId(e.target.value);
+  const typeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   const typePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const enter = () => {
-    // TODO: 로그인 성공 혹은 실패로직
+  const postSignIn = () => {
+    return api.post('/signin', { email: email, password: password });
+  };
+
+  const enter = async () => {
+    console.log('^^');
+    const response = await postSignIn();
+
+    console.log(response);
+  };
+
+  const goSignup = () => {
+    navigate('/signup');
   };
 
   return (
@@ -32,18 +42,18 @@ const Login = () => {
           <br /> 주차 생활을 시작해요!
         </h1>
         <h2>
-          • 파킹킴은 목적지와 사용자의 취향을 분석해 가장 적합한 주차장을 추천해 드려요. <br />•
+          파킹킴은 목적지와 사용자의 취향을 분석해 가장 적합한 주차장을 추천해 드려요. <br />
           파킹킴은 주차장뿐 아니라 목적지까지의 경로도 알려드려요.
         </h2>
       </Header>
       <Form onSubmit={enter}>
         <Input
-          id="id"
-          value={id}
-          placeholder="아이디 입력"
-          minLength={5}
-          maxLength={20}
-          onChange={typeId}
+          id="email"
+          value={email}
+          placeholder="이메일 입력"
+          minLength={20}
+          maxLength={50}
+          onChange={typeEmail}
         />
         <Input
           id="password"
@@ -54,11 +64,16 @@ const Login = () => {
           maxLength={20}
           onChange={typePassword}
         />
-        <Button disabled={!(isValidId(id) && isValidPassword(password))}>로그인</Button>
+        <Button
+          width={'80%'}
+          disabled={!(isValidEmail(email) && isValidPassword(password))}
+          onClick={enter}
+        >
+          다음
+        </Button>
       </Form>
       <OptionContainer>
-        <button>회원가입</button>
-        <button>아이디 찾기</button>
+        <button onClick={goSignup}>회원가입</button>
         <button>비밀번호 찾기</button>
       </OptionContainer>
       <Footer>
@@ -67,10 +82,32 @@ const Login = () => {
           소셜 계정으로 로그인
           <hr />
         </Title>
+        <SocialAccountsContainer>
+          <KakaoLogo />
+          <GoogleLogo />
+        </SocialAccountsContainer>
+        <NonMemberButton>비회원으로 접속하기 {'>'}</NonMemberButton>
       </Footer>
     </>
   );
 };
+
+const NonMemberButton = styled.button`
+  align-self: end;
+
+  color: #ababab;
+`;
+
+const SocialAccountsContainer = styled.div`
+  display: flex;
+  padding: 20px 0;
+  justify-content: center;
+  gap: 15px;
+
+  & > svg {
+    cursor: pointer;
+  }
+`;
 
 const Header = styled.header`
   display: flex;
@@ -83,11 +120,15 @@ const Header = styled.header`
     font-size: 24px;
     font-weight: 800;
     line-height: 30px;
+    letter-spacing: -3%;
   }
 
   & > h2 {
-    color: ${({ theme }) => theme.gray};
+    margin-top: 20px;
+
+    color: #ababab;
     font-size: 14px;
+    font-weight: 400;
   }
 `;
 
@@ -104,8 +145,12 @@ const Input = styled.input`
   height: 50px;
   padding: 0 15px;
 
-  border: 1px solid ${({ theme }) => theme.gray};
+  background-color: #f5f5f5;
+  border: 0;
+
   border-radius: 10px;
+
+  color: #ababab;
 
   font-size: 14px;
 
@@ -118,43 +163,30 @@ const Input = styled.input`
 
     outline: none;
   }
-`;
 
-const Button = styled.button<{ disabled: boolean }>`
-  width: 80%;
-  height: 54px;
-  margin-top: 5px;
-
-  background-color: ${({ theme, disabled }) => (disabled ? theme.gray : 'black')};
-  border: none;
-  border-radius: 10px;
-
-  color: white;
-  font-size: 16px;
-
-  &:focus {
-    outline: 0;
+  &:last-of-type {
+    margin-bottom: 20px;
   }
 `;
 
 const OptionContainer = styled.div`
-  display: grid;
-  width: 70%;
+  display: flex;
   height: 15px;
   margin: 20px;
   align-self: center;
-  grid-template-columns: repeat(3, 1fr);
 
   & > button {
     height: 17px;
     padding: 0;
+    padding: 0 10px;
 
     background-color: transparent;
     border: 0;
     border-radius: 0;
 
-    color: ${({ theme }) => theme.gray};
+    color: #ababab;
     font-size: 14px;
+    font-weight: 500;
     outline: 0;
 
     &:not(:first-child) {
@@ -166,19 +198,20 @@ const OptionContainer = styled.div`
 const Footer = styled.footer`
   display: flex;
   width: 80%;
-  padding: 2rem 0;
   flex-direction: column;
   align-self: center;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
 
-  color: ${({ theme }) => theme.gray};
-  font-size: 16px;
+  color: #848484;
+  font-size: 14px;
 
   & > hr {
-    width: 20%;
+    width: 30%;
     height: 1px;
 
     background-color: ${({ theme }) => theme.gray};
@@ -186,4 +219,4 @@ const Title = styled.h1`
   }
 `;
 
-export default Login;
+export default Signin;
