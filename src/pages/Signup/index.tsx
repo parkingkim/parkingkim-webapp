@@ -1,8 +1,8 @@
-import { CheckIcon, CloseIcon } from '@assets/index';
+import { CloseIcon } from '@assets/index';
 import Modal from '@components/Modal';
 import Button from '@components/Button';
 import useBoolean from '@hooks/useBoolean';
-import { ReactElement, useRef, useState } from 'react';
+import { ChangeEvent, ReactElement, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import styled from 'styled-components';
@@ -10,7 +10,15 @@ import useNumbersRefs from './hooks/useNumbersRefs';
 import MonoInputGroup from './components/MonoInputGroup';
 import SixInputsGroup from './components/SixInputsGroup';
 import useSignup from './hooks/useSignup';
-import { REGEX } from '@constants/index';
+import {
+  isValidAgainPassword,
+  isValidEmail,
+  isValidName,
+  isValidNumbers,
+  isValidPassword,
+} from '@utils/index';
+import Agreement from './components/Agreement';
+import usePostSignup from './hooks/usePostSignup';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -31,31 +39,21 @@ const Signup = () => {
   const 마케팅동의 = useBoolean();
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
+  const { mutate } = usePostSignup();
 
-  const sliderSettings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    appendDots: (dots: ReactElement[]) => <DotsContainer>{dots}</DotsContainer>,
-    afterChange: (index: number) => setSlideIndex(index),
-  };
-
-  const moveNumbersFocus = (index: number) => () => {
-    changeNumbers(index);
+  const moveNumbersFocus = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
+    changeNumbers(index)(e.target.valueAsNumber);
     moveFocus(index);
   };
 
-  const goLogin = () => {
-    navigate('/login');
+  const goSignin = () => {
+    navigate('/Signin');
   };
 
-  const openAgreement = () => {
-    if (REGEX.email.test(email)) {
-      isModalOpen.on();
-    }
+  const slickEmail = () => {
+    if (!sliderRef.current) return;
+    sliderRef.current.slickGoTo(SLIDE_INDEX.numbers);
+    isModalOpen.off();
   };
 
   const slickNext = () => {
@@ -66,50 +64,63 @@ const Signup = () => {
         sliderRef.current.slickNext();
         break;
       case SLIDE_INDEX.email:
-        openAgreement();
+        isModalOpen.on();
         break;
       case SLIDE_INDEX.numbers:
-        // TODO: 인증번호 유효성 검사
         sliderRef.current.slickNext();
         break;
       case SLIDE_INDEX.password:
-        // TODO: 비번 유효성 검사
         sliderRef.current.slickNext();
         break;
       case SLIDE_INDEX.againPassword:
-        // TODO: 재입력 비번 검사
-        navigate('/onboarding/start');
+        mutate({ name, email, password, nickname: 'f' });
     }
   };
 
-  const agreeAll = () => {
-    if (서비스동의.value && 본인확인동의.value && 마케팅동의.value) {
-      서비스동의.off();
-      본인확인동의.off();
-      마케팅동의.off();
-      return;
+  const canSlickNext = () => {
+    switch (slideIndex) {
+      case SLIDE_INDEX.name:
+        return isValidName(name);
+      case SLIDE_INDEX.email:
+        return isValidEmail(email);
+      case SLIDE_INDEX.numbers:
+        return isValidNumbers(numbers);
+      case SLIDE_INDEX.password:
+        return isValidPassword(password);
+      case SLIDE_INDEX.againPassword:
+        return isValidAgainPassword(againPassword, password);
+      default:
+        return true;
     }
-    서비스동의.on();
-    본인확인동의.on();
-    마케팅동의.on();
   };
 
-  const slickEmail = () => {
-    if (!sliderRef.current) return;
-    sliderRef.current.slickGoTo(SLIDE_INDEX.numbers);
-    isModalOpen.off();
+  const sliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    touchMove: false,
+    appendDots: (dots: ReactElement[]) => <DotsContainer>{dots}</DotsContainer>,
+    afterChange: (index: number) => setSlideIndex(index),
   };
 
   return (
     <>
-      <CloseContainer onClick={goLogin}>
+      <CloseContainer onClick={goSignin}>
         <CloseIcon />
       </CloseContainer>
       <Slider {...sliderSettings} ref={sliderRef}>
-        <Slide>
+        <Slide key="nameSlide">
           <MonoInputGroup
             id="name"
-            label={'파킹킴과 함께 할 \n이름을 알려주세요!'}
+            label={
+              <Label>
+                파킹킴과 함께 할 <br />
+                <span>이름</span>을 알려주세요!
+              </Label>
+            }
             type="text"
             value={name}
             clear={clear}
@@ -117,33 +128,49 @@ const Signup = () => {
             placeholder="이름 입력"
           />
         </Slide>
-        <Slide>
+        <Slide key="emailSlide">
           <MonoInputGroup
             id="email"
-            label={'회원가입을 위한\n 이메일을 입력해주세요!'}
+            label={
+              <Label>
+                아이디로 사용할
+                <br />
+                <span>이메일</span>을 입력해주세요!
+              </Label>
+            }
             type="text"
             value={email}
             clear={clear}
             onChange={changeValue}
             placeholder="이메일 입력"
           />
-          {!REGEX.email.test(email) && email.length > 0 && (
-            <p>올바른 이메일 형식으로 작성해주세요!</p>
-          )}
+          {!isValidEmail(email) && <p>올바른 이메일 형식으로 작성해주세요!</p>}
         </Slide>
-        <Slide>
+        <Slide key="numbersSlide">
           <SixInputsGroup
             id="numbers"
-            label={'본인확인을 위해\n이메일로 인증번호를 전송했어요!'}
+            label={
+              <Label>
+                본인확인을 위해 <br />
+                이메일로&nbsp;
+                <span>인증번호</span> 를 전송했어요!
+              </Label>
+            }
             numbers={numbers}
             inputRefs={inputRefs}
             onChange={moveNumbersFocus}
           />
         </Slide>
-        <Slide>
+        <Slide key="passwordSlide">
           <MonoInputGroup
             id="password"
-            label={'보안을 위해 비밀번호를 입력해주세요!'}
+            label={
+              <Label>
+                보안을 위해 사용할
+                <br />
+                <span>비밀번호</span>를 입력해주세요!
+              </Label>
+            }
             type="password"
             value={password}
             clear={clear}
@@ -153,62 +180,62 @@ const Signup = () => {
           {password.length === 0 ? (
             <Description>영어 대,소문자 포함 10자 이상</Description>
           ) : (
-            !REGEX.password.test(password) && <p>영어 대,소문자 포함 10자 이상으로 입력해주세요!</p>
+            !isValidPassword(password) && <p>영어 대,소문자 포함 10자 이상으로 입력해주세요!</p>
           )}
         </Slide>
-        <Slide>
+        <Slide key="againPasswordSlide">
           <MonoInputGroup
             id="againPassword"
-            label={'확인을 위해\n 재입력해주세요!'}
+            label={
+              <Label>
+                확인을 위해
+                <br />
+                <span>재입력</span>해주세요!
+              </Label>
+            }
             type="password"
             value={againPassword}
             clear={clear}
             onChange={changeValue}
             placeholder="비밀번호 재입력"
           />
-          {againPassword.length !== 0 && password !== againPassword && (
+          {againPassword.length !== 0 && !isValidAgainPassword(againPassword, password) && (
             <p>비밀번호가 일치하지 않습니다.</p>
           )}
         </Slide>
       </Slider>
-      <Button color="secondary" onClick={slickNext}>
+      <Button width="90%" onClick={slickNext} disabled={!canSlickNext()}>
         다음
       </Button>
       <Modal isOpen={isModalOpen.value} onClick={isModalOpen.off} height="360px">
-        <Agreement>
-          <h1>
-            파킹킴을 사용하기 위해 <br />
-            약관에 동의해주세요!
-          </h1>
-          <AgreeButton
-            isAgreed={서비스동의.value && 본인확인동의.value && 마케팅동의.value}
-            onClick={agreeAll}
-          >
-            <CheckIcon />
-            모두 동의합니다
-          </AgreeButton>
-          <AgreeButton isAgreed={서비스동의.value} onClick={서비스동의.toggle}>
-            <CheckIcon />
-            서비스 관련 이용 약관 (필수)
-          </AgreeButton>
-          <AgreeButton isAgreed={본인확인동의.value} onClick={본인확인동의.toggle}>
-            <CheckIcon />
-            본인확인 서비스 관련 이용 약관 (필수)
-          </AgreeButton>
-          <AgreeButton isAgreed={마케팅동의.value} onClick={마케팅동의.toggle}>
-            <CheckIcon />
-            마케팅 정보 알림 및 수신 동의 (선택)
-          </AgreeButton>
-          <Button color="secondary" onClick={slickEmail}>
-            다음
-          </Button>
-        </Agreement>
+        <Agreement
+          서비스동의={서비스동의}
+          본인확인동의={본인확인동의}
+          마케팅동의={마케팅동의}
+          next={slickEmail}
+        />
       </Modal>
     </>
   );
 };
 
+const Label = styled.label`
+  align-self: start;
+
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: -3%;
+  white-space: pre-line;
+  text-align: start;
+
+  & > span {
+    color: #0dc5ff;
+  }
+`;
+
 const Slide = styled.div`
+  max-width: 95%;
+
   & > p {
     margin-top: 10px;
     margin-left: 30px;
@@ -220,40 +247,6 @@ const Slide = styled.div`
 
 const Description = styled.p`
   color: #d9d9d9 !important;
-`;
-
-const Agreement = styled.section`
-  display: flex;
-  height: 100%;
-  padding: 2rem;
-  flex-direction: column;
-  align-items: flex-start;
-
-  & > h1 {
-    margin-bottom: 20px;
-
-    font-size: 20px;
-  }
-`;
-
-const AgreeButton = styled.button<{ isAgreed: boolean }>`
-  display: flex;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 18px;
-  justify-content: flex-start;
-  align-items: center;
-
-  color: ${({ isAgreed }) => (isAgreed ? 'black' : '#bdc4cb')};
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -1px;
-  gap: 10px;
-
-  & > svg > * {
-    stroke: ${({ isAgreed }) => (isAgreed ? 'black' : '#bdc4cb')};
-    opacity: 0.5;
-  }
 `;
 
 const CloseContainer = styled.div`
@@ -271,6 +264,7 @@ const CloseContainer = styled.div`
 
 const DotsContainer = styled.div`
   height: 10px;
+  pointer-events: none;
 
   top: 3rem;
 
