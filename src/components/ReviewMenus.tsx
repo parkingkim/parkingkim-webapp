@@ -47,7 +47,7 @@ const ReviewProgress = styled.div<{ $width: number }>`
   width: ${({ $width }) => $width + '%'};
   align-items: center;
 
-  background-color: #bdc4cb;
+  background-color: #9ee8ff;
   border-radius: 10px;
 
   position: absolute;
@@ -55,7 +55,7 @@ const ReviewProgress = styled.div<{ $width: number }>`
   bottom: 0;
   left: 0;
 
-  color: #919599;
+  color: ${({ theme }) => theme.gray80};
   font-size: 14px;
   font-weight: bold;
 `;
