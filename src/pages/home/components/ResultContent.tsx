@@ -16,7 +16,8 @@ interface ResultContentProps {
 }
 
 const ResultContent = ({ result, setIsResultVisible, location }: ResultContentProps) => {
-  const [isSelect, setIsSelect] = useState(false);
+  const [walkingTime, setWalkingTime] = useState(0);
+  const [selectedParkingLot, setSelectedParkingLot] = useState(-1);
   const { setHeight, fillHeight } = useBottomSheetStore();
   const { mapInstance } = useMapStore();
 
@@ -29,7 +30,17 @@ const ResultContent = ({ result, setIsResultVisible, location }: ResultContentPr
     setIsResultVisible(false);
   };
 
-  if (isSelect) return <ParkingLotContent result={result} goBack={setIsSelect} />;
+  if (selectedParkingLot !== -1)
+    return (
+      <Suspense fallback={<p>로딩중</p>}>
+        <ParkingLotContent
+          result={result}
+          walkingTime={walkingTime}
+          setSelectedParkingLot={setSelectedParkingLot}
+          parkingLotId={selectedParkingLot}
+        />
+      </Suspense>
+    );
 
   return (
     <ResultContainer>
@@ -49,7 +60,11 @@ const ResultContent = ({ result, setIsResultVisible, location }: ResultContentPr
       </DestinationWrapper>
       <CardContainer>
         <Suspense fallback={<p>로딩중</p>}>
-          <ParkingLotsList location={location} setIsSelect={setIsSelect} />
+          <ParkingLotsList
+            location={location}
+            setWalkingTime={setWalkingTime}
+            setSelectedParkingLot={setSelectedParkingLot}
+          />
         </Suspense>
       </CardContainer>
     </ResultContainer>

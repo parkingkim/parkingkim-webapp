@@ -3,6 +3,7 @@ import Button from '@components/Button';
 import Badge from '@components/ParkingLotCard/Badge';
 import ReviewMenus from '@components/ReviewMenus';
 import Text from '@components/Text';
+import useGetParkingDetail from '@hooks/api/useGetParkingDetail';
 import useDrawLine from '@hooks/useDrawLine';
 import useBottomSheetStore from '@store/bottomSheetStore';
 import { Dispatch, SetStateAction, useEffect } from 'react';
@@ -11,47 +12,45 @@ import styled from 'styled-components';
 
 interface ParkingLotContentProps {
   result: SearchResult;
-  goBack: Dispatch<SetStateAction<boolean>>;
+  parkingLotId: number;
+  setSelectedParkingLot: Dispatch<SetStateAction<number>>;
+  walkingTime: number;
 }
 
-const mockLot = {
-  title: '주차장 1',
-  price: 1000,
-  ETA: 10,
-  parkingType: '지하',
-  isFavorite: false,
-  imgUrl: '',
-};
-
-const ParkingLotContent = ({ result, goBack }: ParkingLotContentProps) => {
+const ParkingLotContent = ({
+  result,
+  parkingLotId,
+  walkingTime,
+  setSelectedParkingLot,
+}: ParkingLotContentProps) => {
   const { navigateRoute, totalDistance, totalTime } = useDrawLine(result);
   const { toggleHeight, fillHeight } = useBottomSheetStore();
+  const { data: parkingLot, isFetching } = useGetParkingDetail(parkingLotId);
 
   useEffect(() => {
     fillHeight();
   }, []);
 
   const backToResult = () => {
-    goBack(false);
+    setSelectedParkingLot(-1);
     toggleHeight();
   };
+
+  if (isFetching) return <p>로딩중</p>;
 
   return (
     <ParkingLotContainer>
       <LotInfoContainer>
         <BackIcon onClick={backToResult} style={{ cursor: 'pointer' }} />
-        <Text size="lg">{mockLot.title}</Text>
+        <Text size="lg">{parkingLot.parkingName}</Text>
         <Text size="md">주차장 주소</Text>
-        {mockLot.imgUrl ? (
-          <img
-            src={mockLot.imgUrl}
-            alt={mockLot.title}
-            style={{ borderRadius: '10px', height: '180px' }}
-          />
-        ) : (
-          <EmptyImage />
-        )}
-        <Badge price={mockLot.price} ETA={mockLot.ETA} parkingType={mockLot.parkingType} />
+        {/** 일단은 빈 이미지로 놓기 */}
+        <EmptyImage />
+        <Badge
+          price={parkingLot.feeInfo.fee}
+          walkingTime={walkingTime}
+          parkingType={parkingLot.parkingType}
+        />
         <Text color="btn-gray">*주차장 이용요금은 실시간 변동될 수 있어요.</Text>
       </LotInfoContainer>
       <ParkingInfoContainer>
