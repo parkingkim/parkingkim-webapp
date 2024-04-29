@@ -45,7 +45,15 @@ const useDrawMarkers = ({ parkingLots, location }: useDraMarkersProps) => {
         position: new Tmapv3.LatLng(lot.latitude.toString(), lot.longitude.toString()),
         icon: 'src/assets/dest-three.svg',
         iconSize: new Tmapv3.Size(40, 40),
-        title: lot.parkingName,
+        map: mapInstance,
+      });
+
+      new Tmapv3.InfoWindow({
+        position: new Tmapv3.LatLng(lot.latitude.toString(), lot.longitude.toString()),
+        content: `<div style="padding: 5px; border-radius:10px; border:none;">${lot.parkingName}</div>`,
+        type: 2,
+        border: '0px solid #FF0000',
+        anchor: 'top',
         map: mapInstance,
       });
 
