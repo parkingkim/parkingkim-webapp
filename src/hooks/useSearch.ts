@@ -1,15 +1,18 @@
 import useMapStore from '@store/mapStore';
+import useMarkerStore from '@store/userMarkerStore';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { SearchResult } from 'src/types';
+import { GeoLocation } from 'src/types/map';
 
 const useSearch = () => {
   const { Tmapv3 } = window;
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const { mapInstance } = useMapStore();
-  const [markerArr, setMarkerArr] = useState<Marker[]>([]); // 마커 배열을 상태로 관리
   const [isResultVisible, setIsResultVisible] = useState(false);
   const [result, setResult] = useState<SearchResult | null>(null);
+  const [location, setLocation] = useState<GeoLocation>({ lng: 0, lat: 0 });
+  const { destinationMarker, setDestinationMarker } = useMarkerStore();
 
   const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
@@ -66,12 +69,10 @@ const useSearch = () => {
   const drawMarker = (result: SearchResult) => {
     if (!mapInstance) return;
 
-    // 마커 초기화
-    markerArr.forEach((marker) => marker.setMap(null));
-    setMarkerArr([]);
-
-    const latlngBounds = new Tmapv3.LatLngBounds();
-    const newMarkers: Marker[] = [];
+    if (destinationMarker) {
+      setDestinationMarker(null);
+      destinationMarker.setMap(null);
+    }
 
     // 마커 그리기
     const noorLng = Number(result.noorLon);
@@ -83,25 +84,19 @@ const useSearch = () => {
 
     const lat = projectionCng._lat;
     const lng = projectionCng._lng;
+    setLocation({ lng, lat });
 
     const markerPosition = new Tmapv3.LatLng(lat, lng);
 
-    const marker = new Tmapv3.Marker({
-      position: markerPosition,
-      icon: 'src/assets/dest-two.svg',
-      iconSize: new Tmapv3.Size(42, 42),
-      title: name,
-      map: mapInstance,
-    });
-
-    newMarkers.push(marker);
-
-    latlngBounds.extend(markerPosition);
-
-    setMarkerArr(newMarkers);
-    mapInstance.setCenter(latlngBounds.getCenter());
-    mapInstance.fitBounds(latlngBounds);
-    mapInstance.setZoom(15);
+    setDestinationMarker(
+      new Tmapv3.Marker({
+        position: markerPosition,
+        icon: 'src/assets/dest-two.svg',
+        iconSize: new Tmapv3.Size(42, 42),
+        title: name,
+        map: mapInstance,
+      }),
+    );
 
     setResult(result);
     setIsResultVisible(true);
@@ -115,6 +110,7 @@ const useSearch = () => {
     drawMarker,
     handleSearchWord,
     searchKeyword,
+    location,
   };
 };
 

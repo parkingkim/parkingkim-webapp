@@ -7,7 +7,7 @@ import ResultContent from './ResultContent';
 import useSearch from '../../../hooks/useSearch';
 import Text from '@components/Text';
 import useBottomSheetStore from '@store/bottomSheetStore';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, Suspense, useEffect } from 'react';
 
 interface SearchContentProps {
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
@@ -22,6 +22,7 @@ const SearchContent = ({ setIsExpanded }: SearchContentProps) => {
     searchResults,
     drawMarker,
     searchKeyword,
+    location,
   } = useSearch();
 
   const { fillHeight } = useBottomSheetStore();
@@ -33,7 +34,15 @@ const SearchContent = ({ setIsExpanded }: SearchContentProps) => {
   };
 
   if (isResultVisible)
-    return <ResultContent result={result!} setIsResultVisible={setIsResultVisible} />;
+    return (
+      <Suspense fallback={<p>로딩중</p>}>
+        <ResultContent
+          result={result!}
+          setIsResultVisible={setIsResultVisible}
+          location={location}
+        />
+      </Suspense>
+    );
 
   return (
     <SearchContainer>
