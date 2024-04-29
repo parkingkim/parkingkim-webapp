@@ -1,96 +1,21 @@
 import { BackIcon } from '@assets/index';
-import ParkingLotCard from '@components/ParkingLotCard';
 import Text from '@components/Text';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, Suspense, useEffect, useState } from 'react';
 import { SearchResult } from 'src/types';
 import styled from 'styled-components';
 import ParkingLotContent from './ParkingLotContent';
 import ZoomButtons from './ZoomButtons';
 import useMapStore from '@store/mapStore';
 import useBottomSheetStore from '@store/bottomSheetStore';
-
-const mockLots = [
-  {
-    title: '주차장 1',
-    price: 1000,
-    ETA: 10,
-    parkingType: '지하',
-    isFavorite: false,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-  {
-    title: '주차장 2',
-    price: 2000,
-    ETA: 20,
-    parkingType: '지상',
-    isFavorite: true,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-  {
-    title: '주차장 3',
-    price: 3000,
-    ETA: 30,
-    parkingType: '지하',
-    isFavorite: false,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-  {
-    title: '주차장 1',
-    price: 1000,
-    ETA: 10,
-    parkingType: '지하',
-    isFavorite: false,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-  {
-    title: '주차장 2',
-    price: 2000,
-    ETA: 20,
-    parkingType: '지상',
-    isFavorite: true,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-  {
-    title: '주차장 3',
-    price: 3000,
-    ETA: 30,
-    parkingType: '지하',
-    isFavorite: false,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-  {
-    title: '주차장 1',
-    price: 1000,
-    ETA: 10,
-    parkingType: '지하',
-    isFavorite: false,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-  {
-    title: '주차장 2',
-    price: 2000,
-    ETA: 20,
-    parkingType: '지상',
-    isFavorite: true,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-  {
-    title: '주차장 3',
-    price: 3000,
-    ETA: 30,
-    parkingType: '지하',
-    isFavorite: false,
-    imgUrl: 'https://via.placeholder.com/104',
-  },
-];
-
+import { GeoLocation } from 'src/types/map';
+import ParkingLotsList from './ParkingLotsList';
 interface ResultContentProps {
   result: SearchResult;
   setIsResultVisible: Dispatch<SetStateAction<boolean>>;
+  location: GeoLocation;
 }
 
-const ResultContent = ({ result, setIsResultVisible }: ResultContentProps) => {
-  // 아래 상태는 이후 경로 안내에 필요한 상태입니다.
+const ResultContent = ({ result, setIsResultVisible, location }: ResultContentProps) => {
   const [isSelect, setIsSelect] = useState(false);
   const { setHeight, fillHeight } = useBottomSheetStore();
   const { mapInstance } = useMapStore();
@@ -123,17 +48,9 @@ const ResultContent = ({ result, setIsResultVisible }: ResultContentProps) => {
         <Text color="btn-gray">{result.newAddressList.newAddress[0].fullAddressRoad}</Text>
       </DestinationWrapper>
       <CardContainer>
-        {mockLots.map((lot) => (
-          <ParkingLotCard
-            title={lot.title}
-            price={lot.price}
-            ETA={lot.ETA}
-            parkingType={lot.parkingType}
-            imgUrl={lot.imgUrl}
-            isFavorite={lot.isFavorite}
-            goToResult={setIsSelect}
-          />
-        ))}
+        <Suspense fallback={<p>로딩중</p>}>
+          <ParkingLotsList location={location} setIsSelect={setIsSelect} />
+        </Suspense>
       </CardContainer>
     </ResultContainer>
   );
