@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     price: 4500,
-    ETA: 15,
+    walkingTime: 15,
     parkingType: '공영',
   },
   decorators: [
