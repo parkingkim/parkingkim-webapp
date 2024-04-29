@@ -1,26 +1,23 @@
 import styled from 'styled-components';
 import Badge, { BadgeProps } from './Badge';
 import { PictureIcon, StarFilledIcon, StarIcon } from '@assets/index';
-import { Dispatch, SetStateAction } from 'react';
 
 interface CardProps extends BadgeProps {
   title: string;
   imgUrl?: string;
   isFavorite: boolean;
-  goToResult: Dispatch<SetStateAction<boolean>>;
 }
 
 const ParkingLotCard = ({
   title,
   imgUrl,
   price,
-  ETA,
+  walkingTime,
   parkingType,
   isFavorite,
-  goToResult,
 }: CardProps) => {
   return (
-    <CardContainer onClick={() => goToResult(true)}>
+    <CardContainer>
       <CardInfoContainer>
         <CardThumbnail>
           {imgUrl ? (
@@ -31,7 +28,7 @@ const ParkingLotCard = ({
         </CardThumbnail>
         <CardInfoWrapper>
           <Title>{title}</Title>
-          <Badge price={price} ETA={ETA} parkingType={parkingType} />
+          <Badge price={price} walkingTime={walkingTime} parkingType={parkingType} />
         </CardInfoWrapper>
       </CardInfoContainer>
       {isFavorite ? <StarFilledIcon /> : <StarIcon />}
