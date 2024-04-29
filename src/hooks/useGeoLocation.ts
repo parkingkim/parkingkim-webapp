@@ -1,6 +1,6 @@
 import useAddressStore from '@store/addressStore';
 import useMapStore from '@store/mapStore';
-import useUserMarkerStore from '@store/userMarkerStore';
+import useMarkerStore from '@store/userMarkerStore';
 import parseAddress from '@utils/parseAddress';
 import { useState, useEffect } from 'react';
 import { GeoLocation } from 'src/types/map';
@@ -9,7 +9,7 @@ const useGeoLocation = () => {
   const { Tmapv3 } = window;
   const { mapInstance } = useMapStore((state) => state);
   const [location, setLocation] = useState<GeoLocation | null>(null);
-  const { userMarker, setUserMarker, setUserLocation } = useUserMarkerStore();
+  const { userMarker, setUserMarker, setUserLocation } = useMarkerStore();
 
   const { setAddress } = useAddressStore((state) => state);
 

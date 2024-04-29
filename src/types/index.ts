@@ -19,3 +19,20 @@ export interface SearchResult {
   noorLat: string;
   noorLon: string;
 }
+
+export interface ParkingLotDetail {
+  parkingId: number;
+  parkingName: string;
+  estimatedFee: number;
+  estimatedWalkingTime: number;
+  parkingType: string;
+  isFavorite: boolean;
+  latitude: number;
+  longitude: number;
+}
+
+export interface ParkingRes {
+  data: {
+    parkingLots: ParkingLotDetail[];
+  };
+}

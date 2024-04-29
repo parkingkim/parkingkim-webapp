@@ -1,6 +1,6 @@
 import useMapStore from '@store/mapStore';
 import { useState } from 'react';
-import useUserMarkerStore from '@store/userMarkerStore';
+import useMarkerStore from '@store/userMarkerStore';
 import { SearchResult } from 'src/types';
 
 const useDrawLine = (result: SearchResult) => {
@@ -9,7 +9,7 @@ const useDrawLine = (result: SearchResult) => {
   const [description, setDescription] = useState<string[]>([]);
   const [totalTime, setTotalTime] = useState(0);
   const [totalDistance, setTotalDistance] = useState(0);
-  const { userLocation } = useUserMarkerStore();
+  const { userLocation } = useMarkerStore();
 
   const navigateRoute = async () => {
     const startX = userLocation!.lng.toString();
@@ -89,7 +89,7 @@ const useDrawLine = (result: SearchResult) => {
 
     if (traffic != '0') {
       if (traffic.length == 0) {
-        lineColor = '#06050D';
+        lineColor = '#0DC5FF';
 
         polyLine = new Tmapv3.Polyline({
           path: arrPoint,
@@ -120,7 +120,7 @@ const useDrawLine = (result: SearchResult) => {
 
           polyLine = new Tmapv3.Polyline({
             path: noInformationPoint,
-            strokeColor: '#06050D',
+            strokeColor: '#0DC5FF',
             strokeWeight: 6,
             map: mapInstance,
           });
@@ -134,15 +134,15 @@ const useDrawLine = (result: SearchResult) => {
             }
 
             if (tInfo[x].trafficIndex == 0) {
-              lineColor = '#06050D';
+              lineColor = '#0DC5FF';
             } else if (tInfo[x].trafficIndex == 1) {
-              lineColor = '#61AB25';
+              lineColor = '#00EA5E';
             } else if (tInfo[x].trafficIndex == 2) {
-              lineColor = '#FFFF00';
+              lineColor = '#FF9E0C';
             } else if (tInfo[x].trafficIndex == 3) {
-              lineColor = '#E87506';
+              lineColor = '#FF40A8';
             } else if (tInfo[x].trafficIndex == 4) {
-              lineColor = '#D61125';
+              lineColor = '#7D2DFF';
             }
 
             polyLine = new Tmapv3.Polyline({
@@ -174,15 +174,15 @@ const useDrawLine = (result: SearchResult) => {
             }
 
             if (tInfo[x].trafficIndex == 0) {
-              lineColor = '#06050D';
+              lineColor = '#0DC5FF';
             } else if (tInfo[x].trafficIndex == 1) {
-              lineColor = '#61AB25';
+              lineColor = '#00EA5E';
             } else if (tInfo[x].trafficIndex == 2) {
-              lineColor = '#FFFF00';
+              lineColor = '#FF9E0C';
             } else if (tInfo[x].trafficIndex == 3) {
-              lineColor = '#E87506';
+              lineColor = '#FF40A8';
             } else if (tInfo[x].trafficIndex == 4) {
-              lineColor = '#D61125';
+              lineColor = '#7D2DFF';
             }
 
             polyLine = new Tmapv3.Polyline({
