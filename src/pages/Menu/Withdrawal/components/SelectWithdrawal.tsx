@@ -26,7 +26,7 @@ const SelectWithdrawal = ({ setIsWithdrawal }: SelectWithdrawalProps) => {
         <BackIcon onClick={goToMenu} />
         <Image />
         <Text fontStyle="bold" size="3xl">
-          정말로 파킹킴을 떠나시나요?
+          주차의 상상은 현실이 된다를 탈퇴하시나요?
         </Text>
       </Header>
       <ContentContainer>
@@ -53,12 +53,12 @@ const SelectWithdrawal = ({ setIsWithdrawal }: SelectWithdrawalProps) => {
         </CautionContainer>
       </ContentContainer>
       <ButtonContainer>
-        <Button size="large" color="secondary" onClick={goToMenu}>
+        <Button color="secondary" onClick={goToMenu}>
           <Text color="white" size="xl" fontStyle="bold">
             아니요, 더 사용할게요.
           </Text>
         </Button>
-        <Button size="large" color="primary" onClick={selectWithdrawal}>
+        <Button color="primary" onClick={selectWithdrawal}>
           <Text size="xl" fontStyle="bold">
             네, 탈퇴할래요.
           </Text>
