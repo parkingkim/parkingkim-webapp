@@ -21,7 +21,7 @@ const useBottomSheetStore = create<BottomSheetStore>((set, get) => ({
   lastY: 0,
   isDragging: false,
   windowHeight: window.innerHeight,
-  snapPoints: [250, window.innerHeight * 0.6, window.innerHeight],
+  snapPoints: [250, window.innerHeight * 0.6, window.innerHeight * 0.8],
   setHeight: (height) => set({ height }),
   setLastY: (lastY) => set({ lastY }),
   setIsDragging: (isDragging) => set({ isDragging }),
