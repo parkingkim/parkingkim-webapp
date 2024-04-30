@@ -37,3 +37,5 @@ export { default as UserLocationIcon } from './user-location.svg?react';
 export { default as DestOneIcon } from './dest-one.svg?react';
 export { default as HomeIcon } from './home.svg?react';
 export { default as CompanyIcon } from './company.svg?react';
+export { default as FavIcon } from './fav.svg?react';
+export { default as GrayFavIcon } from './gray-fav.svg?react';
