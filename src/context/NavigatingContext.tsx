@@ -3,6 +3,8 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 interface NavigatingContextType {
   isNavigating: boolean;
   toggleNavigating: () => void;
+  isResultVisible: boolean;
+  setIsResultVisible: (isResultVisible: boolean) => void;
   startLocation: string;
   setStartLocation: (location: string) => void;
   parkingLot: string;
@@ -22,6 +24,8 @@ interface NavigatingContextType {
 const defaultState: NavigatingContextType = {
   isNavigating: false,
   toggleNavigating: () => {},
+  isResultVisible: false,
+  setIsResultVisible: () => {},
   startLocation: '',
   setStartLocation: () => {},
   parkingLot: '',
@@ -53,6 +57,7 @@ export const NavigatingProvider = ({ children }: NavigatingProviderProps) => {
   const [parkingLotToDestinationTime, setParkingLotToDestinationTime] = useState<number>(0);
   const [startToParkingLotDistance, setStartToParkingLotDistance] = useState<number>(0);
   const [parkingLotToDestinationDistance, setParkingLotToDestinationDistance] = useState<number>(0);
+  const [isResultVisible, setIsResultVisible] = useState<boolean>(false);
 
   const toggleNavigating = () => {
     setIsNavigating((prev) => !prev);
@@ -63,6 +68,8 @@ export const NavigatingProvider = ({ children }: NavigatingProviderProps) => {
       value={{
         isNavigating,
         toggleNavigating,
+        isResultVisible,
+        setIsResultVisible,
         startLocation,
         setStartLocation,
         parkingLot,
