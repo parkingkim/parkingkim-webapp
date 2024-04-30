@@ -9,6 +9,9 @@ import useBottomSheetStore from '@store/bottomSheetStore';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { SearchResult } from 'src/types';
 import styled from 'styled-components';
+import NavigateResult from './NavigateResult';
+import { useNavigating } from '@context/NavigatingContext';
+import useAddressStore from '@store/addressStore';
 
 interface ParkingLotContentProps {
   result: SearchResult;
@@ -25,7 +28,15 @@ const ParkingLotContent = ({
 }: ParkingLotContentProps) => {
   const { setHeight, toggleHeight, fillHeight } = useBottomSheetStore();
   const { data: parkingLot, isFetching } = useGetParkingDetail(parkingLotId);
-  const { navigateRoute, totalDistance, totalTime } = useDrawLine(result);
+  const { navigateRoute } = useDrawLine(result);
+  const {
+    isNavigating,
+    toggleNavigating,
+    setStartLocation,
+    setParkingLot: setWaypoints,
+    setDestination,
+  } = useNavigating();
+  const { address } = useAddressStore();
 
   useEffect(() => {
     fillHeight();
@@ -39,9 +50,14 @@ const ParkingLotContent = ({
   const handleNavigateRoute = () => {
     setHeight(250);
     navigateRoute(parkingLot.latitude, parkingLot.longitude);
+    toggleNavigating();
+    setStartLocation(address.jibunAddr);
+    setWaypoints(parkingLot.parkingName);
+    setDestination(result.name);
   };
 
   if (isFetching) return <p>로딩중</p>;
+  if (isNavigating) return <NavigateResult />;
 
   return (
     <ParkingLotContainer>
@@ -66,7 +82,6 @@ const ParkingLotContent = ({
         </Button>
       </ParkingInfoContainer>
       <ReviewContainer>
-        {totalDistance / 1000}km 예상 소요 시간 {totalTime}분
         <ReviewMenus />
       </ReviewContainer>
     </ParkingLotContainer>
