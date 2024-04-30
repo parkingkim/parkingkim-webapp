@@ -3,6 +3,8 @@ import { useState } from 'react';
 import useMarkerStore from '@store/userMarkerStore';
 import { SearchResult } from 'src/types';
 
+let lineArr = [];
+
 const useDrawLine = (result: SearchResult) => {
   const { Tmapv3 } = window;
   const { mapInstance } = useMapStore();
@@ -11,70 +13,84 @@ const useDrawLine = (result: SearchResult) => {
   const [totalDistance, setTotalDistance] = useState(0);
   const { userLocation } = useMarkerStore();
 
-  const navigateRoute = async () => {
+  const resetLine = () => {
+    for (let i = 0; i < lineArr.length; i++) {
+      lineArr[i].setMap(null);
+    }
+    lineArr = [];
+  };
+
+  const navigateRoute = async (parkingLotLat: number, parkingLotLng: number) => {
+    resetLine();
+
     const startX = userLocation!.lng.toString();
     const startY = userLocation!.lat.toString();
 
-    const noorLng = Number(result.noorLon);
-    const noorLat = Number(result.noorLat);
-
-    const pointCng = new Tmapv3.Point(noorLng, noorLat);
-    const projectionCng = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(pointCng);
-
-    const endX = projectionCng._lng;
-    const endY = projectionCng._lat;
+    // 주차장 위치
 
     const headers = { appKey: 'K7SVqM25ES7kK3FaC0crJ2Uu6XNAoAy54xiQr9I6' };
-    const searchParams = {
+    const driveSearchParams = {
       version: '1',
       startX,
       startY,
-      endX,
-      endY,
+      endX: parkingLotLng.toString(),
+      endY: parkingLotLat.toString(),
       trafficInfo: 'Y',
     };
 
-    const queryParams = new URLSearchParams(searchParams).toString();
+    const driveQueryParams = new URLSearchParams(driveSearchParams).toString();
 
     try {
-      const res = await fetch(`https://apis.openapi.sk.com/tmap/routes?${queryParams}`, {
+      const driveRes = await fetch(`https://apis.openapi.sk.com/tmap/routes?${driveQueryParams}`, {
         headers,
+        method: 'POST',
       });
 
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+      if (!driveRes.ok) {
+        throw new Error(`HTTP error! status: ${driveRes.status}`);
       }
 
-      const data = await res.json();
+      const driveData = await driveRes.json();
 
+      // 최종 목적지
+      const noorLng = Number(result.noorLon);
+      const noorLat = Number(result.noorLat);
+
+      const pointCng = new Tmapv3.Point(noorLng, noorLat);
+      const projectionCng = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(pointCng);
+
+      const endX = projectionCng._lng;
+      const endY = projectionCng._lat;
+
+      const walkingSearchParams = {
+        version: '1',
+        format: 'json',
+        callback: 'result',
+        startX: parkingLotLng.toString(),
+        startY: parkingLotLat.toString(),
+        endX,
+        endY,
+        startName: '출발지',
+        endName: result.name,
+      };
+
+      const walkingQueryParams = new URLSearchParams(walkingSearchParams).toString();
+
+      const walkingRes = await fetch(
+        `https://apis.openapi.sk.com/tmap/routes/pedestrian?${walkingQueryParams}`,
+        {
+          headers,
+          method: 'POST',
+        },
+      );
+
+      const walkingData = await walkingRes.json();
+
+      // 경로에 따른 바운드 설정
       const positionBounds = new Tmapv3.LatLngBounds();
 
-      for (let i = 0; i < data.features.length; i++) {
-        const geometry = data.features[i].geometry;
-        if (i == 0) {
-          setTotalDistance(data.features[0].properties.totalDistance);
-          setTotalTime(Math.round(data.features[0].properties.totalTime / 60));
-        }
-
-        if (geometry.type == 'LineString') {
-          const sectionInfos = [];
-          const trafficArr = geometry.traffic || [];
-
-          for (const j in geometry.coordinates) {
-            const latlng = new Tmapv3.LatLng(
-              geometry.coordinates[j][1],
-              geometry.coordinates[j][0],
-            );
-
-            positionBounds.extend(latlng);
-            sectionInfos.push(latlng);
-          }
-
-          drawLine(sectionInfos, trafficArr);
-        } else if (geometry.type == 'Point') {
-          setDescription((prev) => [...prev, data.features[i].properties.description]);
-        }
-      }
+      processRoute(driveData, positionBounds);
+      processRoute(walkingData, positionBounds);
 
       mapInstance?.fitBounds(positionBounds);
     } catch (error) {
@@ -82,14 +98,35 @@ const useDrawLine = (result: SearchResult) => {
     }
   };
 
+  const processRoute = (route: any, positionBounds: any) => {
+    for (let i = 0; i < route.features.length; i++) {
+      const geometry = route.features[i].geometry;
+
+      if (geometry.type == 'LineString') {
+        const sectionInfos = [];
+        const trafficArr = geometry.traffic || [];
+
+        for (const j in geometry.coordinates) {
+          const latlng = new Tmapv3.LatLng(geometry.coordinates[j][1], geometry.coordinates[j][0]);
+
+          positionBounds.extend(latlng);
+          sectionInfos.push(latlng);
+        }
+
+        drawLine(sectionInfos, trafficArr);
+      } else if (geometry.type == 'Point') {
+        setDescription((prev) => [...prev, route.features[i].properties.description]);
+      }
+    }
+  };
+
   const drawLine = (arrPoint: any, traffic: any) => {
     let polyLine;
     let lineColor = '';
-    const lineArr = [];
 
     if (traffic != '0') {
       if (traffic.length == 0) {
-        lineColor = '#0DC5FF';
+        lineColor = '#000000';
 
         polyLine = new Tmapv3.Polyline({
           path: arrPoint,
@@ -197,7 +234,6 @@ const useDrawLine = (result: SearchResult) => {
       }
     }
   };
-
   return { navigateRoute, description, totalTime, totalDistance };
 };
 

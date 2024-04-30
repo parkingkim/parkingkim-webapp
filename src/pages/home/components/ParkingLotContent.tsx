@@ -23,9 +23,9 @@ const ParkingLotContent = ({
   walkingTime,
   setSelectedParkingLot,
 }: ParkingLotContentProps) => {
-  const { navigateRoute, totalDistance, totalTime } = useDrawLine(result);
-  const { toggleHeight, fillHeight } = useBottomSheetStore();
+  const { setHeight, toggleHeight, fillHeight } = useBottomSheetStore();
   const { data: parkingLot, isFetching } = useGetParkingDetail(parkingLotId);
+  const { navigateRoute, totalDistance, totalTime } = useDrawLine(result);
 
   useEffect(() => {
     fillHeight();
@@ -34,6 +34,11 @@ const ParkingLotContent = ({
   const backToResult = () => {
     setSelectedParkingLot(-1);
     toggleHeight();
+  };
+
+  const handleNavigateRoute = () => {
+    setHeight(250);
+    navigateRoute(parkingLot.latitude, parkingLot.longitude);
   };
 
   if (isFetching) return <p>로딩중</p>;
@@ -54,7 +59,7 @@ const ParkingLotContent = ({
         <Text color="btn-gray">*주차장 이용요금은 실시간 변동될 수 있어요.</Text>
       </LotInfoContainer>
       <ParkingInfoContainer>
-        <Button color="tertiary" onClick={navigateRoute}>
+        <Button color="tertiary" onClick={handleNavigateRoute}>
           <Text color="white" size="lg">
             경로 안내
           </Text>
