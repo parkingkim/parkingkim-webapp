@@ -47,19 +47,19 @@ const SelectWithdrawal = ({ setIsWithdrawal }: SelectWithdrawalProps) => {
           <Text fontStyle="semi-bold" size="lg">
             그래도 떠나시겠어요?
           </Text>
-          <Text color="red">
+          <Text color="error">
             탈퇴 시 현재 보유중인 쿠폰, 즐겨찾기 등은 즉시 소멸되어 복구할 수 없습니다.
           </Text>
         </CautionContainer>
       </ContentContainer>
       <ButtonContainer>
-        <Button color="secondary" onClick={goToMenu}>
+        <Button color="gray20" onClick={goToMenu}>
           <Text color="white" size="xl" fontStyle="bold">
             아니요, 더 사용할게요.
           </Text>
         </Button>
-        <Button color="primary" onClick={selectWithdrawal}>
-          <Text size="xl" fontStyle="bold">
+        <Button color="gray80" onClick={selectWithdrawal}>
+          <Text color="white" size="xl" fontStyle="bold">
             네, 탈퇴할래요.
           </Text>
         </Button>
@@ -103,7 +103,7 @@ const ButtonContainer = styled.div`
   margin-bottom: 80px;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 20px;
 `;
 
 const DescriptionContainer = styled.div`
