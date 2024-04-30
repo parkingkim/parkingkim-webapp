@@ -1,4 +1,4 @@
-import { CheckedRadioIcon, FavLotIcon, MoreIcon, RadioIcon } from '@assets/index';
+import { CheckedRadioIcon, MoreIcon, RadioIcon } from '@assets/index';
 import Text from '@components/Text';
 import { useEffect, useState } from 'react';
 import { ParkingLot } from 'src/types';
@@ -42,7 +42,6 @@ const ParkingLotItem = ({
           ) : (
             <RadioIcon onClick={handleCheckboxChange} />
           ))}
-        <FavLotIcon />
         <ParkingLotInfoWrapper>
           <Text size="sm">{parkingLot.parkingName}</Text>
           <Text size="xs" color="gray">{`${distance}km | ${address}`}</Text>
@@ -53,7 +52,7 @@ const ParkingLotItem = ({
   );
 };
 
-const ParkingLotContainer = styled.div`
+const ParkingLotContainer = styled.li`
   display: flex;
   box-sizing: border-box;
   width: 100%;
@@ -67,12 +66,6 @@ const ParkingLotInfoContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-
-  & > :first-child {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
 `;
 
 const ParkingLotInfoWrapper = styled.div`

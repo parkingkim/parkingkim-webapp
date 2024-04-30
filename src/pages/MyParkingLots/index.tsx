@@ -4,6 +4,7 @@ import Text from '@components/Text';
 import VisitedParkingLotPreview from './components/VisitedParkingLotPreview';
 import { useNavigate } from 'react-router-dom';
 import ParkingLotList from './components/ParkingLotList';
+import Button from '@components/Button';
 
 export const mockParkingLots: ParkingLot[] = [
   {
@@ -113,40 +114,43 @@ const MyParkingLots = () => {
         <Text size="xl" fontStyle="bold">
           내 주차장
         </Text>
-        <button onClick={goMyReviews}>
-          <Text fontStyle="semi-bold">리뷰관리</Text>
-        </button>
+        <Button color="primary" onClick={goMyReviews} style={{ width: '80px', height: '28px' }}>
+          <Text color="white" size="sm" fontStyle="semi-bold">
+            리뷰관리
+          </Text>
+        </Button>
       </MyParkingLotsHeader>
+      <ThickBar />
       <ParkingLotsListContainer>
         <ParkingLotsListHeader>
           <Text fontStyle="bold">즐겨찾는 주차장</Text>
           <button onClick={goMoreReviews}>
-            <Text size="sm" color="gray">
+            <Text size="sm" color="gray60">
               더보기
             </Text>
           </button>
         </ParkingLotsListHeader>
         <ParkingLotList parkingLots={mockParkingLots.slice(0, 5)} />
       </ParkingLotsListContainer>
+      <ThickBar />
       <VisitedParkingLotPreview />
     </div>
   );
 };
+
+export const ThickBar = styled.div`
+  width: 100%;
+  height: 7px;
+  min-width: 100%;
+
+  background: linear-gradient(to bottom, #dcdcdc 0%, #f6f6f6 30%);
+`;
 
 const MyParkingLotsHeader = styled.header`
   display: flex;
   padding: 25px 20px;
   justify-content: space-between;
   align-items: center;
-
-  border-bottom: 2px solid #f6f6f6;
-
-  button {
-    padding: 7px 14px;
-
-    background-color: #f5f5f5;
-    border-radius: 10px;
-  }
 `;
 
 const ParkingLotsListContainer = styled.div`
