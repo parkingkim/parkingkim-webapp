@@ -43,3 +43,4 @@ export { default as CompanyIcon } from './company.svg?react';
 export { default as BlackWalkingIcon } from './black-walk.svg?react';
 export { default as BlackParkingIcon } from './black-parking.svg?react';
 export { default as TowardIcon } from './toward.svg?react';
+export { default as WhiteBackIcon } from './white-back.svg?react';
