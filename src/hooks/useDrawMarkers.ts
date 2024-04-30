@@ -9,6 +9,7 @@ interface useDraMarkersProps {
 }
 
 const markerArr: Marker[] = [];
+const infoWindowArr = [];
 
 // 목적지도 바운드에 추가하기
 const useDrawMarkers = ({ parkingLots, location }: useDraMarkersProps) => {
@@ -21,6 +22,12 @@ const useDrawMarkers = ({ parkingLots, location }: useDraMarkersProps) => {
     if (markerArr.length > 0) {
       for (const i in markerArr) {
         markerArr[i].setMap(null);
+      }
+    }
+
+    if (infoWindowArr.length > 0) {
+      for (const i in infoWindowArr) {
+        infoWindowArr[i].setMap(null);
       }
     }
 
@@ -48,7 +55,7 @@ const useDrawMarkers = ({ parkingLots, location }: useDraMarkersProps) => {
         map: mapInstance,
       });
 
-      new Tmapv3.InfoWindow({
+      const newInfoWindow = new Tmapv3.InfoWindow({
         position: new Tmapv3.LatLng(lot.latitude.toString(), lot.longitude.toString()),
         content: `<div style="padding: 5px; border-radius:10px; border:none;">${lot.parkingName}</div>`,
         type: 2,
@@ -58,6 +65,7 @@ const useDrawMarkers = ({ parkingLots, location }: useDraMarkersProps) => {
       });
 
       markerArr.push(newMarker);
+      infoWindowArr.push(newInfoWindow);
     });
 
     mapInstance.setCenter(latlngBounds.getCenter());
