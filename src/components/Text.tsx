@@ -2,7 +2,22 @@ import { HTMLAttributes, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 type TextStyleType = 'x-bold' | 'semi-bold' | 'bold' | 'md' | 'regular' | 'sm-regular';
-type TextColorType = 'dark-gray' | 'black' | 'gray' | 'light-gray' | 'btn-gray' | 'white' | 'red';
+type TextColorType =
+  | 'dark-gray'
+  | 'black'
+  | 'gray'
+  | 'light-gray'
+  | 'btn-gray'
+  | 'white'
+  | 'red'
+  | 'error'
+  | 'gray5'
+  | 'gray10'
+  | 'gray20'
+  | 'gray40'
+  | 'gray60'
+  | 'gray80'
+  | 'gray100';
 type TextSizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 interface TextProps extends PropsWithChildren, HTMLAttributes<HTMLParagraphElement> {
@@ -48,6 +63,22 @@ const StyledText = styled.p<{
         return 'white';
       case 'red':
         return theme.red;
+      case 'error':
+        return theme.error;
+      case 'gray5':
+        return theme.gray5;
+      case 'gray10':
+        return theme.gray10;
+      case 'gray20':
+        return theme.gray20;
+      case 'gray40':
+        return theme.gray40;
+      case 'gray60':
+        return theme.gray60;
+      case 'gray80':
+        return theme.gray80;
+      case 'gray100':
+        return theme.gray100;
       default:
         return theme.darkGray;
     }
