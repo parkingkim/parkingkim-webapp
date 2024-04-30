@@ -8,41 +8,33 @@ import useSearch from '../../../hooks/useSearch';
 import Text from '@components/Text';
 import useBottomSheetStore from '@store/bottomSheetStore';
 import { Dispatch, SetStateAction, Suspense, useEffect } from 'react';
+import { useNavigating } from '@context/NavigatingContext';
 
 interface SearchContentProps {
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
 }
 
 const SearchContent = ({ setIsExpanded }: SearchContentProps) => {
-  const {
-    isResultVisible,
-    setIsResultVisible,
-    result,
-    handleSearchWord,
-    searchResults,
-    drawMarker,
-    searchKeyword,
-    location,
-  } = useSearch();
+  const { result, handleSearchWord, searchResults, drawMarker, searchKeyword, location } =
+    useSearch();
 
   const { fillHeight } = useBottomSheetStore();
+  const { isResultVisible, setIsResultVisible } = useNavigating();
 
   useEffect(() => fillHeight, []);
 
   const goBackInitial = () => {
+    setIsResultVisible(false);
     setIsExpanded(false);
   };
 
-  if (isResultVisible)
+  if (isResultVisible) {
     return (
       <Suspense fallback={<p>로딩중</p>}>
-        <ResultContent
-          result={result!}
-          setIsResultVisible={setIsResultVisible}
-          location={location}
-        />
+        <ResultContent result={result!} location={location} />
       </Suspense>
     );
+  }
 
   return (
     <SearchContainer>

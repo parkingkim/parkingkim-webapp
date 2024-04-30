@@ -9,26 +9,27 @@ import useMapStore from '@store/mapStore';
 import useBottomSheetStore from '@store/bottomSheetStore';
 import { GeoLocation } from 'src/types/map';
 import ParkingLotsList from './ParkingLotsList';
+import { useNavigating } from '@context/NavigatingContext';
+import useAddressStore from '@store/addressStore';
 interface ResultContentProps {
   result: SearchResult;
-  setIsResultVisible: Dispatch<SetStateAction<boolean>>;
   location: GeoLocation;
 }
 
-const ResultContent = ({ result, setIsResultVisible, location }: ResultContentProps) => {
+const ResultContent = ({ result, location }: ResultContentProps) => {
   const [walkingTime, setWalkingTime] = useState(0);
   const [selectedParkingLot, setSelectedParkingLot] = useState(-1);
-  const { setHeight, fillHeight } = useBottomSheetStore();
+  const { setHeight } = useBottomSheetStore();
   const { mapInstance } = useMapStore();
+  const { setStartLocation, setDestination, setIsResultVisible } = useNavigating();
+  const { address } = useAddressStore();
 
   useEffect(() => {
     setHeight(window.innerHeight * 0.4);
+    setStartLocation(address.jibunAddr);
+    setDestination(result.name);
+    setIsResultVisible(true);
   }, []);
-
-  const goBackToSearch = () => {
-    fillHeight();
-    setIsResultVisible(false);
-  };
 
   if (selectedParkingLot !== -1)
     return (
@@ -45,9 +46,6 @@ const ResultContent = ({ result, setIsResultVisible, location }: ResultContentPr
   return (
     <ResultContainer>
       <ButtonContainer>
-        <BackButton onClick={goBackToSearch}>
-          <BackIcon />
-        </BackButton>
         <ZoomButtons mapInstance={mapInstance} />
       </ButtonContainer>
       <Handle />
@@ -70,15 +68,6 @@ const ResultContent = ({ result, setIsResultVisible, location }: ResultContentPr
     </ResultContainer>
   );
 };
-
-const BackButton = styled.button`
-  position: absolute;
-  bottom: 20vh;
-  left: 0;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
-`;
 
 const Handle = styled.div`
   width: 45px;
@@ -110,7 +99,7 @@ const DestinationWrapper = styled.div`
 
 const ButtonContainer = styled.div`
   position: absolute;
-  top: -120px;
+  top: -100px;
 `;
 
 export default ResultContent;

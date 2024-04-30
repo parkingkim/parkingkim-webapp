@@ -29,14 +29,7 @@ const ParkingLotContent = ({
   const { setHeight, toggleHeight, fillHeight } = useBottomSheetStore();
   const { data: parkingLot, isFetching } = useGetParkingDetail(parkingLotId);
   const { navigateRoute } = useDrawLine(result);
-  const {
-    isNavigating,
-    toggleNavigating,
-    setStartLocation,
-    setParkingLot: setWaypoints,
-    setDestination,
-  } = useNavigating();
-  const { address } = useAddressStore();
+  const { isNavigating, toggleNavigating, setParkingLot: setWaypoints } = useNavigating();
 
   useEffect(() => {
     fillHeight();
@@ -51,9 +44,8 @@ const ParkingLotContent = ({
     setHeight(250);
     navigateRoute(parkingLot.latitude, parkingLot.longitude);
     toggleNavigating();
-    setStartLocation(address.jibunAddr);
+
     setWaypoints(parkingLot.parkingName);
-    setDestination(result.name);
   };
 
   if (isFetching) return <p>로딩중</p>;

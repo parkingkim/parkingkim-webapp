@@ -1,6 +1,7 @@
 import {
   BlackParkingIcon,
   BlackWalkingIcon,
+  CurLocationIcon,
   DestTwoIcon,
   ParkingCarIcon,
   ParkingWalkIcon,
@@ -8,6 +9,7 @@ import {
 } from '@assets/index';
 import Text from '@components/Text';
 import { useNavigating } from '@context/NavigatingContext';
+import useGeoLocation from '@hooks/useGeoLocation';
 import styled from 'styled-components';
 
 const NavigateResult = () => {
@@ -20,9 +22,13 @@ const NavigateResult = () => {
     parkingLotToDestinationTime,
     parkingLotToDestinationDistance,
   } = useNavigating();
+  const { makeUserMaker } = useGeoLocation();
 
   return (
     <NavigateResultContainer>
+      <CurLocationButton onClick={makeUserMaker}>
+        <CurLocationIcon />
+      </CurLocationButton>
       <TimeContainer>
         <Handle />
         <Text color="blue" fontStyle="bold" size="xl">
@@ -69,6 +75,21 @@ const NavigateResult = () => {
     </NavigateResultContainer>
   );
 };
+
+const CurLocationButton = styled.button`
+  position: absolute;
+  top: -70px;
+  left: 20px;
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
+`;
 
 const VerticalBar = styled.div`
   width: 3px;

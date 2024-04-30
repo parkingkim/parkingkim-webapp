@@ -1,3 +1,4 @@
+import { useNavigating } from '@context/NavigatingContext';
 import useMapStore from '@store/mapStore';
 import useMarkerStore from '@store/userMarkerStore';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -9,10 +10,10 @@ const useSearch = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const { mapInstance } = useMapStore();
-  const [isResultVisible, setIsResultVisible] = useState(false);
   const [result, setResult] = useState<SearchResult | null>(null);
   const [location, setLocation] = useState<GeoLocation>({ lng: 0, lat: 0 });
   const { destinationMarker, setDestinationMarker } = useMarkerStore();
+  const { setIsResultVisible } = useNavigating();
 
   const handleSearchWord = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
@@ -104,8 +105,6 @@ const useSearch = () => {
 
   return {
     searchResults,
-    isResultVisible,
-    setIsResultVisible,
     result,
     drawMarker,
     handleSearchWord,
