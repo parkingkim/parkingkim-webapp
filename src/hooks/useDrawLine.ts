@@ -44,6 +44,7 @@ const useDrawLine = (result: SearchResult) => {
     };
 
     const driveQueryParams = new URLSearchParams(driveSearchParams).toString();
+    const positionBounds = new Tmapv3.LatLngBounds();
 
     try {
       const driveRes = await fetch(`https://apis.openapi.sk.com/tmap/routes?${driveQueryParams}`, {
@@ -58,6 +59,7 @@ const useDrawLine = (result: SearchResult) => {
       const driveData = await driveRes.json().then((data) => {
         setStartToParkingLotTime(data.features[0].properties.totalTime);
         setStartToParkingLotDistance(data.features[0].properties.totalDistance);
+        processRoute(data, positionBounds);
       });
 
       // 최종 목적지
@@ -93,16 +95,12 @@ const useDrawLine = (result: SearchResult) => {
       );
 
       const walkingData = await walkingRes.json().then((data) => {
-        console.log(data.features[0].properties.totalTime);
         setParkingLotToDestinationTime(data.features[0].properties.totalTime);
         setParkingLotToDestinationDistance(data.features[0].properties.totalDistance);
+        processRoute(data, positionBounds);
       });
 
       // 경로에 따른 바운드 설정
-      const positionBounds = new Tmapv3.LatLngBounds();
-
-      processRoute(driveData, positionBounds);
-      processRoute(walkingData, positionBounds);
 
       mapInstance?.fitBounds(positionBounds);
     } catch (error) {
