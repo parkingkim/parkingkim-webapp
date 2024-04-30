@@ -2,6 +2,7 @@ import useMapStore from '@store/mapStore';
 import { useState } from 'react';
 import useMarkerStore from '@store/userMarkerStore';
 import { SearchResult } from 'src/types';
+import { useNavigating } from '@context/NavigatingContext';
 
 let lineArr = [];
 
@@ -9,9 +10,13 @@ const useDrawLine = (result: SearchResult) => {
   const { Tmapv3 } = window;
   const { mapInstance } = useMapStore();
   const [description, setDescription] = useState<string[]>([]);
-  const [totalTime, setTotalTime] = useState(0);
-  const [totalDistance, setTotalDistance] = useState(0);
   const { userLocation } = useMarkerStore();
+  const {
+    setStartToParkingLotTime,
+    setStartToParkingLotDistance,
+    setParkingLotToDestinationTime,
+    setParkingLotToDestinationDistance,
+  } = useNavigating();
 
   const resetLine = () => {
     for (let i = 0; i < lineArr.length; i++) {
@@ -50,7 +55,10 @@ const useDrawLine = (result: SearchResult) => {
         throw new Error(`HTTP error! status: ${driveRes.status}`);
       }
 
-      const driveData = await driveRes.json();
+      const driveData = await driveRes.json().then((data) => {
+        setStartToParkingLotTime(data.features[0].properties.totalTime);
+        setStartToParkingLotDistance(data.features[0].properties.totalDistance);
+      });
 
       // 최종 목적지
       const noorLng = Number(result.noorLon);
@@ -84,7 +92,11 @@ const useDrawLine = (result: SearchResult) => {
         },
       );
 
-      const walkingData = await walkingRes.json();
+      const walkingData = await walkingRes.json().then((data) => {
+        console.log(data.features[0].properties.totalTime);
+        setParkingLotToDestinationTime(data.features[0].properties.totalTime);
+        setParkingLotToDestinationDistance(data.features[0].properties.totalDistance);
+      });
 
       // 경로에 따른 바운드 설정
       const positionBounds = new Tmapv3.LatLngBounds();
@@ -234,7 +246,7 @@ const useDrawLine = (result: SearchResult) => {
       }
     }
   };
-  return { navigateRoute, description, totalTime, totalDistance };
+  return { navigateRoute, description };
 };
 
 export default useDrawLine;
