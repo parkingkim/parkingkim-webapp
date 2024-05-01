@@ -42,10 +42,9 @@ const ReviewsContainer = styled.div`
   display: flex;
   box-sizing: border-box;
   height: calc(100% - 140px);
-  padding: 20px;
+
   overflow: scroll;
   flex-direction: column;
-  gap: 30px;
 `;
 
 const EmptyReview = styled.div`
