@@ -40,3 +40,8 @@ export { default as CompanyIcon } from './company.svg?react';
 export { default as FavIcon } from './fav.svg?react';
 export { default as GrayFavIcon } from './gray-fav.svg?react';
 export { default as StarbucksIcon } from './starbucks.svg?react';
+export { default as BlueHomeIcon } from './blue-home.svg?react';
+export { default as BlueParkingIcon } from './blue-parking.svg?react';
+export { default as BlueMyInfoIcon } from './blue-my-info.svg?react';
+export { default as MyInfoIcon } from './my-info.svg?react';
+export { default as ParkingIcon } from './parking.svg?react';
