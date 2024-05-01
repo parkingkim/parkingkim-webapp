@@ -4,10 +4,14 @@ import { create } from 'zustand';
 interface AddressStore {
   curAddress: AddressResult;
   setCurAddress: (address: AddressResult) => void;
-  homeAddress: AddressResult;
-  setHomeAddress: (address: AddressResult) => void;
-  companyAddress: AddressResult;
-  setCompanyAddress: (address: AddressResult) => void;
+  homeAddress: string;
+  setHomeAddress: (address: string) => void;
+  detailHomeAddress: string;
+  setDetailHomeAddress: (address: string) => void;
+  companyAddress: string;
+  setCompanyAddress: (address: string) => void;
+  detailCompanyAddress: string;
+  setDetailCompanyAddress: (address: string) => void;
 }
 
 const useAddressStore = create<AddressStore>((set) => ({
@@ -17,18 +21,18 @@ const useAddressStore = create<AddressStore>((set) => ({
     jibunAddr: '주소를 불러오고 있습니다.',
   } as AddressResult,
   setCurAddress: (address: AddressResult) => set({ curAddress: address }),
+
   // 집 주소
-  homeAddress: {
-    roadAddr: '',
-    jibunAddr: '',
-  } as AddressResult,
-  setHomeAddress: (address: AddressResult) => set({ homeAddress: address }),
+  homeAddress: '',
+  setHomeAddress: (address: string) => set({ homeAddress: address }),
+  detailHomeAddress: '',
+  setDetailHomeAddress: (address: string) => set({ detailHomeAddress: address }),
+
   // 회사 주소
-  companyAddress: {
-    roadAddr: '',
-    jibunAddr: '',
-  } as AddressResult,
-  setCompanyAddress: (address: AddressResult) => set({ companyAddress: address }),
+  companyAddress: '',
+  setCompanyAddress: (address: string) => set({ companyAddress: address }),
+  detailCompanyAddress: '',
+  setDetailCompanyAddress: (address: string) => set({ detailCompanyAddress: address }),
 }));
 
 export default useAddressStore;
