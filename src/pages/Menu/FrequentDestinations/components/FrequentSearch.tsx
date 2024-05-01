@@ -9,13 +9,12 @@ import useAddressStore from '@store/addressStore';
 import { LocationButton } from '..';
 import { SearchResult } from '@/types';
 
-interface SearchContentProps {
-  // TODO: index로 돌아가는 로직을 넣을것. 집, 회사 구분하는 타입도 정의할 것.
+interface FrequentSearchProps {
   selectedTab: 'home' | 'company';
   goBack: () => void;
 }
 
-const FrequentSearch = ({ selectedTab, goBack }: SearchContentProps) => {
+const FrequentSearch = ({ selectedTab, goBack }: FrequentSearchProps) => {
   const { handleSearchWord, searchResults, searchKeyword } = useSearch();
   const { curAddress, setHomeAddress, setCompanyAddress } = useAddressStore();
 
