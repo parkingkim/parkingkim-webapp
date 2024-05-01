@@ -15,6 +15,7 @@ const theme = {
   btnGray: '#707070',
   font400: '#120924',
   red: '#FF6060',
+  blue20: '#CFF3FF',
   blue100: '#0DC5FF',
   error: '#FF40A8',
 } as const;
