@@ -1,8 +1,32 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Text from './Text';
+import {
+  BlueHomeIcon,
+  BlueMyInfoIcon,
+  BlueParkingIcon,
+  HomeIcon,
+  MyInfoIcon,
+  ParkingIcon,
+} from '@assets/index';
 
-const tabs = ['홈', '내 주차장', '메뉴'];
+const tabs = ['홈', '내 주차장', '내 정보'];
+
+const tabIcons = [
+  {
+    default: <HomeIcon />,
+    active: <BlueHomeIcon />,
+  },
+  {
+    default: <ParkingIcon />,
+    active: <BlueParkingIcon />,
+  },
+  {
+    default: <MyInfoIcon />,
+    active: <BlueMyInfoIcon />,
+  },
+];
 
 const BottomTabBar = () => {
   const navigate = useNavigate();
@@ -32,7 +56,10 @@ const BottomTabBar = () => {
     <TabsContainer>
       {tabs.map((tab, index) => (
         <Tab key={tab} $isCurrent={index === currentTabIndex} onClick={changeTab(index)}>
-          {tab}
+          {index === currentTabIndex ? tabIcons[index].active : tabIcons[index].default}
+          <Text color={index === currentTabIndex ? 'blue100' : 'gray100'} size="sm">
+            {tab}
+          </Text>
         </Tab>
       ))}
     </TabsContainer>
@@ -55,9 +82,12 @@ const TabsContainer = styled.nav`
 `;
 
 const Tab = styled.button<{ $isCurrent: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 4rem;
-
-  background-color: ${({ $isCurrent }) => ($isCurrent ? 'gray' : 'transparent')};
+  gap: 4px;
 `;
 
 export default BottomTabBar;

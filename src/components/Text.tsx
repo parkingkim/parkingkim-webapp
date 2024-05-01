@@ -17,7 +17,8 @@ type TextColorType =
   | 'gray40'
   | 'gray60'
   | 'gray80'
-  | 'gray100';
+  | 'gray100'
+  | 'blue100';
 type TextSizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 interface TextProps extends PropsWithChildren, HTMLAttributes<HTMLParagraphElement> {
@@ -79,6 +80,8 @@ const StyledText = styled.p<{
         return theme.gray80;
       case 'gray100':
         return theme.gray100;
+      case 'blue100':
+        return theme.blue100;
       default:
         return theme.darkGray;
     }
