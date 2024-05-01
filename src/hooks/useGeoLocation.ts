@@ -11,7 +11,7 @@ const useGeoLocation = () => {
   const [location, setLocation] = useState<GeoLocation | null>(null);
   const { userMarker, setUserMarker } = useUserMarkerStore();
 
-  const { setAddress } = useAddressStore((state) => state);
+  const { setCurAddress } = useAddressStore((state) => state);
 
   const reverseGeo = async () => {
     const headers = { appKey: 'K7SVqM25ES7kK3FaC0crJ2Uu6XNAoAy54xiQr9I6' };
@@ -40,7 +40,7 @@ const useGeoLocation = () => {
       }
 
       const data = await res.json();
-      setAddress(parseAddress(data));
+      setCurAddress(parseAddress(data));
     } catch (error) {
       console.error('Error fetching data: ', error);
     }
