@@ -3,24 +3,20 @@ import Text from '@components/Text';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { HeadContainer } from '../Profile';
-import { Bar, Partition } from '..';
+import { Bar } from '..';
 import { CommonTextStyle } from '@style/CommonTextStyle';
 import Coupon from './components/Coupon';
+import { ThickBar } from '@pages/MyParkingLots';
 
 const coupons = [
   {
-    discountRate: 10,
-    discountName: '첫 구매 ',
+    discountAmount: 1000,
+    discountName: '설 이벤트 당첨 쿠폰',
     expirationDate: '2021.12.31',
   },
   {
-    discountRate: 20,
-    discountName: '두번째 구매 ',
-    expirationDate: '2021.12.31',
-  },
-  {
-    discountRate: 30,
-    discountName: '세번째 구매 ',
+    discountAmount: 2000,
+    discountName: '어린이날 이벤트 당첨 쿠폰',
     expirationDate: '2021.12.31',
   },
 ];
@@ -44,7 +40,7 @@ const Coupons = () => {
           내 쿠폰을 관리해보세요!
         </Text>
       </HeadContainer>
-      <Partition />
+      <ThickBar />
       <CouponInputWrapper>
         <CouponNumberInput placeholder="쿠폰 번호 입력" />
         <CouponInputButton>
@@ -63,7 +59,7 @@ const Coupons = () => {
           {coupons.length ? (
             coupons.map((coupon, idx) => <Coupon key={idx} {...coupon} />)
           ) : (
-            <Text fontStyle="md" size="md" color="gray" style={{ marginTop: '100px' }}>
+            <Text fontStyle="md" size="md" color="gray60" style={{ marginTop: '100px' }}>
               현재 사용할 수 있는 쿠폰이 없어요.
             </Text>
           )}
@@ -102,6 +98,9 @@ const CouponNumberInput = styled.input`
 `;
 
 const CouponInputButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 48px;
   min-width: 60px;
 

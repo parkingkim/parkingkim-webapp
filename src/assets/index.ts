@@ -39,3 +39,4 @@ export { default as HomeIcon } from './home.svg?react';
 export { default as CompanyIcon } from './company.svg?react';
 export { default as FavIcon } from './fav.svg?react';
 export { default as GrayFavIcon } from './gray-fav.svg?react';
+export { default as StarbucksIcon } from './starbucks.svg?react';
