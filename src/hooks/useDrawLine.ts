@@ -3,6 +3,7 @@ import { useState } from 'react';
 import useMarkerStore from '@store/userMarkerStore';
 import { SearchResult } from 'src/types';
 import { useNavigating } from '@context/NavigatingContext';
+import axios from 'axios';
 
 let lineArr = [];
 
@@ -47,20 +48,22 @@ const useDrawLine = (result: SearchResult) => {
     const positionBounds = new Tmapv3.LatLngBounds();
 
     try {
-      const driveRes = await fetch(`https://apis.openapi.sk.com/tmap/routes?${driveQueryParams}`, {
-        headers,
-        method: 'POST',
-      });
+      const driveRes = await axios.post(
+        `https://apis.openapi.sk.com/tmap/routes?${driveQueryParams}`,
+        {},
+        {
+          headers,
+        },
+      );
 
-      if (!driveRes.ok) {
+      if (driveRes.status !== 200) {
         throw new Error(`HTTP error! status: ${driveRes.status}`);
       }
 
-      const driveData = await driveRes.json().then((data) => {
-        setStartToParkingLotTime(data.features[0].properties.totalTime);
-        setStartToParkingLotDistance(data.features[0].properties.totalDistance);
-        processRoute(data, positionBounds);
-      });
+      const driveData = driveRes.data;
+      setStartToParkingLotTime(driveData.features[0].properties.totalTime);
+      setStartToParkingLotDistance(driveData.features[0].properties.totalDistance);
+      processRoute(driveData, positionBounds);
 
       // 최종 목적지
       const noorLng = Number(result.noorLon);
@@ -86,19 +89,18 @@ const useDrawLine = (result: SearchResult) => {
 
       const walkingQueryParams = new URLSearchParams(walkingSearchParams).toString();
 
-      const walkingRes = await fetch(
+      const walkingRes = await axios.post(
         `https://apis.openapi.sk.com/tmap/routes/pedestrian?${walkingQueryParams}`,
+        {},
         {
           headers,
-          method: 'POST',
         },
       );
 
-      const walkingData = await walkingRes.json().then((data) => {
-        setParkingLotToDestinationTime(data.features[0].properties.totalTime);
-        setParkingLotToDestinationDistance(data.features[0].properties.totalDistance);
-        processRoute(data, positionBounds);
-      });
+      const walkingData = walkingRes.data;
+      setParkingLotToDestinationTime(walkingData.features[0].properties.totalTime);
+      setParkingLotToDestinationDistance(walkingData.features[0].properties.totalDistance);
+      processRoute(walkingData, positionBounds);
 
       // 경로에 따른 바운드 설정
 
