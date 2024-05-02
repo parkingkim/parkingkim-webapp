@@ -3,23 +3,23 @@ import styled from 'styled-components';
 
 export interface BadgeProps {
   price?: number;
-  ETA?: number;
+  walkingTime?: number;
   parkingType?: string;
 }
 
-const Badge = ({ price, ETA, parkingType }: BadgeProps) => {
+const Badge = ({ price, walkingTime, parkingType }: BadgeProps) => {
   return (
     <BadgeContainer>
-      {price && (
+      {
         <BadgeWrapper>
           <ParkingPriceIcon />
           예상금액 {price}원
         </BadgeWrapper>
-      )}
-      {ETA && (
+      }
+      {walkingTime && (
         <BadgeWrapper>
           <ParkingWalkIcon />
-          도보 예상시간 {ETA}분
+          도보 예상시간 {walkingTime}분
         </BadgeWrapper>
       )}
       {

@@ -10,3 +10,6 @@ export const REGEX = {
   phoneNumber: /[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/,
   name: /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/,
 } as const;
+
+export const NO_PARKING_LOT = -1;
+export const NO_PARKING_LOT_MSG = '주변에 주차장이 없습니다..🥲';

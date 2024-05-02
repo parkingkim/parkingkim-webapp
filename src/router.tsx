@@ -21,6 +21,7 @@ import Signup from '@pages/Signup';
 import Map from '@components/Map';
 import BottomTabBar from '@components/BottomTabBar';
 import Signin from '@pages/Signin';
+import { NavigatingProvider } from './context/NavigatingContext';
 
 const Root = () => {
   return (
@@ -32,11 +33,13 @@ const Root = () => {
 
 const BottomTabBarRoot = () => {
   return (
-    <MobileView>
-      <Map />
-      <Outlet />
-      <BottomTabBar />
-    </MobileView>
+    <NavigatingProvider>
+      <MobileView>
+        <Map />
+        <Outlet />
+        <BottomTabBar />
+      </MobileView>
+    </NavigatingProvider>
   );
 };
 

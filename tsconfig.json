@@ -53,6 +53,9 @@
       "@apis/*": [
         "src/apis/*"
       ],
+      "@context/*": [
+        "src/context/*"
+      ],
       "@/*": [
         "src/*"
       ],

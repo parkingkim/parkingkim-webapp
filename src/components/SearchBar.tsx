@@ -10,12 +10,7 @@ interface SearchBarProps {
   placeholder?: string;
 }
 
-const SearchBar = ({
-  expandHeight,
-  isFocused,
-  onChangeSearchKeyword,
-  placeholder = '목적지 검색',
-}: SearchBarProps) => {
+const SearchBar = ({ expandHeight, isFocused, onChangeSearchKeyword }: SearchBarProps) => {
   const focusAndExpand = () => {
     if (!isFocused && expandHeight) expandHeight();
   };
@@ -23,7 +18,12 @@ const SearchBar = ({
   return (
     <SearchBarWrapper onClick={focusAndExpand}>
       {isFocused ? (
-        <StyledSearchBar onChange={onChangeSearchKeyword} placeholder={placeholder} autoFocus />
+        <StyledSearchBar
+          onChange={onChangeSearchKeyword}
+          onClick={() => expandHeight && expandHeight()}
+          placeholder="목적지 검색"
+          autoFocus
+        />
       ) : (
         <IconWrapper>
           <SearchIcon />

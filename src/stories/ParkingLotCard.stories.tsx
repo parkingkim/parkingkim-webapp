@@ -18,7 +18,7 @@ export const Default: Story = {
   args: {
     title: '부산대학교 주차장',
     price: 4500,
-    ETA: 15,
+    walkingTime: 15,
     parkingType: '공영',
     isFavorite: false,
   },

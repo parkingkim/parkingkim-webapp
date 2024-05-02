@@ -4,25 +4,47 @@ import SearchItem from '@components/SearchItem';
 import SearchFilter from '@pages/Home/components/SearchFilter';
 import styled from 'styled-components';
 import ResultContent from './ResultContent';
-import useSearch from '../hooks/useSearch';
+import useSearch from '../../../hooks/useSearch';
 import Text from '@components/Text';
+import useBottomSheetStore from '@store/bottomSheetStore';
+import { Dispatch, SetStateAction, Suspense, useEffect } from 'react';
+import { useNavigating } from '@context/NavigatingContext';
 
 interface SearchContentProps {
-  reduceHeight: () => void;
-  showResult: () => void;
+  setIsExpanded: Dispatch<SetStateAction<boolean>>;
 }
 
-const SearchContent = ({ reduceHeight, showResult }: SearchContentProps) => {
-  const { isResultVisible, result, handleSearchWord, searchResults, drawMarker, searchKeyword } =
-    useSearch(showResult);
+const SearchContent = ({ setIsExpanded }: SearchContentProps) => {
+  const { result, handleSearchWord, searchResults, drawMarker, searchKeyword, location } =
+    useSearch();
 
-  if (isResultVisible) return <ResultContent result={result!} />;
+  const { fillHeight } = useBottomSheetStore();
+  const { isResultVisible, setIsResultVisible } = useNavigating();
+
+  useEffect(() => fillHeight, []);
+
+  const goBackInitial = () => {
+    setIsResultVisible(false);
+    setIsExpanded(false);
+  };
+
+  if (isResultVisible) {
+    return (
+      <Suspense fallback={<p>로딩중</p>}>
+        <ResultContent result={result!} location={location} />
+      </Suspense>
+    );
+  }
 
   return (
     <SearchContainer>
       <SearchBarWrapper>
-        <BackIcon onClick={reduceHeight} role="button" />
-        <SearchBar isFocused={true} onChangeSearchKeyword={handleSearchWord} />
+        <BackIcon onClick={goBackInitial} role="button" />
+        <SearchBar
+          isFocused={true}
+          expandHeight={fillHeight}
+          onChangeSearchKeyword={handleSearchWord}
+        />
         <SearchOptionWrapper>
           <HomeAndCompany>
             <FavButton>

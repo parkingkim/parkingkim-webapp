@@ -1,6 +1,6 @@
 import useAddressStore from '@store/addressStore';
 import useMapStore from '@store/mapStore';
-import useUserMarkerStore from '@store/userMarkerStore';
+import useMarkerStore from '@store/userMarkerStore';
 import parseAddress from '@utils/parseAddress';
 import { useState, useEffect } from 'react';
 import { GeoLocation } from 'src/types/map';
@@ -9,7 +9,7 @@ const useGeoLocation = () => {
   const { Tmapv3 } = window;
   const { mapInstance } = useMapStore((state) => state);
   const [location, setLocation] = useState<GeoLocation | null>(null);
-  const { userMarker, setUserMarker } = useUserMarkerStore();
+  const { userMarker, setUserMarker, setUserLocation } = useMarkerStore();
 
   const { setCurAddress } = useAddressStore((state) => state);
 
@@ -76,6 +76,10 @@ const useGeoLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+        setUserLocation({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         });
