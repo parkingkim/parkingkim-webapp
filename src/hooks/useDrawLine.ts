@@ -5,6 +5,7 @@ import { SearchResult } from 'src/types';
 import { useNavigating } from '@context/NavigatingContext';
 import axios from 'axios';
 
+// 밖에 둬야 라인이 지워집니다...
 let lineArr = [];
 
 const useDrawLine = (result: SearchResult) => {
@@ -20,9 +21,7 @@ const useDrawLine = (result: SearchResult) => {
   } = useNavigating();
 
   const resetLine = () => {
-    for (let i = 0; i < lineArr.length; i++) {
-      lineArr[i].setMap(null);
-    }
+    lineArr.forEach((line) => line.setMap(null));
     lineArr = [];
   };
 
@@ -132,21 +131,32 @@ const useDrawLine = (result: SearchResult) => {
     }
   };
 
-  const drawLine = (arrPoint: any, traffic: any) => {
-    let polyLine;
-    let lineColor = '';
+  const getLineColor = (trafficIndex: number) => {
+    const trafficColors = {
+      0: '#0DC5FF',
+      1: '#00EA5E',
+      2: '#FF9E0C',
+      3: '#FF40A8',
+      4: '#7D2DFF',
+    };
+    return trafficColors[trafficIndex] || '#000000';
+  };
 
+  const createPolyline = (points: any, color: string) => {
+    const polyLine = new Tmapv3.Polyline({
+      path: points,
+      strokeColor: color,
+      strokeWeight: 6,
+      map: mapInstance,
+    });
+    lineArr.push(polyLine);
+  };
+
+  const drawLine = (arrPoint: any, traffic: any) => {
     if (traffic != '0') {
       if (traffic.length == 0) {
-        lineColor = '#000000';
-
-        polyLine = new Tmapv3.Polyline({
-          path: arrPoint,
-          strokeColor: lineColor,
-          strokeWeight: 6,
-          map: mapInstance,
-        });
-        lineArr.push(polyLine);
+        // 도보 경로 그리기
+        createPolyline(arrPoint, '#000000');
       } else {
         if (traffic[0][0] != 0) {
           let trafficObject;
@@ -167,13 +177,7 @@ const useDrawLine = (result: SearchResult) => {
             noInformationPoint.push(arrPoint[j]);
           }
 
-          polyLine = new Tmapv3.Polyline({
-            path: noInformationPoint,
-            strokeColor: '#0DC5FF',
-            strokeWeight: 6,
-            map: mapInstance,
-          });
-          lineArr.push(polyLine);
+          createPolyline(noInformationPoint, '#0DC5FF');
 
           for (let x = 0; x < tInfo.length; x++) {
             const sectionPoint = [];
@@ -182,25 +186,8 @@ const useDrawLine = (result: SearchResult) => {
               sectionPoint.push(arrPoint[y]);
             }
 
-            if (tInfo[x].trafficIndex == 0) {
-              lineColor = '#0DC5FF';
-            } else if (tInfo[x].trafficIndex == 1) {
-              lineColor = '#00EA5E';
-            } else if (tInfo[x].trafficIndex == 2) {
-              lineColor = '#FF9E0C';
-            } else if (tInfo[x].trafficIndex == 3) {
-              lineColor = '#FF40A8';
-            } else if (tInfo[x].trafficIndex == 4) {
-              lineColor = '#7D2DFF';
-            }
-
-            polyLine = new Tmapv3.Polyline({
-              path: sectionPoint,
-              strokeColor: lineColor,
-              strokeWeight: 6,
-              map: mapInstance,
-            });
-            lineArr.push(polyLine);
+            const lineColor = getLineColor(tInfo[x].trafficIndex);
+            createPolyline(sectionPoint, lineColor);
           }
         } else {
           let trafficObject;
@@ -222,30 +209,14 @@ const useDrawLine = (result: SearchResult) => {
               sectionPoint.push(arrPoint[y]);
             }
 
-            if (tInfo[x].trafficIndex == 0) {
-              lineColor = '#0DC5FF';
-            } else if (tInfo[x].trafficIndex == 1) {
-              lineColor = '#00EA5E';
-            } else if (tInfo[x].trafficIndex == 2) {
-              lineColor = '#FF9E0C';
-            } else if (tInfo[x].trafficIndex == 3) {
-              lineColor = '#FF40A8';
-            } else if (tInfo[x].trafficIndex == 4) {
-              lineColor = '#7D2DFF';
-            }
-
-            polyLine = new Tmapv3.Polyline({
-              path: sectionPoint,
-              strokeColor: lineColor,
-              strokeWeight: 6,
-              map: mapInstance,
-            });
-            lineArr.push(polyLine);
+            const lineColor = getLineColor(tInfo[x].trafficIndex);
+            createPolyline(sectionPoint, lineColor);
           }
         }
       }
     }
   };
+
   return { navigateRoute, description };
 };
 
