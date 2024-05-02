@@ -138,6 +138,7 @@ const ChangePasswordButton = styled.button`
 
   background-color: ${({ theme }) => theme.blue100};
   border-radius: 10px;
+  box-shadow: 4px 4px 4px rgb(0 0 0 / 15%);
 
   position: absolute;
   bottom: 20px;
@@ -145,7 +146,6 @@ const ChangePasswordButton = styled.button`
   color: white;
   font-size: 20px;
   cursor: pointer;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
 
   &:disabled {
     background-color: ${({ theme }) => theme.gray60};

@@ -37,14 +37,15 @@ const ParkingLotCard = ({
 };
 
 const CardContainer = styled.article`
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
   width: 100%;
   padding: 20px 14px;
   flex-direction: row;
   justify-content: space-between;
+
   border-radius: 10px;
-  box-shadow: 4px 4px 10px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 10px 1px rgb(0 0 0 / 25%);
   cursor: pointer;
 `;
 

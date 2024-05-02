@@ -79,8 +79,8 @@ const HomeAndCompany = styled.div`
 
 const FavButton = styled.button`
   display: flex;
-  align-items: center;
   padding: 0;
+  align-items: center;
   gap: 2px;
 `;
 
@@ -123,7 +123,7 @@ const ThickBar = styled.div`
 
 const SearchOptionWrapper = styled.div`
   display: flex;
-  margin: 12px 10px 0 10px;
+  margin: 12px 10px 0;
   justify-content: space-between;
   align-items: center;
 `;
