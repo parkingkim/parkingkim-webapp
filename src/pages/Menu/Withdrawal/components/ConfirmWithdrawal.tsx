@@ -31,9 +31,12 @@ const ConfirmWithdrawal = ({ cancelWithdrawal }: ConfirmWithdrawalProps) => {
       <BackIcon onClick={cancelWithdrawal} style={{ minHeight: '42px' }} />
       <Header>
         <Text size="3xl" fontStyle="bold">
-          파킹킴과 함께해주셔서 감사했어요!
+          저희와 함께해주셔서
+          <br />
+          감사했어요!
         </Text>
-        <Text color="red" fontStyle="semi-bold">
+
+        <Text color="error" fontStyle="semi-bold">
           탈퇴 시 주의사항
         </Text>
         <Description>
@@ -66,8 +69,8 @@ const ConfirmWithdrawal = ({ cancelWithdrawal }: ConfirmWithdrawalProps) => {
             </Option>
           ))}
         </OptionWrapper>
-        <Button color="secondary">
-          <Text fontStyle="bold" color="white" size="lg">
+        <Button color="gray80">
+          <Text fontStyle="bold" color="white" size="xl">
             탈퇴하기
           </Text>
         </Button>

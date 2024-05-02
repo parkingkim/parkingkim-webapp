@@ -1,4 +1,4 @@
-import { WhiteStarIcon } from '@assets/index';
+import { FavIcon, GrayFavIcon } from '@assets/index';
 import Text from '@components/Text';
 import { ParkingLot } from 'src/types';
 import styled from 'styled-components';
@@ -20,7 +20,7 @@ const mockVisitedParkingLots: ParkingLot[] = [
     estimatedFee: '3000',
     estimatedWalkingTime: '',
     parkingType: '노외',
-    isFavorite: true,
+    isFavorite: false,
     latitude: '34.333213',
     longitude: '54.434312',
   },
@@ -65,8 +65,12 @@ const VisitedParkingLotPreview = () => {
           <>
             {mockVisitedParkingLots.map((parkingLot) => (
               <PreviewItem key={parkingLot.parkingId}>
-                <Text color="white">{parkingLot.parkingName}</Text>
-                <WhiteStarIcon style={{ position: 'absolute', right: '12px', bottom: '12px' }} />
+                <Text>{parkingLot.parkingName}</Text>
+                {parkingLot.isFavorite ? (
+                  <FavIcon style={{ position: 'absolute', right: '16px', top: '20px' }} />
+                ) : (
+                  <GrayFavIcon style={{ position: 'absolute', right: '16px', top: '20px' }} />
+                )}
               </PreviewItem>
             ))}
           </>
@@ -89,7 +93,6 @@ const VisitedParkingLotContainer = styled.div`
   align-items: flex-start;
 
   background-color: white;
-  border-top: 7px solid #f6f6f6;
 
   position: absolute;
 
@@ -116,9 +119,9 @@ const PreviewItem = styled.div`
   padding: 15px;
   justify-content: flex-start;
 
-  background-color: ${({ theme }) => theme.gray};
+  background-color: ${({ theme }) => theme.white};
   border-radius: 10px;
-
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
   position: relative;
 `;
 

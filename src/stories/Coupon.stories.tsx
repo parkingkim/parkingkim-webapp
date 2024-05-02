@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    discountRate: 10,
+    discountAmount: 1000,
     discountName: '설날 연휴 공용주차장',
     expirationDate: '2022-02-28',
   },

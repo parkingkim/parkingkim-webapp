@@ -1,12 +1,12 @@
 import { BackIcon, RightArrowIcon } from '@assets/index';
 import Text from '@components/Text';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Bar, Partition } from '..';
 import styled from 'styled-components';
+import useUserInfoStore from '@store/userInfoStore';
 
 const Profile = () => {
-  const location = useLocation();
-  const { name, email } = location.state;
+  const { user } = useUserInfoStore();
   const navigate = useNavigate();
   const goBack = () => {
     navigate('/menu');
@@ -33,7 +33,7 @@ const Profile = () => {
           이름
         </Text>
         <Text fontStyle="semi-bold" size="md">
-          {name}
+          {user?.name}
         </Text>
       </NameAndEmail>
       <Bar />
@@ -42,7 +42,7 @@ const Profile = () => {
           이메일
         </Text>
         <Text fontStyle="semi-bold" size="md">
-          {email}
+          {user?.email}
         </Text>
       </NameAndEmail>
       <Bar />

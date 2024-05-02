@@ -1,16 +1,31 @@
-import { BackIcon, LocationIcon, RightArrowIcon } from '@assets/index';
+import { BackIcon, CompanyIcon, HomeIcon, LocationIcon, RightArrowIcon } from '@assets/index';
 import { HeadContainer } from '../Profile';
 import { useNavigate } from 'react-router-dom';
 import Text from '@components/Text';
-import { Partition } from '..';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { ThickBar } from '@pages/MyParkingLots';
+import FrequentSearch from './components/FrequentSearch';
+import useAddressStore from '@store/addressStore';
 
 type FreqDestination = 'home' | 'company';
 
 const FrequentDestinations = () => {
-  const [selectedTab, setSelectedTab] = useState<FreqDestination>('home');
   const navigate = useNavigate();
+  const [selectedTab, setSelectedTab] = useState<FreqDestination>('home');
+  const [isSearchAddress, setIsSearchAddress] = useState(false);
+  const {
+    curAddress,
+    homeAddress,
+    detailHomeAddress,
+    companyAddress,
+    detailCompanyAddress,
+    setHomeAddress,
+    setCompanyAddress,
+    setDetailHomeAddress,
+    setDetailCompanyAddress,
+  } = useAddressStore();
+
   const goBack = () => {
     navigate('/menu');
   };
@@ -19,32 +34,49 @@ const FrequentDestinations = () => {
     setSelectedTab(tab);
   };
 
+  const handleSetAddress = () => {
+    selectedTab === 'home'
+      ? setHomeAddress(curAddress.roadAddr)
+      : setCompanyAddress(curAddress.roadAddr);
+  };
+
+  const handleInputDetailAddress = (e: ChangeEvent<HTMLInputElement>) => {
+    selectedTab === 'home'
+      ? setDetailHomeAddress(e.target.value)
+      : setDetailCompanyAddress(e.target.value);
+  };
+
   /** TODO: 집/회사 위치 조회 api 연동 */
   /** 집/회사 위치를 어떤 식으로 가져올지 정해지면 추가 작업 */
+
+  if (isSearchAddress)
+    return <FrequentSearch selectedTab={selectedTab} goBack={() => setIsSearchAddress(false)} />;
 
   return (
     <>
       <HeadContainer>
         <BackIcon onClick={goBack} />
-        <Text fontStyle="bold" size="lg">
+        <Text fontStyle="bold" size="xl">
           집 / 회사 관리
         </Text>
         <Text size="sm">집/회사 위치를 관리해보세요.</Text>
       </HeadContainer>
-      <Partition />
+      <ThickBar />
       <DestinationContainer>
         <DestinationTabContainer>
           <DestinationTab $isSelected={selectedTab === 'home'} onClick={changeTab('home')}>
             <Text fontStyle="semi-bold" size="lg">
               집
+              <HomeIcon style={{ marginLeft: '4px' }} />
             </Text>
-            <Text>{'집 주소'}</Text>
+            <Text style={{ textAlign: 'left' }}>{`${homeAddress} ${detailHomeAddress}`}</Text>
           </DestinationTab>
           <DestinationTab $isSelected={selectedTab === 'company'} onClick={changeTab('company')}>
             <Text fontStyle="semi-bold" size="lg">
               회사
+              <CompanyIcon style={{ marginLeft: '4px' }} />
             </Text>
-            <Text>{'회사 주소'}</Text>
+            <Text style={{ textAlign: 'left' }}>{`${companyAddress} ${detailCompanyAddress}`}</Text>
           </DestinationTab>
         </DestinationTabContainer>
         <AddressContainer>
@@ -52,16 +84,28 @@ const FrequentDestinations = () => {
             <Text fontStyle="semi-bold" size="lg">
               장소 상세
             </Text>
-            <LocationButton>
-              <Text color="btn-gray">위치 설정</Text>
+            <LocationButton onClick={handleSetAddress}>
+              <Text color="gray80" size="sm">
+                현재 위치로 설정
+              </Text>
               <LocationIcon />
             </LocationButton>
           </AddressHeader>
           <AddressInputWrapper>
-            <AddressInput placeholder="장소 주소 검색" />
-            <RightArrowIcon />
+            <AddressInput
+              placeholder="장소 주소 검색"
+              value={selectedTab === 'home' ? homeAddress : companyAddress}
+            />
+            <RightArrowIcon
+              onClick={() => setIsSearchAddress(true)}
+              style={{ cursor: 'pointer' }}
+            />
           </AddressInputWrapper>
-          <AddressInput placeholder="상세 주소 (예시: 1층, 동/호수)" />
+          <AddressInput
+            placeholder="상세 주소 (예시: 1층, 동/호수)"
+            onChange={handleInputDetailAddress}
+            value={selectedTab === 'home' ? detailHomeAddress : detailCompanyAddress}
+          />
         </AddressContainer>
       </DestinationContainer>
     </>
@@ -80,7 +124,7 @@ const DestinationTabContainer = styled.div`
   flex-direction: row;
 
   border-radius: 10px;
-  box-shadow: 0 0 4px 2px rgb(189 196 203 / 50%);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 
   & > :first-child {
     border-radius: 10px 0 0 10px;
@@ -98,7 +142,7 @@ const DestinationTab = styled.button<{ $isSelected: boolean }>`
   padding: 16px 20px;
   flex-direction: column;
 
-  background: ${({ $isSelected }) => ($isSelected ? '#f5f5f5' : 'none')};
+  background: ${({ $isSelected, theme }) => ($isSelected ? theme.blue20 : 'none')};
   gap: 12px;
 `;
 
@@ -117,11 +161,11 @@ const AddressHeader = styled.div`
   align-items: center;
 `;
 
-const LocationButton = styled.button`
+export const LocationButton = styled.button`
   display: flex;
   padding: 0;
   flex-direction: row;
-  align-items: center;
+  align-self: flex-end;
 
   background: none;
   gap: 12px;
@@ -135,12 +179,12 @@ const AddressInput = styled.input`
   border: none;
   border-radius: 10px;
 
-  color: ${({ theme }) => theme.gray};
+  color: ${({ theme }) => theme.gray80};
 
   outline: none;
 
   &::placeholder {
-    color: ${({ theme }) => theme.gray};
+    color: ${({ theme }) => theme.gray60};
   }
 `;
 

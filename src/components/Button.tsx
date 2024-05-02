@@ -1,6 +1,7 @@
+import theme from '@/theme';
 import styled from 'styled-components';
 
-type ButtonColor = 'primary' | 'secondary' | 'teritiary';
+type ButtonColor = 'primary' | 'secondary' | 'tertiary' | 'gray80' | 'gray20';
 
 interface ButtonProps {
   width?: string;
@@ -11,16 +12,23 @@ interface ButtonProps {
 const getButtonColor = (color: ButtonColor) => {
   switch (color) {
     case 'primary':
-      return '#0DC5FF';
+      return theme.blue100;
     case 'secondary':
       return '#bdc4cb';
-    case 'teritiary':
+    case 'tertiary':
       return '#5639ff';
+    case 'gray80':
+      return theme.gray80;
+    case 'gray20':
+      return theme.gray20;
   }
 };
 
 const Button = styled.button<ButtonProps>`
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: ${({ width = '90%' }) => width};
   height: 54px;
   align-self: center;

@@ -2,7 +2,7 @@ import useMapStore from '@store/mapStore';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { SearchResult } from 'src/types';
 
-const useSearch = (showResult: () => void) => {
+const useSearch = (showResult?: () => void) => {
   const { Tmapv3 } = window;
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -104,7 +104,7 @@ const useSearch = (showResult: () => void) => {
     mapInstance.setZoom(15);
 
     setResult(result);
-    showResult();
+    if (showResult) showResult();
     setIsResultVisible(true);
   };
 

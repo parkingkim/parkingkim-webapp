@@ -19,3 +19,8 @@ export interface SearchResult {
   noorLat: string;
   noorLon: string;
 }
+
+export interface User {
+  name: string;
+  email: string;
+}
