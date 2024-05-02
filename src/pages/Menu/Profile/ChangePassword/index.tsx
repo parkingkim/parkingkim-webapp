@@ -24,6 +24,13 @@ const ChangePassword = () => {
     navigate('/profile');
   };
 
+  const isButtonDisabled = () =>
+    !isCurPasswordValid ||
+    !isNewPasswordValid ||
+    !isAgainPasswordValid ||
+    curPassword === newPassword ||
+    newPassword !== againPassword;
+
   return (
     <>
       <HeadContainer>
@@ -62,15 +69,7 @@ const ChangePassword = () => {
             onChange={validateAgainPassword}
           />
         </NewPasswordContainer>
-        <ChangePasswordButton
-          disabled={
-            !isCurPasswordValid ||
-            !isNewPasswordValid ||
-            !isAgainPasswordValid ||
-            curPassword === newPassword ||
-            newPassword !== againPassword
-          }
-        >
+        <ChangePasswordButton disabled={isButtonDisabled()}>
           <Text size="xl" color="white" fontStyle="bold">
             저장하기
           </Text>
