@@ -83,10 +83,10 @@ const TabsContainer = styled.nav`
 
 const Tab = styled.button<{ $isCurrent: boolean }>`
   display: flex;
+  width: 4rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 4rem;
   gap: 4px;
 `;
 

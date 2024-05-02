@@ -25,12 +25,12 @@ const getButtonColor = (color: ButtonColor) => {
 };
 
 const Button = styled.button<ButtonProps>`
-  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  box-sizing: border-box;
   width: ${({ width = '90%' }) => width};
   height: 54px;
+  justify-content: center;
+  align-items: center;
   align-self: center;
 
   background-color: ${({ color = 'primary' }) => getButtonColor(color)};

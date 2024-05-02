@@ -64,13 +64,15 @@ const Home = () => {
 };
 
 const NavHeader = styled.header`
-  position: absolute;
   display: flex;
-  align-items: center;
   width: calc(100% - 40px);
-  top: 0;
-  background-color: ${({ theme }) => theme.blue100};
   padding: 20px;
+  align-items: center;
+
+  background-color: ${({ theme }) => theme.blue100};
+
+  position: absolute;
+  top: 0;
 `;
 
 const PathIndicator = styled.div`

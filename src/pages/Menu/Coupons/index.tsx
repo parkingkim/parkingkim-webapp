@@ -99,10 +99,10 @@ const CouponNumberInput = styled.input`
 
 const CouponInputButton = styled.button`
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 48px;
   min-width: 60px;
+  justify-content: center;
+  align-items: center;
 
   background: #f5f5f5;
   border-radius: 10px;

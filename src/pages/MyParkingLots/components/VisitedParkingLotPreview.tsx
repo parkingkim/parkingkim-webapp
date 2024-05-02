@@ -121,7 +121,8 @@ const PreviewItem = styled.div`
 
   background-color: ${({ theme }) => theme.white};
   border-radius: 10px;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 1px 1px 4px rgb(0 0 0 / 15%);
+
   position: relative;
 `;
 

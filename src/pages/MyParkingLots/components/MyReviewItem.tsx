@@ -29,6 +29,7 @@ const MyReviewItem = ({ parkingLot }: MyReviewItemProps) => {
 const ItemContainer = styled.li`
   display: flex;
   flex-direction: column;
+
   border-bottom: 2px solid ${({ theme }) => theme.gray5};
 
   button {
@@ -40,9 +41,9 @@ const ItemContainer = styled.li`
 
 const ItemInfoContainer = styled.div`
   display: flex;
+  padding: 20px;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 20px;
 `;
 
 const ItemInfoWrapper = styled.div`

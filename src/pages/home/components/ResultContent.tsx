@@ -72,16 +72,17 @@ const ResultContent = ({ result, location }: ResultContentProps) => {
 const Handle = styled.div`
   width: 45px;
   height: 4px;
+  margin: 0 auto;
+
   background-color: #d9d9d9;
   border-radius: 10px;
-  margin: 0 auto;
 `;
 
 const CardContainer = styled.section`
   display: flex;
+  padding-bottom: 120px;
   flex-direction: column;
   gap: 16px;
-  padding-bottom: 120px;
 `;
 
 const ResultContainer = styled.div`
@@ -92,6 +93,7 @@ const ResultContainer = styled.div`
 
 const DestinationWrapper = styled.div`
   margin-bottom: 30px;
+
   & > :first-child {
     margin-bottom: 8px;
   }

@@ -2,7 +2,6 @@ import { BackIcon, LocationIcon } from '@assets/index';
 import SearchBar from '@components/SearchBar';
 import SearchItem from '@components/SearchItem';
 import styled from 'styled-components';
-
 import Text from '@components/Text';
 import useAddressStore from '@store/addressStore';
 import { LocationButton } from '..';

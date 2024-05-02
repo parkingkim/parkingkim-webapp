@@ -86,10 +86,11 @@ const ReviewContainer = styled.div`
 
 const EmptyImage = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 180px;
+  justify-content: center;
+  align-items: center;
+
   background: linear-gradient(#f5f5f5 20%, #d5d5d5 100%);
   border-radius: 10px;
 `;
@@ -102,22 +103,23 @@ const LotInfoContainer = styled.div`
 
 const ParkingInfoContainer = styled.div`
   display: flex;
-  justify-content: center;
   padding: 20px 0;
+  justify-content: center;
+
   button {
     display: flex;
+    padding: 15px 0;
     justify-content: center;
     align-items: center;
-    padding: 15px 0;
   }
 `;
 
 const ParkingLotContainer = styled.div`
   display: flex;
-  flex-direction: column;
   height: 100%;
-  overflow: scroll;
   padding: 20px;
+  overflow: scroll;
+  flex-direction: column;
 `;
 
 export default ParkingLotContent;

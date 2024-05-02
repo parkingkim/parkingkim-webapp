@@ -77,9 +77,6 @@ const NavigateResult = () => {
 };
 
 const CurLocationButton = styled.button`
-  position: absolute;
-  top: -70px;
-  left: 20px;
   display: flex;
   width: 48px;
   height: 48px;
@@ -89,23 +86,29 @@ const CurLocationButton = styled.button`
   background-color: #f5f5f5;
   border-radius: 10px;
   box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
+
+  position: absolute;
+  top: -70px;
+  left: 20px;
 `;
 
 const VerticalBar = styled.div`
   width: 3px;
   height: 130px;
+
   background-color: ${({ theme }) => theme.gray};
 `;
 
 const VerticalPointBar = styled.div`
-  border-left: 3px dashed ${({ theme }) => theme.gray};
   height: 160px;
+
+  border-left: 3px dashed ${({ theme }) => theme.gray};
 `;
 
 const NavigateResultContainer = styled.div`
   display: flex;
-  flex-direction: column;
   overflow: scroll;
+  flex-direction: column;
 `;
 
 const Bar = styled.div`
@@ -128,16 +131,17 @@ const ThickBar = styled.div`
 const Handle = styled.div`
   width: 45px;
   height: 4px;
+  margin: 0 auto;
+
   background-color: #d9d9d9;
   border-radius: 10px;
-  margin: 0 auto;
 `;
 
 const TimeContainer = styled.div`
   display: flex;
+  padding: 20px;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 20px;
   gap: 5px;
 `;
 
@@ -159,17 +163,17 @@ const PathAndIconContainer = styled.div`
 
 const PathContainer = styled.div`
   display: flex;
+  padding: 20px;
   flex-direction: column;
   gap: 10px;
-  padding: 20px;
 `;
 
 const IconContainer = styled.div`
   display: flex;
+  padding: 20px 0 20px 20px;
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  padding: 20px 0 20px 20px;
 `;
 
 export default NavigateResult;
