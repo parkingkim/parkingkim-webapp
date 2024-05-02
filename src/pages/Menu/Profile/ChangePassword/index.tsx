@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Text from '@components/Text';
 import PasswordInput from './components/PasswordInput';
 import styled from 'styled-components';
-import usePassword from '../hook/usePassword';
+import usePassword from './hook/usePassword';
 
 const ChangePassword = () => {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ const ChangePassword = () => {
             !isCurPasswordValid ||
             !isNewPasswordValid ||
             !isAgainPasswordValid ||
-            curPassword !== newPassword ||
+            curPassword === newPassword ||
             newPassword !== againPassword
           }
         >
