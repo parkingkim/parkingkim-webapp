@@ -19,12 +19,12 @@ const ParkingLotsList = ({
 
   useDrawMarkers({ parkingLots, location });
 
-  if (parkingLots.length === 0) return <p>주변에 주차장이 없습니다..🥲</p>;
-
   const selectParkingLot = (parkingLotId: number, walkingTime: number) => {
     setSelectedParkingLot(parkingLotId);
     setWalkingTime(walkingTime);
   };
+
+  if (parkingLots.length === 0) return <p>주변에 주차장이 없습니다..🥲</p>;
 
   return (
     <>
