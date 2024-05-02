@@ -41,9 +41,7 @@ const usePassword = () => {
   return {
     ...passwords,
     ...validity,
-    validateCurPassword: handlePasswordChange('curPassword'),
-    validateNewPassword: handlePasswordChange('newPassword'),
-    validateAgainPassword: handlePasswordChange('againPassword'),
+    handlePasswordChange,
   };
 };
 

@@ -12,9 +12,7 @@ const ChangePassword = () => {
     curPassword,
     newPassword,
     againPassword,
-    validateCurPassword,
-    validateNewPassword,
-    validateAgainPassword,
+    handlePasswordChange,
     isCurPasswordValid,
     isNewPasswordValid,
     isAgainPasswordValid,
@@ -48,7 +46,10 @@ const ChangePassword = () => {
           <Text size="sm" color="gray80">
             현재 비밀번호
           </Text>
-          <PasswordInput placeholder="현재 비밀번호 입력" onChange={validateCurPassword} />
+          <PasswordInput
+            placeholder="현재 비밀번호 입력"
+            onChange={(e) => handlePasswordChange('curPassword')(e)}
+          />
           <Text size="xs" color="error">
             현재 비밀번호를 잊으셨나요?
           </Text>
@@ -59,14 +60,14 @@ const ChangePassword = () => {
           </Text>
           <PasswordInput
             placeholder="영문, 숫자, 특수문자 포함 8자 이상"
-            onChange={validateNewPassword}
+            onChange={(e) => handlePasswordChange('newPassword')(e)}
           />
           <Text size="sm" color="gray80">
             새 비밀번호 확인
           </Text>
           <PasswordInput
             placeholder="새 비밀번호를 재입력해주세요"
-            onChange={validateAgainPassword}
+            onChange={(e) => handlePasswordChange('againPassword')(e)}
           />
         </NewPasswordContainer>
         <ChangePasswordButton disabled={isButtonDisabled()}>
