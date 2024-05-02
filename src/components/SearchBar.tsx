@@ -7,6 +7,7 @@ interface SearchBarProps {
   isFocused?: boolean;
   expandHeight?: () => void;
   onChangeSearchKeyword?: (e: ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }
 
 const SearchBar = ({ expandHeight, isFocused, onChangeSearchKeyword }: SearchBarProps) => {

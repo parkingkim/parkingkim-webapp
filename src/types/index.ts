@@ -20,6 +20,11 @@ export interface SearchResult {
   noorLon: string;
 }
 
+export interface User {
+  name: string;
+  email: string;
+}
+
 export interface ParkingLotDetail {
   parkingId: number;
   parkingName: string;

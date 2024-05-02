@@ -1,5 +1,7 @@
 import { RightArrowIcon } from '@assets/index';
 import Text from '@components/Text';
+import useUserInfoStore from '@store/userInfoStore';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -12,13 +14,15 @@ const userInfo = {
 const Menu = () => {
   const navigate = useNavigate();
 
+  // 추후 통신 코드 도입시 목데이터 제거 예정
+  const { setUser } = useUserInfoStore();
+
+  useEffect(() => {
+    setUser(userInfo);
+  }, []);
+
   const goToProfile = () => {
-    navigate('/profile', {
-      state: {
-        name: userInfo.name,
-        email: userInfo.email,
-      },
-    });
+    navigate('/profile');
   };
 
   const goToCoupons = () => {
@@ -81,7 +85,7 @@ const Menu = () => {
       </SubMenuButton>
       <SubMenuButton onClick={goToWithdrawal}>
         <Text size="sm" color="gray">
-          계정 삭제
+          탈퇴하기
         </Text>
       </SubMenuButton>
     </>

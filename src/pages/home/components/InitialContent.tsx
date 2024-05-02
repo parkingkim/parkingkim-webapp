@@ -16,7 +16,7 @@ interface InitialContentProps {
 }
 
 const InitialContent = ({ setExpanded }: InitialContentProps) => {
-  const { address } = useAddressStore((state) => state);
+  const { curAddress } = useAddressStore((state) => state);
   const navigate = useNavigate();
 
   const { makeUserMaker } = useGeoLocation();
@@ -49,8 +49,8 @@ const InitialContent = ({ setExpanded }: InitialContentProps) => {
         <Text size="xl" fontStyle="bold">
           현위치
         </Text>
-        <Text>{address.jibunAddr}</Text>
-        <Text color="gray">{address.roadAddr}</Text>
+        <Text>{curAddress.jibunAddr}</Text>
+        <Text color="gray">{curAddress.roadAddr}</Text>
       </UserLocation>
       <Bar />
       <FavoriteParkingLot onClick={goToMyParkingLots}>

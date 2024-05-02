@@ -22,17 +22,14 @@ const MyReviewItem = ({ parkingLot }: MyReviewItemProps) => {
           </Text>
         </button>
       </ItemInfoContainer>
-      <Text size="sm">
-        주차장 이용요금은 실시간 변동될 수 있습니다. 주차장 이용요금은 실시간 변동될 수 있습니다.
-      </Text>
-      <ImageWrapper />
     </ItemContainer>
   );
 };
 
-const ItemContainer = styled.div`
+const ItemContainer = styled.li`
   display: flex;
   flex-direction: column;
+  border-bottom: 2px solid ${({ theme }) => theme.gray5};
 
   button {
     background-color: transparent;
@@ -43,24 +40,15 @@ const ItemContainer = styled.div`
 
 const ItemInfoContainer = styled.div`
   display: flex;
-  margin-bottom: 10px;
   justify-content: space-between;
   align-items: flex-start;
+  padding: 20px;
 `;
 
 const ItemInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-`;
-
-const ImageWrapper = styled.div`
-  width: 100%;
-  height: 200px;
-  margin-top: 20px;
-
-  background-color: ${({ theme }) => theme.gray};
-  border-radius: 10px;
 `;
 
 export default MyReviewItem;

@@ -47,15 +47,14 @@ const FavParkingLots = ({ parkingLots }: FavParkingLotsListProps) => {
     <>
       <ParkingLotsListHeader $isDeleteMode={isDeleteMode}>
         <HeaderContainer>
-          {!isDeleteMode && (
-            <BackButton onClick={goToMyParkingLots}>
-              <BackIcon />
-            </BackButton>
-          )}
+          <BackButton onClick={isDeleteMode ? toggleDeleteMode : goToMyParkingLots}>
+            {isDeleteMode ? <CloseIcon /> : <BackIcon />}
+          </BackButton>
           <HeaderWrapper>
             <HeaderActionWrapper>
-              {isDeleteMode && <CloseIcon onClick={toggleDeleteMode} />}
-              <Text fontStyle="bold">즐겨찾는 주차장</Text>
+              <Text size="xl" fontStyle="bold">
+                즐겨찾는 주차장
+              </Text>
             </HeaderActionWrapper>
             {isDeleteMode ? (
               <button onClick={deleteParkingLot}>
@@ -110,11 +109,9 @@ const HeaderContainer = styled.div`
 
 export const ParkingLotsListHeader = styled.header<{ $isDeleteMode: boolean }>`
   box-sizing: border-box;
-  padding: ${({ $isDeleteMode }) => ($isDeleteMode ? '0 20px 0 10px' : '0 20px 10px 20px')};
+  padding: 0 20px;
 
   background-color: white;
-  ${({ $isDeleteMode }) =>
-    $isDeleteMode && 'border-bottom: 2px solid #f6f6f6; margin-bottom: 8px;'};
 
   & > :last-child {
     padding: 4px;

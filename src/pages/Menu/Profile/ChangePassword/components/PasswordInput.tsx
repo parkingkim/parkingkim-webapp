@@ -1,11 +1,12 @@
+import { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface PasswordInputProps {
+interface PasswordInputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
 }
 
-const PasswordInput = ({ placeholder }: PasswordInputProps) => {
-  return <StyledPasswordInput placeholder={placeholder} />;
+const PasswordInput = ({ placeholder, ...props }: PasswordInputProps) => {
+  return <StyledPasswordInput type="password" placeholder={placeholder} {...props} />;
 };
 
 const StyledPasswordInput = styled.input`
@@ -13,11 +14,12 @@ const StyledPasswordInput = styled.input`
   width: 100%;
   height: 50px;
   padding: 0 15px;
+  background-color: ${({ theme }) => theme.gray5};
 
-  border: 1px solid ${({ theme }) => theme.gray};
+  border: none;
   border-radius: 10px;
 
-  color: ${({ theme }) => theme.gray};
+  color: ${({ theme }) => theme.gray40};
   font-size: 14px;
 `;
 
