@@ -1,6 +1,5 @@
-import { BackIcon } from '@assets/index';
 import Text from '@components/Text';
-import { Dispatch, SetStateAction, Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { SearchResult } from 'src/types';
 import styled from 'styled-components';
 import ParkingLotContent from './ParkingLotContent';
@@ -11,6 +10,7 @@ import { GeoLocation } from 'src/types/map';
 import ParkingLotsList from './ParkingLotsList';
 import { useNavigating } from '@context/NavigatingContext';
 import useAddressStore from '@store/addressStore';
+import { NO_PARKING_LOT } from '@constants/index';
 interface ResultContentProps {
   result: SearchResult;
   location: GeoLocation;
@@ -18,7 +18,7 @@ interface ResultContentProps {
 
 const ResultContent = ({ result, location }: ResultContentProps) => {
   const [walkingTime, setWalkingTime] = useState(0);
-  const [selectedParkingLot, setSelectedParkingLot] = useState(-1);
+  const [selectedParkingLot, setSelectedParkingLot] = useState(NO_PARKING_LOT);
   const { setHeight } = useBottomSheetStore();
   const { mapInstance } = useMapStore();
   const { setStartLocation, setDestination, setIsResultVisible } = useNavigating();
@@ -31,7 +31,7 @@ const ResultContent = ({ result, location }: ResultContentProps) => {
     setIsResultVisible(true);
   }, []);
 
-  if (selectedParkingLot !== -1)
+  if (selectedParkingLot !== NO_PARKING_LOT)
     return (
       <Suspense fallback={<p>로딩중</p>}>
         <ParkingLotContent
