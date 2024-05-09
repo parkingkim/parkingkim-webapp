@@ -153,7 +153,7 @@ const Signup = () => {
               <Label>
                 본인확인을 위해 <br />
                 이메일로&nbsp;
-                <span>인증번호</span> 를 전송했어요!
+                <span>인증번호</span>를 전송했어요!
               </Label>
             }
             numbers={numbers}

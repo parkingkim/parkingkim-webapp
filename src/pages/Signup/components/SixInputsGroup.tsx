@@ -1,5 +1,5 @@
 import { CheckIcon } from '@assets/index';
-import { ChangeEventHandler, ReactNode } from 'react';
+import { ChangeEventHandler, ReactNode, useRef } from 'react';
 import styled from 'styled-components';
 
 interface SixInputsGroupProps {
@@ -10,11 +10,35 @@ interface SixInputsGroupProps {
   onChange: (index: number) => ChangeEventHandler;
 }
 
+let start: number | null = null;
+const duration = 180000;
+
 const SixInputsGroup = ({ id, label, numbers, inputRefs, onChange }: SixInputsGroupProps) => {
+  const timerRef = useRef<HTMLSpanElement>(null);
+
+  const step = (timestamp: number) => {
+    if (!start) start = timestamp;
+    const progress = timestamp - start;
+    const remaining = Math.max(0, duration - progress);
+    const seconds = Math.floor(remaining / 1000);
+    const min = Math.floor(seconds / 60);
+
+    if (timerRef.current) {
+      const time = min == 0 ? (seconds % 60) + '초' : min + '분 ' + (seconds % 60) + '초';
+      timerRef.current.innerHTML = time;
+    }
+
+    if (progress < duration) {
+      requestAnimationFrame(step);
+    }
+  };
+
+  requestAnimationFrame(step);
+
   return (
     <Group>
       {label}
-      <Timer>2분13초</Timer>
+      <Timer ref={timerRef}></Timer>
       <Numbers>
         {[...Array(6)].map((_, index) => (
           <NumberInput
@@ -50,15 +74,16 @@ const Group = styled.section`
 
 const ResendButton = styled.button`
   display: flex;
+  margin-top: 18px;
   margin-bottom: 30px;
   align-items: center;
   align-self: start;
-
-  color: rgb(0 0 0 / 30%);
+  font-weight: 500;
+  color: #ababab;
   gap: 5px;
 
   & > svg > * {
-    stroke: rgb(0 0 0 / 30%);
+    stroke: #ababab;
   }
 `;
 
@@ -66,7 +91,8 @@ const Timer = styled.span`
   margin-top: 5px;
   align-self: start;
 
-  color: rgb(0 0 0 / 30%);
+  color: #ff40a8;
+  font-weight: 600;
 `;
 
 const Numbers = styled.div`
