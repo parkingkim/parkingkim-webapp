@@ -27,25 +27,19 @@ const SixInputsGroup = ({
   useEffect(() => {
     const step = (timestamp: number) => {
       if (!start) start = timestamp;
+
       const progress = timestamp - start;
       const remaining = Math.max(0, duration - progress);
       const seconds = Math.floor(remaining / 1000);
       const min = Math.floor(seconds / 60);
       const time = min == 0 ? (seconds % 60) + '초' : min + '분 ' + (seconds % 60) + '초';
 
-      if (timerRef.current) {
-        timerRef.current.innerHTML = time;
-      }
+      if (timerRef.current) timerRef.current.innerHTML = time;
 
-      if (progress < duration) {
-        requestAnimationFrame(step);
-      }
+      if (progress < duration) requestAnimationFrame(step);
     };
 
-    if (canTimerStart) {
-      console.log('start');
-      requestAnimationFrame(step);
-    }
+    if (canTimerStart) requestAnimationFrame(step);
   }, [canTimerStart]);
 
   const resetTimer = () => {
