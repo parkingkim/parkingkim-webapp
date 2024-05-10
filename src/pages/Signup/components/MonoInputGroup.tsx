@@ -72,7 +72,7 @@ const MonoInput = styled.input`
 const InputCloseContainer = styled.div`
   position: absolute;
   right: 30px;
-  bottom: 11px;
+  bottom: -1px;
   z-index: 1;
   cursor: pointer;
 

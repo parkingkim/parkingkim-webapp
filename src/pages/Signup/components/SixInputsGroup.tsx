@@ -1,5 +1,5 @@
 import { CheckIcon } from '@assets/index';
-import { ChangeEventHandler, ReactNode, useRef } from 'react';
+import { ChangeEventHandler, ReactNode, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 interface SixInputsGroupProps {
@@ -7,33 +7,50 @@ interface SixInputsGroupProps {
   label: ReactNode;
   numbers: number[];
   inputRefs: React.RefObject<HTMLInputElement>[];
+  canTimerStart: boolean;
   onChange: (index: number) => ChangeEventHandler;
 }
 
 let start: number | null = null;
 const duration = 180000;
 
-const SixInputsGroup = ({ id, label, numbers, inputRefs, onChange }: SixInputsGroupProps) => {
+const SixInputsGroup = ({
+  id,
+  label,
+  numbers,
+  inputRefs,
+  canTimerStart,
+  onChange,
+}: SixInputsGroupProps) => {
   const timerRef = useRef<HTMLSpanElement>(null);
 
-  const step = (timestamp: number) => {
-    if (!start) start = timestamp;
-    const progress = timestamp - start;
-    const remaining = Math.max(0, duration - progress);
-    const seconds = Math.floor(remaining / 1000);
-    const min = Math.floor(seconds / 60);
-
-    if (timerRef.current) {
+  useEffect(() => {
+    const step = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const remaining = Math.max(0, duration - progress);
+      const seconds = Math.floor(remaining / 1000);
+      const min = Math.floor(seconds / 60);
       const time = min == 0 ? (seconds % 60) + '초' : min + '분 ' + (seconds % 60) + '초';
-      timerRef.current.innerHTML = time;
-    }
 
-    if (progress < duration) {
+      if (timerRef.current) {
+        timerRef.current.innerHTML = time;
+      }
+
+      if (progress < duration) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    if (canTimerStart) {
+      console.log('start');
       requestAnimationFrame(step);
     }
-  };
+  }, [canTimerStart]);
 
-  requestAnimationFrame(step);
+  const resetTimer = () => {
+    start = null;
+  };
 
   return (
     <Group>
@@ -52,7 +69,7 @@ const SixInputsGroup = ({ id, label, numbers, inputRefs, onChange }: SixInputsGr
           />
         ))}
       </Numbers>
-      <ResendButton>
+      <ResendButton onClick={resetTimer}>
         <CheckIcon />
         재전송
       </ResendButton>

@@ -37,6 +37,7 @@ const Signup = () => {
   const 서비스동의 = useBoolean();
   const 본인확인동의 = useBoolean();
   const 마케팅동의 = useBoolean();
+  const canTimerStart = useBoolean(false);
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
   const { mutate } = usePostSignup();
@@ -54,6 +55,7 @@ const Signup = () => {
     if (!sliderRef.current) return;
     sliderRef.current.slickGoTo(SLIDE_INDEX.numbers);
     isModalOpen.off();
+    canTimerStart.on();
   };
 
   const slickNext = () => {
@@ -144,7 +146,7 @@ const Signup = () => {
             onChange={changeValue}
             placeholder="이메일 입력"
           />
-          {!isValidEmail(email) && <p>올바른 이메일 형식으로 작성해주세요!</p>}
+          {email.length > 0 && !isValidEmail(email) && <p>올바른 이메일 형식으로 작성해주세요!</p>}
         </Slide>
         <Slide key="numbersSlide">
           <SixInputsGroup
@@ -159,6 +161,7 @@ const Signup = () => {
             numbers={numbers}
             inputRefs={inputRefs}
             onChange={moveNumbersFocus}
+            canTimerStart={canTimerStart.value}
           />
         </Slide>
         <Slide key="passwordSlide">
