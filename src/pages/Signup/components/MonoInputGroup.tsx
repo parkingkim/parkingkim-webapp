@@ -60,6 +60,7 @@ const MonoInput = styled.input`
 
   border: 0;
   border-bottom: 1px solid #120924;
+  border-radius: 0;
 
   font-size: 18px;
 

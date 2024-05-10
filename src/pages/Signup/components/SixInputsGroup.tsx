@@ -121,6 +121,7 @@ const NumberInput = styled.input`
 
   border: 0;
   border-bottom: 2px solid #ababab;
+  border-radius: 0;
 
   font-size: 40px;
   text-align: center;
