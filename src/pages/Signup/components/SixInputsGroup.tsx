@@ -89,8 +89,9 @@ const ResendButton = styled.button`
   margin-bottom: 30px;
   align-items: center;
   align-self: start;
-  font-weight: 500;
+
   color: #ababab;
+  font-weight: 500;
   gap: 5px;
 
   & > svg > * {
@@ -120,8 +121,8 @@ const NumberInput = styled.input`
   min-width: 45px;
 
   border: 0;
-  border-bottom: 2px solid #ababab;
   border-radius: 0;
+  border-bottom: 2px solid #ababab;
 
   font-size: 40px;
   text-align: center;

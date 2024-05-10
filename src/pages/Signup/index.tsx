@@ -3,7 +3,6 @@ import Modal from '@components/Modal';
 import Button from '@components/Button';
 import useBoolean from '@hooks/useBoolean';
 import { ChangeEvent, ReactElement, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import useNumbersRefs from './hooks/useNumbersRefs';
@@ -19,6 +18,7 @@ import {
 } from '@utils/index';
 import Agreement from './components/Agreement';
 import usePostSignup from './hooks/usePostSignup';
+import useNavigatePage from '@hooks/useNavigatePage';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -29,15 +29,18 @@ const SLIDE_INDEX = {
 } as const;
 
 const Signup = () => {
-  const navigate = useNavigate();
-  const [slideIndex, setSlideIndex] = useState(0);
+  const navigate = useNavigatePage();
   const { inputRefs, moveFocus } = useNumbersRefs();
+
+  const [slideIndex, setSlideIndex] = useState(0);
   const sliderRef = useRef<Slider>(null);
+
   const isModalOpen = useBoolean(false);
   const 서비스동의 = useBoolean();
   const 본인확인동의 = useBoolean();
   const 마케팅동의 = useBoolean();
   const canTimerStart = useBoolean(false);
+
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
   const { mutate } = usePostSignup();
@@ -45,10 +48,6 @@ const Signup = () => {
   const moveNumbersFocus = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
     changeNumbers(index)(e.target.valueAsNumber);
     moveFocus(index);
-  };
-
-  const goSignin = () => {
-    navigate('/Signin');
   };
 
   const slickEmail = () => {
@@ -112,7 +111,7 @@ const Signup = () => {
 
   return (
     <>
-      <CloseContainer onClick={goSignin}>
+      <CloseContainer onClick={navigate('/signin')}>
         <CloseIcon />
       </CloseContainer>
       <Slider {...sliderSettings} ref={sliderRef}>
