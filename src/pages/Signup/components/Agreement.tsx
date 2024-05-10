@@ -30,7 +30,8 @@ const Agreement = ({ 서비스동의, 본인확인동의, 마케팅동의, next 
       </h1>
       <div>
         <AgreeButton
-          isAgreed={서비스동의.value && 본인확인동의.value && 마케팅동의.value}
+          key="모두동의"
+          $isAgreed={서비스동의.value && 본인확인동의.value && 마케팅동의.value}
           onClick={agreeAll}
         >
           {서비스동의.value && 본인확인동의.value && 마케팅동의.value ? (
@@ -40,15 +41,19 @@ const Agreement = ({ 서비스동의, 본인확인동의, 마케팅동의, next 
           )}
           모두 동의합니다
         </AgreeButton>
-        <AgreeButton isAgreed={서비스동의.value} onClick={서비스동의.toggle}>
+        <AgreeButton key="서비스동의" $isAgreed={서비스동의.value} onClick={서비스동의.toggle}>
           {서비스동의.value ? <BlueCheckIcon /> : <CheckIcon />}
           서비스 관련 이용 약관 (필수)
         </AgreeButton>
-        <AgreeButton isAgreed={본인확인동의.value} onClick={본인확인동의.toggle}>
+        <AgreeButton
+          key="본인확인동의"
+          $isAgreed={본인확인동의.value}
+          onClick={본인확인동의.toggle}
+        >
           {본인확인동의.value ? <BlueCheckIcon /> : <CheckIcon />}
           본인확인 서비스 관련 이용 약관 (필수)
         </AgreeButton>
-        <AgreeButton isAgreed={마케팅동의.value} onClick={마케팅동의.toggle}>
+        <AgreeButton key="마케팅동의" $isAgreed={마케팅동의.value} onClick={마케팅동의.toggle}>
           {마케팅동의.value ? <BlueCheckIcon /> : <CheckIcon />}
           마케팅 정보 알림 및 수신 동의 (선택)
         </AgreeButton>
@@ -74,7 +79,7 @@ const Wrapper = styled.section`
   }
 `;
 
-const AgreeButton = styled.button<{ isAgreed: boolean }>`
+const AgreeButton = styled.button<{ $isAgreed: boolean }>`
   display: flex;
   width: 100%;
   padding: 0;
@@ -82,7 +87,7 @@ const AgreeButton = styled.button<{ isAgreed: boolean }>`
   justify-content: flex-start;
   align-items: center;
 
-  color: ${({ isAgreed }) => (isAgreed ? 'black' : '#ababab')};
+  color: ${({ $isAgreed }) => ($isAgreed ? 'black' : '#ababab')};
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -1px;

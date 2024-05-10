@@ -6,7 +6,6 @@ interface PostSignupBody {
   name: string;
   email: string;
   password: string;
-  nickname: string;
 }
 
 const postSignup = async (body: PostSignupBody) => {

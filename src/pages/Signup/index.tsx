@@ -53,7 +53,9 @@ const Signup = () => {
 
   const slickEmail = () => {
     if (!sliderRef.current) return;
-    sliderRef.current.slickGoTo(SLIDE_INDEX.numbers);
+
+    setSlideIndex(SLIDE_INDEX.numbers);
+    sliderRef.current.slickNext();
     isModalOpen.off();
     canTimerStart.on();
   };
@@ -75,7 +77,7 @@ const Signup = () => {
         sliderRef.current.slickNext();
         break;
       case SLIDE_INDEX.againPassword:
-        mutate({ name, email, password, nickname: 'f' });
+        mutate({ name, email, password });
     }
   };
 
