@@ -1,38 +1,13 @@
 import { GoogleLogo, KakaoLogo } from '@assets/index';
 import Button from '@components/Button';
 import { isValidEmail, isValidPassword } from '@utils/index';
-import { ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { api } from '../../apis/axios';
 import styled from 'styled-components';
+import useSignin from './hooks/useSignin';
+import useNavigatePage from '@hooks/useNavigatePage';
 
 const Signin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-
-  const typeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const typePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const postSignIn = () => {
-    return api.post('/signin', { email: email, password: password });
-  };
-
-  const enter = async () => {
-    console.log('^^');
-    const response = await postSignIn();
-
-    console.log(response);
-  };
-
-  const goSignup = () => {
-    navigate('/signup');
-  };
+  const { email, password, typeEmail, typePassword, enter } = useSignin();
+  const navigatePage = useNavigatePage();
 
   return (
     <>
@@ -73,7 +48,7 @@ const Signin = () => {
         </Button>
       </Form>
       <OptionContainer>
-        <button onClick={goSignup}>회원가입</button>
+        <button onClick={navigatePage('/signup')}>회원가입</button>
         <button>비밀번호 찾기</button>
       </OptionContainer>
       <Footer>
@@ -86,7 +61,7 @@ const Signin = () => {
           <KakaoLogo />
           <GoogleLogo />
         </SocialAccountsContainer>
-        <NonMemberButton>비회원으로 접속하기 {'>'}</NonMemberButton>
+        <NonMemberButton onClick={navigatePage('/')}>비회원으로 접속하기 {'>'}</NonMemberButton>
       </Footer>
     </>
   );
