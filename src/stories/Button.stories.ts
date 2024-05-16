@@ -38,14 +38,12 @@ export const Tertiary: Story = {
 export const Large: Story = {
   args: {
     color: 'primary',
-    size: 'large',
     children: 'Large',
   },
 };
 export const Medium: Story = {
   args: {
     color: 'primary',
-    size: 'medium',
     children: 'Medium',
   },
 };
@@ -53,7 +51,6 @@ export const Medium: Story = {
 export const Small: Story = {
   args: {
     color: 'primary',
-    size: 'small',
     children: 'Small',
   },
 };

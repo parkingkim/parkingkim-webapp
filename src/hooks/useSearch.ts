@@ -92,7 +92,7 @@ const useSearch = () => {
     setDestinationMarker(
       new Tmapv3.Marker({
         position: markerPosition,
-        icon: 'src/assets/dest-two.svg',
+        icon: 'assets/dest-two.svg',
         iconSize: new Tmapv3.Size(42, 42),
         title: name,
         map: mapInstance,

@@ -50,14 +50,14 @@ const useDrawMarkers = ({ parkingLots, location }: useDraMarkersProps) => {
 
       const newMarker = new Tmapv3.Marker({
         position: new Tmapv3.LatLng(lot.latitude.toString(), lot.longitude.toString()),
-        icon: 'src/assets/dest-three.svg',
+        icon: 'assets/dest-three.svg',
         iconSize: new Tmapv3.Size(40, 40),
         map: mapInstance,
       });
 
       const newInfoWindow = new Tmapv3.InfoWindow({
         position: new Tmapv3.LatLng(lot.latitude.toString(), lot.longitude.toString()),
-        content: `<div style="padding: 5px; border-radius:10px; border:none;">${lot.parkingName}</div>`,
+        content: `<div style="padding: 5px; border-radius:10px; border:none;"><p style="color: black;">${lot.parkingName}</p></div>`,
         type: 2,
         border: '0px solid #FF0000',
         anchor: 'top',

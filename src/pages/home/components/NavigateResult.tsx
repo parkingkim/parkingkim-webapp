@@ -31,7 +31,7 @@ const NavigateResult = () => {
       </CurLocationButton>
       <TimeContainer>
         <Handle />
-        <Text color="blue" fontStyle="bold" size="xl">
+        <Text color="blue100" fontStyle="bold" size="xl">
           {Math.ceil((startToParkingLotTime + parkingLotToDestinationTime) / 60)}분
         </Text>
         <TimeIndicatorContainer>

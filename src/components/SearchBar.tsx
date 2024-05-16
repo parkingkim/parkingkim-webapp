@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { SearchIcon } from '@assets/index';
 import { CommonTextStyle } from '@style/CommonTextStyle';
 import { ChangeEvent } from 'react';
+import useBottomSheetStore from '@store/bottomSheetStore';
 
 interface SearchBarProps {
   isFocused?: boolean;
@@ -11,19 +12,18 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ expandHeight, isFocused, onChangeSearchKeyword }: SearchBarProps) => {
+  const { fillHeight } = useBottomSheetStore();
   const focusAndExpand = () => {
-    if (!isFocused && expandHeight) expandHeight();
+    if (!isFocused) {
+      expandHeight && expandHeight();
+      fillHeight();
+    }
   };
 
   return (
     <SearchBarWrapper onClick={focusAndExpand}>
       {isFocused ? (
-        <StyledSearchBar
-          onChange={onChangeSearchKeyword}
-          onClick={() => expandHeight && expandHeight()}
-          placeholder="목적지 검색"
-          autoFocus
-        />
+        <StyledSearchBar onChange={onChangeSearchKeyword} placeholder="목적지 검색" autoFocus />
       ) : (
         <IconWrapper>
           <SearchIcon />
@@ -57,6 +57,7 @@ const StyledSearchBar = styled.input`
   font-size: 20px;
   font-weight: 600;
   outline: none;
+  color: black;
 
   ${CommonTextStyle}
 
