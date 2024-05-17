@@ -14,7 +14,7 @@ const useSignin = () => {
     setPassword(e.target.value);
   };
 
-  const enter = async () => {
+  const enter = () => {
     mutate({ email, password });
   };
 
