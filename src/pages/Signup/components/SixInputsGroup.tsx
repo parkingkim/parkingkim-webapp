@@ -9,6 +9,7 @@ interface SixInputsGroupProps {
   inputRefs: React.RefObject<HTMLInputElement>[];
   canTimerStart: boolean;
   onChange: (index: number) => ChangeEventHandler;
+  onClickResendButton: () => void;
 }
 
 let start: number | null = null;
@@ -21,6 +22,7 @@ const SixInputsGroup = ({
   inputRefs,
   canTimerStart,
   onChange,
+  onClickResendButton,
 }: SixInputsGroupProps) => {
   const timerRef = useRef<HTMLSpanElement>(null);
 
@@ -44,6 +46,7 @@ const SixInputsGroup = ({
 
   const resetTimer = () => {
     start = null;
+    onClickResendButton();
   };
 
   return (

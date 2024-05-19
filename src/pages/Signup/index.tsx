@@ -19,6 +19,8 @@ import {
 import Agreement from './components/Agreement';
 import usePostSignup from './hooks/usePostSignup';
 import useNavigatePage from '@hooks/useNavigatePage';
+import usePostAuthCode from './hooks/usePostAuthCode';
+import useDeleteAuthCode from './hooks/useDeleteAuthCode';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -43,7 +45,9 @@ const Signup = () => {
 
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
-  const { mutate } = usePostSignup();
+  const { mutate: postSignup } = usePostSignup();
+  const { mutate: postAuthCode } = usePostAuthCode();
+  const { mutate: deleteAuthCode } = useDeleteAuthCode(sliderRef);
 
   const moveNumbersFocus = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
     changeNumbers(index)(e.target.valueAsNumber);
@@ -57,6 +61,11 @@ const Signup = () => {
     sliderRef.current.slickNext();
     isModalOpen.off();
     canTimerStart.on();
+    requestAuthCode();
+  };
+
+  const requestAuthCode = () => {
+    postAuthCode({ destination: email, authPlatform: 'mail', authCodeCategory: 'signUp' });
   };
 
   const slickNext = () => {
@@ -70,13 +79,18 @@ const Signup = () => {
         isModalOpen.on();
         break;
       case SLIDE_INDEX.numbers:
-        sliderRef.current.slickNext();
+        deleteAuthCode({
+          destination: email,
+          authCodePlatform: 'mail',
+          authCodeCategory: 'signUp',
+          authCode: numbers.join(''),
+        });
         break;
       case SLIDE_INDEX.password:
         sliderRef.current.slickNext();
         break;
       case SLIDE_INDEX.againPassword:
-        mutate({ name, email, password });
+        postSignup({ name, email, password });
     }
   };
 
@@ -163,6 +177,7 @@ const Signup = () => {
             inputRefs={inputRefs}
             onChange={moveNumbersFocus}
             canTimerStart={canTimerStart.value}
+            onClickResendButton={requestAuthCode}
           />
         </Slide>
         <Slide key="passwordSlide">
@@ -182,9 +197,9 @@ const Signup = () => {
             placeholder="비밀번호 입력"
           />
           {password.length === 0 ? (
-            <Description>영어 대,소문자 포함 10자 이상</Description>
+            <Description>영어, 숫자 포함 8자 이상</Description>
           ) : (
-            !isValidPassword(password) && <p>영어 대,소문자 포함 10자 이상으로 입력해주세요!</p>
+            !isValidPassword(password) && <p>영어, 숫자 포함 8자 이상으로 입력해주세요!</p>
           )}
         </Slide>
         <Slide key="againPasswordSlide">
