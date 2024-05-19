@@ -1,10 +1,8 @@
 import { ChangeEvent, useState } from 'react';
-import usePostSignin from './usePostSignin';
 
 const useSignin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { mutate } = usePostSignin();
 
   const typeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -14,16 +12,11 @@ const useSignin = () => {
     setPassword(e.target.value);
   };
 
-  const enter = () => {
-    mutate({ email, password });
-  };
-
   return {
     email,
     password,
     typeEmail,
     typePassword,
-    enter,
   };
 };
 

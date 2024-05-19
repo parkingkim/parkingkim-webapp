@@ -17,7 +17,6 @@ const usePostSignin = () => {
   return useMutation({
     mutationFn: postSignin,
     onSuccess: () => navigate('/'),
-    onError: () => console.log('로그인에 실패하였습니다'),
   });
 };
 
