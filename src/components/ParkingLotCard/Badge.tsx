@@ -1,4 +1,5 @@
 import { ParkingParkIcon, ParkingPriceIcon, ParkingWalkIcon } from '@assets/index';
+import Text from '@components/Text';
 import styled from 'styled-components';
 
 export interface BadgeProps {
@@ -13,19 +14,19 @@ const Badge = ({ price, walkingTime, parkingType }: BadgeProps) => {
       {
         <BadgeWrapper>
           <ParkingPriceIcon />
-          예상금액 {price}원
+          <Text size="sm">예상금액 {price}원</Text>
         </BadgeWrapper>
       }
       {walkingTime && (
         <BadgeWrapper>
           <ParkingWalkIcon />
-          도보 예상시간 {walkingTime}분
+          <Text size="sm">도보 예상시간 {walkingTime}분</Text>
         </BadgeWrapper>
       )}
       {
         <BadgeWrapper>
           <ParkingParkIcon />
-          {parkingType} 주차장
+          <Text size="sm">{parkingType} 주차장</Text>
         </BadgeWrapper>
       }
     </BadgeContainer>

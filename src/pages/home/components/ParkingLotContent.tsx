@@ -11,7 +11,6 @@ import { SearchResult } from 'src/types';
 import styled from 'styled-components';
 import NavigateResult from './NavigateResult';
 import { useNavigating } from '@context/NavigatingContext';
-import useAddressStore from '@store/addressStore';
 
 interface ParkingLotContentProps {
   result: SearchResult;

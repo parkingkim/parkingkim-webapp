@@ -22,11 +22,11 @@ const ResultContent = ({ result, location }: ResultContentProps) => {
   const { setHeight } = useBottomSheetStore();
   const { mapInstance } = useMapStore();
   const { setStartLocation, setDestination, setIsResultVisible } = useNavigating();
-  const { address } = useAddressStore();
+  const { curAddress } = useAddressStore();
 
   useEffect(() => {
     setHeight(window.innerHeight * 0.4);
-    setStartLocation(address.jibunAddr);
+    setStartLocation(curAddress.roadAddr);
     setDestination(result.name);
     setIsResultVisible(true);
   }, []);
