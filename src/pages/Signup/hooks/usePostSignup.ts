@@ -6,7 +6,6 @@ interface PostSignupBody {
   name: string;
   email: string;
   password: string;
-  nickname: string;
 }
 
 const postSignup = async (body: PostSignupBody) => {
@@ -18,7 +17,7 @@ const usePostSignup = () => {
   return useMutation({
     mutationFn: postSignup,
     onSuccess: () => navigate('/onboarding/start'),
-    onError: () => console.log('&&&'),
+    onError: () => console.log('회원가입에 실패하였습니다.'),
   });
 };
 

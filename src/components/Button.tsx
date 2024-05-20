@@ -37,6 +37,7 @@ const Button = styled.button<ButtonProps>`
 
   border: 0;
   border-radius: 10px;
+
   box-shadow: 2px 2px 4px rgb(0 0 0 / 20%);
 
   color: white;

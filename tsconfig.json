@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "outDir": "./dist",
@@ -26,44 +22,18 @@
     /* Path */
     "baseUrl": ".",
     "paths": {
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@hooks/*": [
-        "src/hooks/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
-      "@constants/*": [
-        "src/constants/*"
-      ],
-      "@style/*": [
-        "src/style/*"
-      ],
-      "@store/*": [
-        "src/store/*"
-      ],
-      "@apis/*": [
-        "src/apis/*"
-      ],
-      "@context/*": [
-        "src/context/*"
-      ],
-      "@/*": [
-        "src/*"
-      ],
+      "@pages/*": ["src/pages/*"],
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@constants/*": ["src/constants/*"],
+      "@style/*": ["src/style/*"],
+      "@store/*": ["src/store/*"],
+      "@apis/*": ["src/apis/*"],
+      "@context/*": ["src/context/*"],
+      "@/*": ["src/*"]
     }
   },
-  "include": [
-    "src",
-    "custom.d.ts",
-    ".storybook/**/*"
-  ]
+  "include": ["src", "custom.d.ts", ".storybook/**/*"]
 }

@@ -1,49 +1,31 @@
 import { GoogleLogo, KakaoLogo } from '@assets/index';
 import Button from '@components/Button';
 import { isValidEmail, isValidPassword } from '@utils/index';
-import { ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { api } from '../../apis/axios';
 import styled from 'styled-components';
+import useSignin from './hooks/useSignin';
+import useNavigatePage from '@hooks/useNavigatePage';
+import usePostSignin from './hooks/usePostSignin';
 
 const Signin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const { email, password, typeEmail, typePassword } = useSignin();
+  const navigatePage = useNavigatePage();
+  const { mutate, isError } = usePostSignin();
 
-  const typeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const typePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const postSignIn = () => {
-    return api.post('/signin', { email: email, password: password });
-  };
-
-  const enter = async () => {
-    console.log('^^');
-    const response = await postSignIn();
-
-    console.log(response);
-  };
-
-  const goSignup = () => {
-    navigate('/signup');
+  const enter = () => {
+    mutate({ email, password });
   };
 
   return (
     <>
       <Header>
         <h1>
-          파킹킴과 함께 새로운
-          <br /> 주차 생활을 시작해요!
+          주차의 상상은
+          <br /> 현실이 된다
         </h1>
         <h2>
-          파킹킴은 목적지와 사용자의 취향을 분석해 가장 적합한 주차장을 추천해 드려요. <br />
-          파킹킴은 주차장뿐 아니라 목적지까지의 경로도 알려드려요.
+          파킹킴은 목적지와 사용자의 취향을 분석해 <br />
+          가장 적합한 주차장을 추천해 드려요. 파킹킴은 주차장뿐 아니라 목적지까지의 경로도
+          알려드려요.
         </h2>
       </Header>
       <Form onSubmit={enter}>
@@ -54,6 +36,7 @@ const Signin = () => {
           minLength={20}
           maxLength={50}
           onChange={typeEmail}
+          $isError={isError}
         />
         <Input
           id="password"
@@ -63,7 +46,9 @@ const Signin = () => {
           minLength={5}
           maxLength={20}
           onChange={typePassword}
+          $isError={isError}
         />
+        {isError && <p>이메일 또는 비밀번호를 다시 확인해주세요.</p>}
         <Button
           width={'80%'}
           disabled={!(isValidEmail(email) && isValidPassword(password))}
@@ -73,7 +58,7 @@ const Signin = () => {
         </Button>
       </Form>
       <OptionContainer>
-        <button onClick={goSignup}>회원가입</button>
+        <button onClick={navigatePage('/signup')}>회원가입</button>
         <button>비밀번호 찾기</button>
       </OptionContainer>
       <Footer>
@@ -86,7 +71,7 @@ const Signin = () => {
           <KakaoLogo />
           <GoogleLogo />
         </SocialAccountsContainer>
-        <NonMemberButton>비회원으로 접속하기 {'>'}</NonMemberButton>
+        <NonMemberButton onClick={navigatePage('/')}>비회원으로 접속하기 {'>'}</NonMemberButton>
       </Footer>
     </>
   );
@@ -137,35 +122,40 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+
+  & > p {
+    color: #ff40a8;
+    width: 80%;
+    text-align: start;
+    margin-bottom: 10px;
+  }
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ $isError: boolean }>`
   box-sizing: border-box;
   width: 80%;
   height: 50px;
   padding: 0 15px;
 
   background-color: #f5f5f5;
-  border: 0;
+  border: ${({ $isError }) => ($isError ? '1px solid #FF40A8' : '0')};
 
   border-radius: 10px;
 
-  color: #ababab;
+  color: #2e2e2e;
 
   font-size: 14px;
 
   &::placeholder {
-    color: ${({ theme }) => theme.gray};
+    color: #ababab;
   }
 
   &:focus {
-    border-color: black;
-
     outline: none;
   }
 
   &:last-of-type {
-    margin-bottom: 20px;
+    margin-bottom: ${({ $isError }) => ($isError ? '0' : '20px')};
   }
 `;
 
@@ -204,7 +194,7 @@ const Footer = styled.footer`
 
 const Title = styled.div`
   display: flex;
-  margin-top: 20px;
+  margin-top: 40px;
   justify-content: space-between;
 
   color: #848484;

@@ -17,9 +17,9 @@ const MonoInputGroup = ({
   label,
   type,
   value,
+  placeholder,
   clear,
   onChange,
-  placeholder,
 }: MonoInputGroup) => {
   return (
     <Group>
@@ -59,6 +59,7 @@ const MonoInput = styled.input`
   margin-top: 30px;
 
   border: 0;
+  border-radius: 0;
   border-bottom: 1px solid #120924;
 
   font-size: 18px;
@@ -72,7 +73,7 @@ const MonoInput = styled.input`
 const InputCloseContainer = styled.div`
   position: absolute;
   right: 30px;
-  bottom: 11px;
+  bottom: -1px;
   z-index: 1;
   cursor: pointer;
 

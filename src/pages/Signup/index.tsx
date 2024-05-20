@@ -3,7 +3,6 @@ import Modal from '@components/Modal';
 import Button from '@components/Button';
 import useBoolean from '@hooks/useBoolean';
 import { ChangeEvent, ReactElement, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import useNumbersRefs from './hooks/useNumbersRefs';
@@ -19,6 +18,9 @@ import {
 } from '@utils/index';
 import Agreement from './components/Agreement';
 import usePostSignup from './hooks/usePostSignup';
+import useNavigatePage from '@hooks/useNavigatePage';
+import usePostAuthCode from './hooks/usePostAuthCode';
+import useDeleteAuthCode from './hooks/useDeleteAuthCode';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -29,31 +31,41 @@ const SLIDE_INDEX = {
 } as const;
 
 const Signup = () => {
-  const navigate = useNavigate();
-  const [slideIndex, setSlideIndex] = useState(0);
+  const navigate = useNavigatePage();
   const { inputRefs, moveFocus } = useNumbersRefs();
+
+  const [slideIndex, setSlideIndex] = useState(0);
   const sliderRef = useRef<Slider>(null);
+
   const isModalOpen = useBoolean(false);
   const 서비스동의 = useBoolean();
   const 본인확인동의 = useBoolean();
   const 마케팅동의 = useBoolean();
+  const canTimerStart = useBoolean(false);
+
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
-  const { mutate } = usePostSignup();
+  const { mutate: postSignup } = usePostSignup();
+  const { mutate: postAuthCode } = usePostAuthCode();
+  const { mutate: deleteAuthCode } = useDeleteAuthCode(sliderRef);
 
   const moveNumbersFocus = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
     changeNumbers(index)(e.target.valueAsNumber);
     moveFocus(index);
   };
 
-  const goSignin = () => {
-    navigate('/Signin');
-  };
-
   const slickEmail = () => {
     if (!sliderRef.current) return;
-    sliderRef.current.slickGoTo(SLIDE_INDEX.numbers);
+
+    setSlideIndex(SLIDE_INDEX.numbers);
+    sliderRef.current.slickNext();
     isModalOpen.off();
+    canTimerStart.on();
+    requestAuthCode();
+  };
+
+  const requestAuthCode = () => {
+    postAuthCode({ destination: email, authPlatform: 'mail', authCodeCategory: 'signUp' });
   };
 
   const slickNext = () => {
@@ -67,13 +79,18 @@ const Signup = () => {
         isModalOpen.on();
         break;
       case SLIDE_INDEX.numbers:
-        sliderRef.current.slickNext();
+        deleteAuthCode({
+          destination: email,
+          authCodePlatform: 'mail',
+          authCodeCategory: 'signUp',
+          authCode: numbers.join(''),
+        });
         break;
       case SLIDE_INDEX.password:
         sliderRef.current.slickNext();
         break;
       case SLIDE_INDEX.againPassword:
-        mutate({ name, email, password, nickname: 'f' });
+        postSignup({ name, email, password });
     }
   };
 
@@ -108,7 +125,7 @@ const Signup = () => {
 
   return (
     <>
-      <CloseContainer onClick={goSignin}>
+      <CloseContainer onClick={navigate('/signin')}>
         <CloseIcon />
       </CloseContainer>
       <Slider {...sliderSettings} ref={sliderRef}>
@@ -144,7 +161,7 @@ const Signup = () => {
             onChange={changeValue}
             placeholder="이메일 입력"
           />
-          {!isValidEmail(email) && <p>올바른 이메일 형식으로 작성해주세요!</p>}
+          {email.length > 0 && !isValidEmail(email) && <p>올바른 이메일 형식으로 작성해주세요!</p>}
         </Slide>
         <Slide key="numbersSlide">
           <SixInputsGroup
@@ -153,12 +170,14 @@ const Signup = () => {
               <Label>
                 본인확인을 위해 <br />
                 이메일로&nbsp;
-                <span>인증번호</span> 를 전송했어요!
+                <span>인증번호</span>를 전송했어요!
               </Label>
             }
             numbers={numbers}
             inputRefs={inputRefs}
             onChange={moveNumbersFocus}
+            canTimerStart={canTimerStart.value}
+            onClickResendButton={requestAuthCode}
           />
         </Slide>
         <Slide key="passwordSlide">
@@ -178,9 +197,9 @@ const Signup = () => {
             placeholder="비밀번호 입력"
           />
           {password.length === 0 ? (
-            <Description>영어 대,소문자 포함 10자 이상</Description>
+            <Description>영어, 숫자 포함 8자 이상</Description>
           ) : (
-            !isValidPassword(password) && <p>영어 대,소문자 포함 10자 이상으로 입력해주세요!</p>
+            !isValidPassword(password) && <p>영어, 숫자 포함 8자 이상으로 입력해주세요!</p>
           )}
         </Slide>
         <Slide key="againPasswordSlide">
