@@ -2,7 +2,7 @@ import { CloseIcon } from '@assets/index';
 import Modal from '@components/Modal';
 import Button from '@components/Button';
 import useBoolean from '@hooks/useBoolean';
-import { ChangeEvent, ReactElement, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, ReactElement, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import useNumbersRefs from './hooks/useNumbersRefs';
@@ -21,6 +21,7 @@ import usePostSignup from './hooks/usePostSignup';
 import useNavigatePage from '@hooks/useNavigatePage';
 import usePostAuthCode from './hooks/usePostAuthCode';
 import useDeleteAuthCode from './hooks/useDeleteAuthCode';
+import Alert from '@components/Alert';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -32,7 +33,7 @@ const SLIDE_INDEX = {
 
 const Signup = () => {
   const navigate = useNavigatePage();
-  const { inputRefs, moveFocus } = useNumbersRefs();
+  const { inputRefs, moveFocus, prevFocus } = useNumbersRefs();
 
   const [slideIndex, setSlideIndex] = useState(0);
   const sliderRef = useRef<Slider>(null);
@@ -42,16 +43,26 @@ const Signup = () => {
   const 본인확인동의 = useBoolean();
   const 마케팅동의 = useBoolean();
   const canTimerStart = useBoolean(false);
+  const isAuthCodeWrong = useBoolean(false);
 
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
   const { mutate: postSignup } = usePostSignup();
   const { mutate: postAuthCode } = usePostAuthCode();
-  const { mutate: deleteAuthCode } = useDeleteAuthCode(sliderRef);
+  const { mutate: deleteAuthCode } = useDeleteAuthCode(sliderRef, isAuthCodeWrong);
 
   const moveNumbersFocus = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.valueAsNumber) return;
+
     changeNumbers(index)(e.target.valueAsNumber);
     moveFocus(index);
+  };
+
+  const prevNumbersFocus = (index: number) => (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Backspace') return;
+
+    changeNumbers(index)(NaN);
+    prevFocus(index);
   };
 
   const slickEmail = () => {
@@ -176,6 +187,7 @@ const Signup = () => {
             numbers={numbers}
             inputRefs={inputRefs}
             onChange={moveNumbersFocus}
+            onKeyDown={prevNumbersFocus}
             canTimerStart={canTimerStart.value}
             onClickResendButton={requestAuthCode}
           />
@@ -234,6 +246,15 @@ const Signup = () => {
           next={slickEmail}
         />
       </Modal>
+      <Alert
+        isShown={isAuthCodeWrong.value}
+        title="인증 실패"
+        content={`인증번호가 올바르지 않아요. \n다시 시도해주세요.`}
+        topOption="다시 보내기"
+        bottomOption="취소"
+        onClickTopOption={requestAuthCode}
+        onClickBottomOption={isAuthCodeWrong.off}
+      />
     </>
   );
 };

@@ -124,10 +124,11 @@ const Form = styled.form`
   gap: 10px;
 
   & > p {
-    color: #ff40a8;
     width: 80%;
-    text-align: start;
     margin-bottom: 10px;
+
+    color: #ff40a8;
+    text-align: start;
   }
 `;
 

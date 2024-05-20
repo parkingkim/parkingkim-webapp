@@ -5,11 +5,17 @@ const useNumbersRefs = () => {
 
   const moveFocus = (index: number) => {
     if (document.activeElement === inputRefs[index].current) {
-      inputRefs[index + 1].current?.focus();
+      inputRefs[index + 1].current!.focus();
     }
   };
 
-  return { inputRefs, moveFocus } as const;
+  const prevFocus = (index: number) => {
+    if (document.activeElement === inputRefs[index].current) {
+      inputRefs[index - 1].current!.focus();
+    }
+  };
+
+  return { inputRefs, moveFocus, prevFocus } as const;
 };
 
 export default useNumbersRefs;

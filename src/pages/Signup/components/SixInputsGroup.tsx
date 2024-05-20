@@ -1,5 +1,5 @@
 import { CheckIcon } from '@assets/index';
-import { ChangeEventHandler, ReactNode, useEffect, useRef } from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, ReactNode, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 interface SixInputsGroupProps {
@@ -9,6 +9,7 @@ interface SixInputsGroupProps {
   inputRefs: React.RefObject<HTMLInputElement>[];
   canTimerStart: boolean;
   onChange: (index: number) => ChangeEventHandler;
+  onKeyDown: (index: number) => KeyboardEventHandler<HTMLInputElement>;
   onClickResendButton: () => void;
 }
 
@@ -22,6 +23,7 @@ const SixInputsGroup = ({
   inputRefs,
   canTimerStart,
   onChange,
+  onKeyDown,
   onClickResendButton,
 }: SixInputsGroupProps) => {
   const timerRef = useRef<HTMLSpanElement>(null);
@@ -63,6 +65,7 @@ const SixInputsGroup = ({
             type="number"
             maxLength={1}
             onChange={onChange(index)}
+            onKeyDown={onKeyDown(index)}
           />
         ))}
       </Numbers>
