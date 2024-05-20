@@ -1,5 +1,4 @@
-import { CheckIcon } from '@assets/index';
-import { ChangeEventHandler, KeyboardEventHandler, ReactNode, useEffect, useRef } from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, PropsWithChildren, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface SixInputsGroupProps {
@@ -7,54 +6,23 @@ interface SixInputsGroupProps {
   label: ReactNode;
   numbers: number[];
   inputRefs: React.RefObject<HTMLInputElement>[];
-  canTimerStart: boolean;
   onChange: (index: number) => ChangeEventHandler;
   onKeyDown: (index: number) => KeyboardEventHandler<HTMLInputElement>;
-  onClickResendButton: () => void;
 }
-
-let start: number | null = null;
-const duration = 180000;
 
 const SixInputsGroup = ({
   id,
   label,
   numbers,
   inputRefs,
-  canTimerStart,
   onChange,
   onKeyDown,
-  onClickResendButton,
-}: SixInputsGroupProps) => {
-  const timerRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const step = (timestamp: number) => {
-      if (!start) start = timestamp;
-
-      const progress = timestamp - start;
-      const remaining = Math.max(0, duration - progress);
-      const seconds = Math.floor(remaining / 1000);
-      const min = Math.floor(seconds / 60);
-      const time = min == 0 ? (seconds % 60) + '초' : min + '분 ' + (seconds % 60) + '초';
-
-      if (timerRef.current) timerRef.current.innerHTML = time;
-
-      if (progress < duration) requestAnimationFrame(step);
-    };
-
-    if (canTimerStart) requestAnimationFrame(step);
-  }, [canTimerStart]);
-
-  const resetTimer = () => {
-    start = null;
-    onClickResendButton();
-  };
-
+  children,
+}: SixInputsGroupProps & PropsWithChildren) => {
   return (
     <Group>
       {label}
-      <Timer ref={timerRef}></Timer>
+      {children}
       <Numbers>
         {[...Array(6)].map((_, index) => (
           <NumberInput
@@ -69,10 +37,6 @@ const SixInputsGroup = ({
           />
         ))}
       </Numbers>
-      <ResendButton onClick={resetTimer}>
-        <CheckIcon />
-        재전송
-      </ResendButton>
     </Group>
   );
 };
@@ -87,30 +51,6 @@ const Group = styled.section`
   align-items: center;
 
   position: relative;
-`;
-
-const ResendButton = styled.button`
-  display: flex;
-  margin-top: 18px;
-  margin-bottom: 30px;
-  align-items: center;
-  align-self: start;
-
-  color: #ababab;
-  font-weight: 500;
-  gap: 5px;
-
-  & > svg > * {
-    stroke: #ababab;
-  }
-`;
-
-const Timer = styled.span`
-  margin-top: 5px;
-  align-self: start;
-
-  color: #ff40a8;
-  font-weight: 600;
 `;
 
 const Numbers = styled.div`

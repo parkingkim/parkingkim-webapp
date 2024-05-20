@@ -1,4 +1,4 @@
-import { CloseIcon } from '@assets/index';
+import { CheckIcon, CloseIcon } from '@assets/index';
 import Modal from '@components/Modal';
 import Button from '@components/Button';
 import useBoolean from '@hooks/useBoolean';
@@ -23,6 +23,7 @@ import {
   isValidPassword,
 } from '@utils/index';
 import Confirm from '@components/Confirm';
+import Timer from './components/Timer';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -33,21 +34,22 @@ const SLIDE_INDEX = {
 } as const;
 
 const Signup = () => {
-  const navigate = useNavigatePage();
-  const { inputRefs, moveFocus, prevFocus } = useNumbersRefs();
-
-  const [slideIndex, setSlideIndex] = useState(0);
   const sliderRef = useRef<Slider>(null);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [timerResetCount, setTimerResetCount] = useState(0);
 
   const isModalOpen = useBoolean(false);
   const 서비스동의 = useBoolean();
   const 본인확인동의 = useBoolean();
   const 마케팅동의 = useBoolean();
-  const canTimerStart = useBoolean(false);
   const isAuthCodeWrong = useBoolean(false);
+  const isResendDone = useBoolean(false);
 
+  const navigate = useNavigatePage();
+  const { inputRefs, moveFocus, prevFocus } = useNumbersRefs();
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
+
   const { mutate: postSignup, isError: isSignupFailed, error: postSignupError } = usePostSignup();
   const { mutate: postAuthCode } = usePostAuthCode();
   const { mutate: deleteAuthCode } = useDeleteAuthCode(sliderRef, isAuthCodeWrong);
@@ -72,12 +74,20 @@ const Signup = () => {
     setSlideIndex(SLIDE_INDEX.numbers);
     sliderRef.current.slickNext();
     isModalOpen.off();
-    canTimerStart.on();
-    requestAuthCode();
+    setTimerResetCount((prev) => prev + 1);
+    postAuthCode({ destination: email, authPlatform: 'mail', authCodeCategory: 'signUp' });
   };
 
-  const requestAuthCode = () => {
+  const resendAuthCode = () => {
     postAuthCode({ destination: email, authPlatform: 'mail', authCodeCategory: 'signUp' });
+    setTimerResetCount((prev) => prev + 1);
+    clear('numbers')();
+
+    if (isAuthCodeWrong.value) {
+      isAuthCodeWrong.off();
+      return;
+    }
+    isResendDone.on();
   };
 
   const slickNext = () => {
@@ -189,9 +199,13 @@ const Signup = () => {
             inputRefs={inputRefs}
             onChange={moveNumbersFocus}
             onKeyDown={prevNumbersFocus}
-            canTimerStart={canTimerStart.value}
-            onClickResendButton={requestAuthCode}
-          />
+          >
+            <Timer resetCount={timerResetCount} />
+          </SixInputsGroup>
+          <ResendButton onClick={resendAuthCode}>
+            <CheckIcon />
+            재전송
+          </ResendButton>
         </Slide>
         <Slide key="passwordSlide">
           <MonoInputGroup
@@ -253,8 +267,14 @@ const Signup = () => {
         content={`인증번호가 올바르지 않아요. \n다시 시도해주세요.`}
         topOption="다시 보내기"
         bottomOption="취소"
-        onClickTopOption={requestAuthCode}
+        onClickTopOption={resendAuthCode}
         onClickBottomOption={isAuthCodeWrong.off}
+      />
+      <Confirm
+        isShown={isResendDone.value}
+        title={'인증번호가 재전송되었어요!'}
+        option={'확인'}
+        onClickOption={isResendDone.off}
       />
       {postSignupError && (
         <Confirm
@@ -267,6 +287,22 @@ const Signup = () => {
     </>
   );
 };
+
+const ResendButton = styled.button`
+  display: flex;
+
+  margin: 18px 0 30px 30px;
+  align-items: center;
+  align-self: start;
+
+  color: #ababab;
+  font-weight: 500;
+  gap: 5px;
+
+  & > svg > * {
+    stroke: #ababab;
+  }
+`;
 
 const Label = styled.label`
   align-self: start;

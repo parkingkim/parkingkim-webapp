@@ -43,17 +43,18 @@ export const ConfirmContainer = styled.div`
   transform: translate(-50%, -50%);
 
   & > h1 {
+    padding: 0 20px;
     margin-top: 30px;
 
     font-size: 17px;
     text-align: center;
-    padding: 0 20px;
   }
 `;
 
 export const OptionWrapper = styled.button`
   width: 268px;
   height: 50px;
+  margin-bottom: 20px;
 
   background-color: #5b5b5b;
   border-radius: 10px;
@@ -61,7 +62,6 @@ export const OptionWrapper = styled.button`
   color: white;
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 20px;
 `;
 
 export default Confirm;

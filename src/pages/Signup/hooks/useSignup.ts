@@ -36,6 +36,9 @@ const useSignup = () => {
       case 'email':
         setEmail('');
         break;
+      case 'numbers':
+        setNumbers([...Array(6)].map(() => NaN));
+        break;
       case 'password':
         setPassword('');
         break;
