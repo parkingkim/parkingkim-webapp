@@ -9,6 +9,12 @@ import useNumbersRefs from './hooks/useNumbersRefs';
 import MonoInputGroup from './components/MonoInputGroup';
 import SixInputsGroup from './components/SixInputsGroup';
 import useSignup from './hooks/useSignup';
+import Agreement from './components/Agreement';
+import usePostSignup from './hooks/usePostSignup';
+import useNavigatePage from '@hooks/useNavigatePage';
+import usePostAuthCode from './hooks/usePostAuthCode';
+import useDeleteAuthCode from './hooks/useDeleteAuthCode';
+import Alert from '@components/Alert';
 import {
   isValidAgainPassword,
   isValidEmail,
@@ -16,12 +22,7 @@ import {
   isValidNumbers,
   isValidPassword,
 } from '@utils/index';
-import Agreement from './components/Agreement';
-import usePostSignup from './hooks/usePostSignup';
-import useNavigatePage from '@hooks/useNavigatePage';
-import usePostAuthCode from './hooks/usePostAuthCode';
-import useDeleteAuthCode from './hooks/useDeleteAuthCode';
-import Alert from '@components/Alert';
+import Confirm from '@components/Confirm';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -47,12 +48,12 @@ const Signup = () => {
 
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
-  const { mutate: postSignup } = usePostSignup();
+  const { mutate: postSignup, isError: isSignupFailed, error: postSignupError } = usePostSignup();
   const { mutate: postAuthCode } = usePostAuthCode();
   const { mutate: deleteAuthCode } = useDeleteAuthCode(sliderRef, isAuthCodeWrong);
 
   const moveNumbersFocus = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.valueAsNumber) return;
+    if (e.target.valueAsNumber !== 0 && !e.target.valueAsNumber) return;
 
     changeNumbers(index)(e.target.valueAsNumber);
     moveFocus(index);
@@ -255,6 +256,14 @@ const Signup = () => {
         onClickTopOption={requestAuthCode}
         onClickBottomOption={isAuthCodeWrong.off}
       />
+      {postSignupError && (
+        <Confirm
+          isShown={isSignupFailed}
+          title={postSignupError.response.data.errorMessage}
+          option={'나가기'}
+          onClickOption={navigate('/signin')}
+        />
+      )}
     </>
   );
 };

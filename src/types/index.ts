@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 export interface ParkingLot {
   parkingId: string;
   parkingName: string;
@@ -79,4 +81,8 @@ export interface ParkingLotDetailRes {
       ];
     };
   };
+}
+
+export interface CustomError {
+  response: AxiosResponse;
 }

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ModalPortal } from './ModalPortal';
+import Backdrop from './Backdrop';
 
 interface AlertProps {
   isShown: boolean;
@@ -24,7 +25,7 @@ const Alert = ({
 
   return (
     <ModalPortal>
-      <BackDrop />
+      <Backdrop $isVisible={isShown} />
       <AlertContainer role="dialog">
         <h1>{title}</h1>
         <p>{content}</p>
@@ -40,19 +41,6 @@ const Alert = ({
     </ModalPortal>
   );
 };
-
-export const BackDrop = styled.div`
-  width: 100vw;
-  height: 120vh;
-
-  background-color: rgb(0 0 0 / 30%);
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  touch-action: none;
-`;
 
 export const AlertContainer = styled.div`
   display: flex;
@@ -86,30 +74,6 @@ export const AlertContainer = styled.div`
     color: #ababab;
     text-align: center;
     white-space: pre-wrap;
-  }
-`;
-
-export const TextContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 80%;
-  padding: 30px;
-  flex-direction: column;
-  align-items: center;
-
-  background: #e8e8e8;
-  border-radius: 10px 10px 0 0;
-
-  line-height: 24px;
-  gap: 20px;
-  text-align: center;
-  white-space: pre-line;
-
-  & > img {
-    width: 60px;
-    height: 60px;
-
-    color: #eee;
   }
 `;
 
