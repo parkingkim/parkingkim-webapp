@@ -1,5 +1,7 @@
+import { CustomError } from '@/types';
 import { api } from '@apis/axios';
 import { useMutation } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 interface PostSignupBody {
@@ -14,10 +16,9 @@ const postSignup = async (body: PostSignupBody) => {
 
 const usePostSignup = () => {
   const navigate = useNavigate();
-  return useMutation({
+  return useMutation<AxiosResponse, CustomError, PostSignupBody, unknown>({
     mutationFn: postSignup,
     onSuccess: () => navigate('/onboarding/start'),
-    onError: () => console.log('회원가입에 실패하였습니다.'),
   });
 };
 

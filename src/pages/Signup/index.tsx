@@ -1,14 +1,20 @@
-import { CloseIcon } from '@assets/index';
+import { CheckIcon, CloseIcon } from '@assets/index';
 import Modal from '@components/Modal';
 import Button from '@components/Button';
 import useBoolean from '@hooks/useBoolean';
-import { ChangeEvent, ReactElement, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, ReactElement, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import useNumbersRefs from './hooks/useNumbersRefs';
 import MonoInputGroup from './components/MonoInputGroup';
 import SixInputsGroup from './components/SixInputsGroup';
 import useSignup from './hooks/useSignup';
+import Agreement from './components/Agreement';
+import usePostSignup from './hooks/usePostSignup';
+import useNavigatePage from '@hooks/useNavigatePage';
+import usePostAuthCode from './hooks/usePostAuthCode';
+import useDeleteAuthCode from './hooks/useDeleteAuthCode';
+import Alert from '@components/Alert';
 import {
   isValidAgainPassword,
   isValidEmail,
@@ -16,11 +22,8 @@ import {
   isValidNumbers,
   isValidPassword,
 } from '@utils/index';
-import Agreement from './components/Agreement';
-import usePostSignup from './hooks/usePostSignup';
-import useNavigatePage from '@hooks/useNavigatePage';
-import usePostAuthCode from './hooks/usePostAuthCode';
-import useDeleteAuthCode from './hooks/useDeleteAuthCode';
+import Confirm from '@components/Confirm';
+import Timer from './components/Timer';
 
 const SLIDE_INDEX = {
   name: 0,
@@ -31,27 +34,38 @@ const SLIDE_INDEX = {
 } as const;
 
 const Signup = () => {
-  const navigate = useNavigatePage();
-  const { inputRefs, moveFocus } = useNumbersRefs();
-
-  const [slideIndex, setSlideIndex] = useState(0);
   const sliderRef = useRef<Slider>(null);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [timerResetCount, setTimerResetCount] = useState(0);
 
   const isModalOpen = useBoolean(false);
   const 서비스동의 = useBoolean();
   const 본인확인동의 = useBoolean();
   const 마케팅동의 = useBoolean();
-  const canTimerStart = useBoolean(false);
+  const isAuthCodeWrong = useBoolean(false);
+  const isResendDone = useBoolean(false);
 
+  const navigate = useNavigatePage();
+  const { inputRefs, moveFocus, prevFocus } = useNumbersRefs();
   const { name, email, numbers, password, againPassword, changeValue, changeNumbers, clear } =
     useSignup();
-  const { mutate: postSignup } = usePostSignup();
+
+  const { mutate: postSignup, isError: isSignupFailed, error: postSignupError } = usePostSignup();
   const { mutate: postAuthCode } = usePostAuthCode();
-  const { mutate: deleteAuthCode } = useDeleteAuthCode(sliderRef);
+  const { mutate: deleteAuthCode } = useDeleteAuthCode(sliderRef, isAuthCodeWrong);
 
   const moveNumbersFocus = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.valueAsNumber !== 0 && !e.target.valueAsNumber) return;
+
     changeNumbers(index)(e.target.valueAsNumber);
     moveFocus(index);
+  };
+
+  const prevNumbersFocus = (index: number) => (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Backspace') return;
+
+    changeNumbers(index)(NaN);
+    prevFocus(index);
   };
 
   const slickEmail = () => {
@@ -60,12 +74,20 @@ const Signup = () => {
     setSlideIndex(SLIDE_INDEX.numbers);
     sliderRef.current.slickNext();
     isModalOpen.off();
-    canTimerStart.on();
-    requestAuthCode();
+    setTimerResetCount((prev) => prev + 1);
+    postAuthCode({ destination: email, authPlatform: 'mail', authCodeCategory: 'signUp' });
   };
 
-  const requestAuthCode = () => {
+  const resendAuthCode = () => {
     postAuthCode({ destination: email, authPlatform: 'mail', authCodeCategory: 'signUp' });
+    setTimerResetCount((prev) => prev + 1);
+    clear('numbers')();
+
+    if (isAuthCodeWrong.value) {
+      isAuthCodeWrong.off();
+      return;
+    }
+    isResendDone.on();
   };
 
   const slickNext = () => {
@@ -176,9 +198,14 @@ const Signup = () => {
             numbers={numbers}
             inputRefs={inputRefs}
             onChange={moveNumbersFocus}
-            canTimerStart={canTimerStart.value}
-            onClickResendButton={requestAuthCode}
-          />
+            onKeyDown={prevNumbersFocus}
+          >
+            <Timer resetCount={timerResetCount} />
+          </SixInputsGroup>
+          <ResendButton onClick={resendAuthCode}>
+            <CheckIcon />
+            재전송
+          </ResendButton>
         </Slide>
         <Slide key="passwordSlide">
           <MonoInputGroup
@@ -234,9 +261,48 @@ const Signup = () => {
           next={slickEmail}
         />
       </Modal>
+      <Alert
+        isShown={isAuthCodeWrong.value}
+        title="인증 실패"
+        content={`인증번호가 올바르지 않아요. \n다시 시도해주세요.`}
+        topOption="다시 보내기"
+        bottomOption="취소"
+        onClickTopOption={resendAuthCode}
+        onClickBottomOption={isAuthCodeWrong.off}
+      />
+      <Confirm
+        isShown={isResendDone.value}
+        title={'인증번호가 재전송되었어요!'}
+        option={'확인'}
+        onClickOption={isResendDone.off}
+      />
+      {postSignupError && (
+        <Confirm
+          isShown={isSignupFailed}
+          title={postSignupError.response.data.errorMessage}
+          option={'나가기'}
+          onClickOption={navigate('/signin')}
+        />
+      )}
     </>
   );
 };
+
+const ResendButton = styled.button`
+  display: flex;
+
+  margin: 18px 0 30px 30px;
+  align-items: center;
+  align-self: start;
+
+  color: #ababab;
+  font-weight: 500;
+  gap: 5px;
+
+  & > svg > * {
+    stroke: #ababab;
+  }
+`;
 
 const Label = styled.label`
   align-self: start;

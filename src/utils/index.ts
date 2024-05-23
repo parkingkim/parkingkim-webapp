@@ -5,8 +5,6 @@ export const isValidName = (name: string) => REGEX.name.test(name);
 export const isValidEmail = (email: string) => REGEX.email.test(email);
 
 export const isValidNumbers = (numbers: number[]) => {
-  console.log(numbers);
-
   return numbers.every((x: number) => REGEX.number.test(x.toString())) && numbers.length === 6;
 };
 
