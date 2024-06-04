@@ -65,6 +65,8 @@ const OnBoarding = () => {
     parkingTermBooleans,
     parkingElectricCarBooleans,
     parkingPriorityBooleans,
+    electricCarTypeBooleans,
+    paymentBooleans,
     selectParkingOption,
     selectParkingType,
     selectParkingPrice,
@@ -108,7 +110,7 @@ const OnBoarding = () => {
       <Slider {...sliderSettings} ref={sliderRef}>
         <OnboardingSlide
           key="parkingType"
-          title={'선호하는 주차장 \n운영 방식을 알려주세요!'}
+          title={'선호하는 주차장 \n유형을 알려주세요!'}
           isMultipleSelection={true}
           contents={parkingTypes}
           booleans={parkingTypeBooleans}
@@ -116,7 +118,7 @@ const OnBoarding = () => {
         />
         <OnboardingSlide
           key="parkingOption"
-          title={'선호하는 주차장 \n유형을 알려주세요!'}
+          title={'선호하는 주차장 \n옵션을 알려주세요!'}
           isMultipleSelection={true}
           contents={parkingOptions}
           booleans={parkingOptionBooleans}
@@ -124,10 +126,11 @@ const OnBoarding = () => {
         />
         <OnboardingSlide
           key="parkingPrice"
-          title={'선호하는 주차장 \n유형을 알려주세요!'}
+          title={'선호하는 주차장 \n결제 방식을 알려주세요!'}
           isMultipleSelection={true}
           contents={parkingPrices}
           booleans={parkingPriceBooleans}
+          moreBooleans={paymentBooleans}
           onClick={selectParkingPrice}
         />
         <OnboardingSlide
@@ -144,6 +147,7 @@ const OnBoarding = () => {
           isMultipleSelection={false}
           contents={electricCars}
           booleans={parkingElectricCarBooleans}
+          moreBooleans={electricCarTypeBooleans}
           onClick={selectElectricCar}
         />
         <OnboardingSlide
@@ -192,6 +196,9 @@ const DotsContainer = styled.div`
 
   & li > button::before {
     font-size: 8px !important;
+  }
+  & li.slick-active > button::before {
+    color: #0dc5ff;
   }
 `;
 

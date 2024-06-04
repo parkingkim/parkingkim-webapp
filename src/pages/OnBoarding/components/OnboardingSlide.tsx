@@ -13,6 +13,7 @@ interface SlideProps {
   isMultipleSelection: boolean;
   contents: OnBoardingContent[];
   booleans: UseBoolean[];
+  moreBooleans?: UseBoolean[];
   onClick: (index: number) => () => void;
 }
 
@@ -21,6 +22,7 @@ const OnboardingSlide = ({
   isMultipleSelection,
   contents,
   booleans,
+  moreBooleans,
   onClick,
 }: SlideProps) => {
   return (
@@ -39,13 +41,15 @@ const OnboardingSlide = ({
             {content.name} {isMultipleSelection && '주차장'}
             {content.moreOptions && <ArrowTopIcon />}
           </OptionButton>
-          <MoreOptionsContainer $isSelected={booleans[index].value}>
-            {content.moreOptions?.map((moreOption) => (
-              <MoreOptionButton key={moreOption} $isSelected={booleans[index].value}>
-                {moreOption}
-              </MoreOptionButton>
-            ))}
-          </MoreOptionsContainer>
+          {moreBooleans && (
+            <MoreOptionsContainer $isSelected={moreBooleans[index].value}>
+              {content.moreOptions?.map((moreOption) => (
+                <MoreOptionButton key={moreOption} $isSelected={moreBooleans[index].value}>
+                  {moreOption}
+                </MoreOptionButton>
+              ))}
+            </MoreOptionsContainer>
+          )}
         </OptionContainer>
       ))}
     </Container>

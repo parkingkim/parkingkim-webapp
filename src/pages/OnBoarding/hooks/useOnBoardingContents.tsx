@@ -15,6 +15,12 @@ const useOnBoardingContents = () => {
   const distance = useBoolean();
   const price = useBoolean();
   const recommend = useBoolean();
+  const AC단상 = useBoolean();
+  const DC차데모 = useBoolean();
+  const DC콤보 = useBoolean();
+  const AC3상 = useBoolean();
+  const cash = useBoolean();
+  const card = useBoolean();
 
   const parkingTypeBooleans = [outside, road, mechanical];
   const parkingOptionBooleans = [publicPlace, privatePlace];
@@ -22,6 +28,8 @@ const useOnBoardingContents = () => {
   const parkingTermBooleans = [day, hour];
   const parkingElectricCarBooleans = [electricCarNo, electricCarYes];
   const parkingPriorityBooleans = [distance, price, recommend];
+  const electricCarTypeBooleans = [AC단상, DC차데모, DC콤보, AC3상];
+  const paymentBooleans = [cash, card];
 
   const selectParkingType = (index: number) => () => {
     parkingTypeBooleans[index].toggle();
@@ -54,6 +62,8 @@ const useOnBoardingContents = () => {
     parkingTermBooleans,
     parkingElectricCarBooleans,
     parkingPriorityBooleans,
+    electricCarTypeBooleans,
+    paymentBooleans,
     selectParkingOption,
     selectParkingType,
     selectParkingPrice,
