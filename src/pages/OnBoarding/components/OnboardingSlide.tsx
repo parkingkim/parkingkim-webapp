@@ -85,15 +85,15 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
   width: 90%;
   height: 63px;
   padding: 0 2rem;
-  margin-top: 0.5rem;
+  margin-top: 10px;
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${({ theme, $isSelected }) => ($isSelected ? theme.gray : '#f5f5f5')};
+  background-color: ${({ $isSelected }) => ($isSelected ? '#0DC5FF' : '#eaeaea')};
   border: 0;
   border-radius: ${({ $isCollapsed }) => ($isCollapsed ? '10px 10px 0 0' : '10px')};
 
-  color: ${({ theme, $isSelected }) => ($isSelected ? 'white' : theme.gray)};
+  color: ${({ $isSelected }) => ($isSelected ? 'white' : '#848484')};
   font-size: 20px;
   font-weight: bold;
   text-align: start;
@@ -119,8 +119,6 @@ const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
   flex-direction: column;
   align-items: center;
 
-  border-radius: 0 0 10px 10px;
-
   &::-webkit-scrollbar {
     display: none;
   }
@@ -128,18 +126,21 @@ const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
 
 const MoreOptionButton = styled.button<{ $isSelected: boolean }>`
   width: 90%;
-  min-height: 55px;
+  min-height: 58px;
   padding: 0 2rem;
 
-  background-color: #f5f5f5;
+  background-color: ${({ $isSelected }) => ($isSelected ? '#CFF3FF' : ' #f5f5f5')};
 
-  color: ${({ theme }) => theme.gray};
+  color: #5b5b5b;
   font-size: 20px;
   font-weight: bold;
   text-align: start;
 
   &:focus {
     outline: 0;
+  }
+  &:last-child {
+    border-radius: 0 0 10px 10px;
   }
 `;
 
