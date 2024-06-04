@@ -1,10 +1,10 @@
 import { ArrowTopIcon } from '@assets/index';
+import type { UseBoolean } from '@hooks/useBoolean';
 import styled from 'styled-components';
 
 export interface OnBoardingContent {
   key: string;
   name: string;
-  isSelected: boolean;
   moreOptions?: string[];
 }
 
@@ -12,10 +12,17 @@ interface SlideProps {
   title: string;
   isMultipleSelection: boolean;
   contents: OnBoardingContent[];
+  booleans: UseBoolean[];
   onClick: (index: number) => () => void;
 }
 
-const OnboardingSlide = ({ title, isMultipleSelection, contents, onClick }: SlideProps) => {
+const OnboardingSlide = ({
+  title,
+  isMultipleSelection,
+  contents,
+  booleans,
+  onClick,
+}: SlideProps) => {
   return (
     <Container>
       <h1>
@@ -25,16 +32,16 @@ const OnboardingSlide = ({ title, isMultipleSelection, contents, onClick }: Slid
       {contents.map((content, index) => (
         <OptionContainer key={content.key}>
           <OptionButton
-            $isSelected={content.isSelected}
-            $isCollapsed={content.moreOptions && content.isSelected}
+            $isSelected={booleans[index].value}
+            $isCollapsed={content.moreOptions && booleans[index].value}
             onClick={onClick(index)}
           >
             {content.name} {isMultipleSelection && '주차장'}
             {content.moreOptions && <ArrowTopIcon />}
           </OptionButton>
-          <MoreOptionsContainer $isSelected={content.isSelected}>
+          <MoreOptionsContainer $isSelected={booleans[index].value}>
             {content.moreOptions?.map((moreOption) => (
-              <MoreOptionButton key={moreOption} $isSelected={content.isSelected}>
+              <MoreOptionButton key={moreOption} $isSelected={booleans[index].value}>
                 {moreOption}
               </MoreOptionButton>
             ))}
