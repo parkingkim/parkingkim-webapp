@@ -1,5 +1,6 @@
 import { ArrowTopIcon } from '@assets/index';
 import type { UseBoolean } from '@hooks/useBoolean';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 export interface OnBoardingContent {
@@ -9,12 +10,13 @@ export interface OnBoardingContent {
 }
 
 interface SlideProps {
-  title: string;
+  title: ReactNode;
   isMultipleSelection: boolean;
   contents: OnBoardingContent[];
   booleans: UseBoolean[];
   moreBooleans?: UseBoolean[];
   onClick: (index: number) => () => void;
+  onClickMore?: (index: number) => () => void;
 }
 
 const OnboardingSlide = ({
@@ -24,13 +26,12 @@ const OnboardingSlide = ({
   booleans,
   moreBooleans,
   onClick,
+  onClickMore,
 }: SlideProps) => {
   return (
     <Container>
-      <h1>
-        {title}
-        {isMultipleSelection && <p>*중복 선택이 가능합니다.</p>}
-      </h1>
+      {title}
+      <p>{isMultipleSelection && '*중복 선택이 가능합니다.'}</p>
       {contents.map((content, index) => (
         <OptionContainer key={content.key}>
           <OptionButton
@@ -38,13 +39,17 @@ const OnboardingSlide = ({
             $isCollapsed={content.moreOptions && booleans[index].value}
             onClick={onClick(index)}
           >
-            {content.name} {isMultipleSelection && '주차장'}
+            {content.name}
             {content.moreOptions && <ArrowTopIcon />}
           </OptionButton>
-          {moreBooleans && (
-            <MoreOptionsContainer $isSelected={moreBooleans[index].value}>
-              {content.moreOptions?.map((moreOption) => (
-                <MoreOptionButton key={moreOption} $isSelected={moreBooleans[index].value}>
+          {moreBooleans && onClickMore && (
+            <MoreOptionsContainer $isSelected={booleans[index].value}>
+              {content.moreOptions?.map((moreOption, moreIndex) => (
+                <MoreOptionButton
+                  key={moreOption}
+                  $isSelected={moreBooleans[moreIndex].value}
+                  onClick={onClickMore(moreIndex)}
+                >
                   {moreOption}
                 </MoreOptionButton>
               ))}
@@ -68,23 +73,12 @@ const Container = styled.div`
   height: 100vh;
   flex-direction: column;
 
-  & > h1 {
-    padding: 150px 0 35px 2rem;
-    margin-bottom: 5px;
-    align-self: flex-start;
+  & > p {
+    padding-left: 2rem;
+    margin-bottom: 30px;
 
-    position: relative;
-
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 30px;
-    text-align: start;
-    white-space: pre-wrap;
-  }
-
-  & > h1 > p {
     color: ${({ theme }) => theme.gray};
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     text-align: start;
   }
@@ -124,11 +118,13 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
 
 const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
   display: ${({ $isSelected }) => ($isSelected ? 'flex' : 'none')};
-  width: 100%;
-  max-height: 150px;
+  width: 90%;
+  max-height: 200px;
   overflow: scroll;
   flex-direction: column;
   align-items: center;
+
+  border-radius: 0 0 10px 10px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -136,8 +132,8 @@ const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
 `;
 
 const MoreOptionButton = styled.button<{ $isSelected: boolean }>`
-  width: 90%;
-  min-height: 58px;
+  width: 100%;
+  min-height: 50px;
   padding: 0 2rem;
 
   background-color: ${({ $isSelected }) => ($isSelected ? '#CFF3FF' : ' #f5f5f5')};
@@ -149,9 +145,6 @@ const MoreOptionButton = styled.button<{ $isSelected: boolean }>`
 
   &:focus {
     outline: 0;
-  }
-  &:last-child {
-    border-radius: 0 0 10px 10px;
   }
 `;
 
