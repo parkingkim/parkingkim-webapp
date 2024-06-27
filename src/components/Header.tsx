@@ -1,10 +1,13 @@
 import { BackIcon } from '@assets/index';
+import useNavigatePage from '@hooks/useNavigatePage';
 import styled from 'styled-components';
 
 const Header = () => {
+  const navigatePage = useNavigatePage();
+
   return (
     <IconsContainer>
-      <BackIcon role="button" />
+      <BackIcon role="button" onClick={navigatePage('/')} />
     </IconsContainer>
   );
 };
