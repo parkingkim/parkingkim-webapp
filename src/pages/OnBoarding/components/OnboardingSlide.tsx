@@ -1,44 +1,60 @@
 import { ArrowTopIcon } from '@assets/index';
+import type { UseBooleanType } from '@hooks/useBoolean';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 export interface OnBoardingContent {
   key: string;
   name: string;
-  isSelected: boolean;
   moreOptions?: string[];
 }
 
 interface SlideProps {
-  title: string;
+  title: ReactNode;
   isMultipleSelection: boolean;
   contents: OnBoardingContent[];
+  booleans: UseBooleanType[];
+  moreBooleans?: UseBooleanType[];
   onClick: (index: number) => () => void;
+  onClickMore?: (index: number) => () => void;
 }
 
-const OnboardingSlide = ({ title, isMultipleSelection, contents, onClick }: SlideProps) => {
+const OnboardingSlide = ({
+  title,
+  isMultipleSelection,
+  contents,
+  booleans,
+  moreBooleans,
+  onClick,
+  onClickMore,
+}: SlideProps) => {
   return (
     <Container>
-      <h1>
-        {title}
-        {isMultipleSelection && <p>*중복 선택이 가능합니다.</p>}
-      </h1>
+      {title}
+      <p>{isMultipleSelection && '*중복 선택이 가능합니다.'}</p>
       {contents.map((content, index) => (
         <OptionContainer key={content.key}>
           <OptionButton
-            $isSelected={content.isSelected}
-            $isCollapsed={content.moreOptions && content.isSelected}
+            $isSelected={booleans[index].value}
+            $isCollapsed={content.moreOptions && booleans[index].value}
             onClick={onClick(index)}
           >
-            {content.name} {isMultipleSelection && '주차장'}
+            {content.name}
             {content.moreOptions && <ArrowTopIcon />}
           </OptionButton>
-          <MoreOptionsContainer $isSelected={content.isSelected}>
-            {content.moreOptions?.map((moreOption) => (
-              <MoreOptionButton key={moreOption} $isSelected={content.isSelected}>
-                {moreOption}
-              </MoreOptionButton>
-            ))}
-          </MoreOptionsContainer>
+          {moreBooleans && onClickMore && (
+            <MoreOptionsContainer $isSelected={booleans[index].value}>
+              {content.moreOptions?.map((moreOption, moreIndex) => (
+                <MoreOptionButton
+                  key={moreOption}
+                  $isSelected={moreBooleans[moreIndex].value}
+                  onClick={onClickMore(moreIndex)}
+                >
+                  {moreOption}
+                </MoreOptionButton>
+              ))}
+            </MoreOptionsContainer>
+          )}
         </OptionContainer>
       ))}
     </Container>
@@ -57,23 +73,12 @@ const Container = styled.div`
   height: 100vh;
   flex-direction: column;
 
-  & > h1 {
-    padding: 150px 0 35px 2rem;
-    margin-bottom: 5px;
-    align-self: flex-start;
+  & > p {
+    padding-left: 2rem;
+    margin-bottom: 30px;
 
-    position: relative;
-
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 30px;
-    text-align: start;
-    white-space: pre-wrap;
-  }
-
-  & > h1 > p {
     color: ${({ theme }) => theme.gray};
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     text-align: start;
   }
@@ -85,15 +90,15 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
   width: 90%;
   height: 63px;
   padding: 0 2rem;
-  margin-top: 0.5rem;
+  margin-top: 10px;
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${({ theme, $isSelected }) => ($isSelected ? theme.gray : '#f5f5f5')};
+  background-color: ${({ $isSelected }) => ($isSelected ? '#0DC5FF' : '#eaeaea')};
   border: 0;
   border-radius: ${({ $isCollapsed }) => ($isCollapsed ? '10px 10px 0 0' : '10px')};
 
-  color: ${({ theme, $isSelected }) => ($isSelected ? 'white' : theme.gray)};
+  color: ${({ $isSelected }) => ($isSelected ? 'white' : '#848484')};
   font-size: 20px;
   font-weight: bold;
   text-align: start;
@@ -113,8 +118,8 @@ const OptionButton = styled.button<{ $isSelected: boolean; $isCollapsed?: boolea
 
 const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
   display: ${({ $isSelected }) => ($isSelected ? 'flex' : 'none')};
-  width: 100%;
-  max-height: 150px;
+  width: 90%;
+  max-height: 200px;
   overflow: scroll;
   flex-direction: column;
   align-items: center;
@@ -127,13 +132,13 @@ const MoreOptionsContainer = styled.div<{ $isSelected: boolean }>`
 `;
 
 const MoreOptionButton = styled.button<{ $isSelected: boolean }>`
-  width: 90%;
-  min-height: 55px;
+  width: 100%;
+  min-height: 50px;
   padding: 0 2rem;
 
-  background-color: #f5f5f5;
+  background-color: ${({ $isSelected }) => ($isSelected ? '#CFF3FF' : ' #f5f5f5')};
 
-  color: ${({ theme }) => theme.gray};
+  color: #5b5b5b;
   font-size: 20px;
   font-weight: bold;
   text-align: start;

@@ -1,119 +1,100 @@
-import { useState } from 'react';
-import { OnBoardingContent } from '../components/OnboardingSlide';
-
-const checkAlternative = (contents: OnBoardingContent[], index: number) => {
-  contents = contents.map((content, i) => {
-    if (i !== index) content.isSelected = false;
-    return content;
-  });
-};
-
-const initialParkingTypes = [
-  { key: 'outside', name: '노외', isSelected: false },
-  { key: 'road', name: '노상', isSelected: false },
-  { key: 'mechanical', name: '기계식', isSelected: false },
-];
-
-const initialParkingManagement = [
-  { key: 'public', name: '공영', isSelected: false },
-  { key: 'private', name: '민영', isSelected: false },
-];
-
-const initialParkingPrices = [
-  { key: 'free', name: '무료', isSelected: false },
-  { key: 'charged', name: '유료', isSelected: false, moreOptions: ['현금 결제', '카드 결제'] },
-];
-
-const initialParkingTerms = [
-  { key: 'day', name: '하루', isSelected: false },
-  {
-    key: 'hour',
-    name: '1시간',
-    isSelected: false,
-    moreOptions: ['2시간', '3시간', '4시간', '5시간', '6시간', '7시간'],
-  },
-];
-
-const initialElecticCars = [
-  { key: 'no', name: '전기차를 사용하지 않아요', isSelected: false },
-  {
-    key: 'yes',
-    name: '전기차를 사용해요',
-    isSelected: false,
-    moreOptions: ['AC 단상', 'DC 차데모', 'DC 콤보', 'AC3 상'],
-  },
-];
-
-const initialPriorityConditions = [
-  { key: 'distance', name: '목적지에서 가까운 순', isSelected: false },
-  {
-    key: 'price',
-    name: '가격이 저렴한 순',
-    isSelected: false,
-  },
-  {
-    key: 'recommend',
-    name: '파킹킴 추천순',
-    isSelected: false,
-  },
-];
+import useBoolean from '@hooks/useBoolean';
 
 const useOnBoardingContents = () => {
-  const [parkingTypes, setParkingTypes] = useState<OnBoardingContent[]>(initialParkingTypes);
-  const [parkingManagements, setParkingManagements] =
-    useState<OnBoardingContent[]>(initialParkingManagement);
-  const [parkingPrices, setParkingPrices] = useState<OnBoardingContent[]>(initialParkingPrices);
-  const [parkingTerms, setParkingTerms] = useState<OnBoardingContent[]>(initialParkingTerms);
-  const [electricCars, setElectricCars] = useState<OnBoardingContent[]>(initialElecticCars);
-  const [priorityConditions, setPriorityConditions] =
-    useState<OnBoardingContent[]>(initialPriorityConditions);
+  const outside = useBoolean();
+  const road = useBoolean();
+  const mechanical = useBoolean();
+  const publicPlace = useBoolean();
+  const privatePlace = useBoolean();
+  const free = useBoolean();
+  const charged = useBoolean();
+  const day = useBoolean();
+  const hour = useBoolean();
+  const electricCarNo = useBoolean();
+  const electricCarYes = useBoolean();
+  const distance = useBoolean();
+  const price = useBoolean();
+  const recommend = useBoolean();
+  const AC단상 = useBoolean();
+  const DC차데모 = useBoolean();
+  const DC콤보 = useBoolean();
+  const AC3상 = useBoolean();
+  const cash = useBoolean();
+  const card = useBoolean();
+  const one = useBoolean();
+  const two = useBoolean();
+  const three = useBoolean();
+  const four = useBoolean();
+  const five = useBoolean();
+  const six = useBoolean();
+  const seven = useBoolean();
 
-  const selectParkingManagement = (index: number) => () => {
-    parkingManagements[index].isSelected = !parkingManagements[index].isSelected;
-    setParkingManagements([...parkingManagements]);
-  };
+  const parkingTypeBooleans = [outside, road, mechanical];
+  const parkingOptionBooleans = [publicPlace, privatePlace];
+  const parkingPriceBooleans = [free, charged];
+  const parkingTermBooleans = [day, hour];
+  const parkingElectricCarBooleans = [electricCarNo, electricCarYes];
+
+  const paymentBooleans = [cash, card];
+  const hourBooleans = [one, two, three, four, five, six, seven];
+  const electricCarTypeBooleans = [AC단상, DC차데모, DC콤보, AC3상];
+  const parkingPriorityBooleans = [distance, price, recommend];
 
   const selectParkingType = (index: number) => () => {
-    parkingTypes[index].isSelected = !parkingTypes[index].isSelected;
-    setParkingTypes([...parkingTypes]);
+    parkingTypeBooleans[index].toggle();
+  };
+
+  const selectParkingOption = (index: number) => () => {
+    parkingOptionBooleans[index].toggle();
   };
 
   const selectParkingPrice = (index: number) => () => {
-    parkingPrices[index].isSelected = !parkingPrices[index].isSelected;
-    setParkingPrices([...parkingPrices]);
+    parkingPriceBooleans[index].toggle();
   };
 
   const selectParkingTerm = (index: number) => () => {
-    checkAlternative(parkingTerms, index);
-    parkingTerms[index].isSelected = !parkingTerms[index].isSelected;
-    setParkingTerms([...parkingTerms]);
+    parkingTermBooleans[index].toggle();
   };
 
   const selectElectricCar = (index: number) => () => {
-    checkAlternative(electricCars, index);
-    electricCars[index].isSelected = !electricCars[index].isSelected;
-    setElectricCars([...electricCars]);
+    parkingElectricCarBooleans[index].toggle();
   };
 
-  const selectPriorityCondition = (index: number) => () => {
-    checkAlternative(priorityConditions, index);
-    priorityConditions[index].isSelected = !priorityConditions[index].isSelected;
-    setPriorityConditions([...priorityConditions]);
+  const selectPriority = (index: number) => () => {
+    parkingPriorityBooleans[index].toggle();
+  };
+
+  const selectElectricCarType = (index: number) => () => {
+    electricCarTypeBooleans[index].toggle();
+  };
+
+  const selectPayment = (index: number) => () => {
+    paymentBooleans[index].toggle();
+  };
+
+  const selectHour = (index: number) => () => {
+    hourBooleans[index].toggle();
   };
 
   return {
-    parkingManagements,
-    parkingTypes,
-    parkingPrices,
-    parkingTerms,
-    electricCars,
-    priorityConditions,
-    selectParkingManagement,
+    parkingTypeBooleans,
+    parkingOptionBooleans,
+    parkingPriceBooleans,
+    parkingTermBooleans,
+    parkingElectricCarBooleans,
+    parkingPriorityBooleans,
+    electricCarTypeBooleans,
+    paymentBooleans,
+    hourBooleans,
+    selectParkingOption,
     selectParkingType,
     selectParkingPrice,
     selectParkingTerm,
     selectElectricCar,
-    selectPriorityCondition,
+    selectPriority,
+    selectElectricCarType,
+    selectPayment,
+    selectHour,
   };
 };
 

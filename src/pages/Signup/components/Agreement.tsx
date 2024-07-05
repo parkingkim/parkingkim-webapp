@@ -22,6 +22,7 @@ const Agreement = ({ 서비스동의, 본인확인동의, 마케팅동의, next 
     본인확인동의.on();
     마케팅동의.on();
   };
+
   return (
     <Wrapper>
       <h1>
