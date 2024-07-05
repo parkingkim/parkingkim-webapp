@@ -1,5 +1,5 @@
 import { ArrowTopIcon } from '@assets/index';
-import type { UseBoolean } from '@hooks/useBoolean';
+import type { UseBooleanType } from '@hooks/useBoolean';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
@@ -13,8 +13,8 @@ interface SlideProps {
   title: ReactNode;
   isMultipleSelection: boolean;
   contents: OnBoardingContent[];
-  booleans: UseBoolean[];
-  moreBooleans?: UseBoolean[];
+  booleans: UseBooleanType[];
+  moreBooleans?: UseBooleanType[];
   onClick: (index: number) => () => void;
   onClickMore?: (index: number) => () => void;
 }
