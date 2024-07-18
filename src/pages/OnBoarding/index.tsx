@@ -4,8 +4,8 @@ import Slider from 'react-slick';
 import styled from 'styled-components';
 import useOnBoardingContents from './hooks/useOnBoardingContents';
 import Button from '@components/Button';
-import { useNavigate } from 'react-router-dom';
 import OnboardingSlide from './components/OnboardingSlide';
+import usePostSearchCondition from './hooks/usePostSearchCondition';
 
 const parkingTypes = [
   { key: 'outside', name: '노외 주차장' },
@@ -20,16 +20,30 @@ const parkingOptions = [
 
 const parkingPrices = [
   { key: 'free', name: '무료 주차장' },
-  { key: 'charged', name: '유료 주차장', moreOptions: ['현금 결제', '카드 결제'] },
+  {
+    key: 'charged',
+    name: '유료 주차장',
+    moreOptions: [
+      { key: 'cash', name: '현금 결제' },
+      { key: 'card', name: '카드 결제' },
+    ],
+  },
 ];
 
 const parkingTerms = [
-  { key: 'day', name: '하루' },
+  { key: '24', name: '하루' },
   {
-    key: 'hour',
-    name: '1시간',
-    isSelected: false,
-    moreOptions: ['2시간', '3시간', '4시간', '5시간', '6시간', '7시간'],
+    key: '0',
+    name: '시간',
+    moreOptions: [
+      { key: '1', name: '1시간' },
+      { key: '2', name: '2시간' },
+      { key: '3', name: '3시간' },
+      { key: '4', name: '4시간' },
+      { key: '5', name: '5시간' },
+      { key: '6', name: '6시간' },
+      { key: '7', name: '7시간' },
+    ],
   },
 ];
 
@@ -38,11 +52,16 @@ const electricCars = [
   {
     key: 'yes',
     name: '전기차를 사용해요',
-    moreOptions: ['AC 단상', 'DC 차데모', 'DC 콤보', 'AC3 상'],
+    moreOptions: [
+      { key: 'AC', name: 'AC 단상' },
+      { key: 'DC', name: 'DC 차데모' },
+      { key: 'DCC', name: 'DC 콤보' },
+      { key: 'AC3', name: 'AC3 상' },
+    ],
   },
 ];
 
-const priorities = [
+const parkingPriorities = [
   { key: 'distance', name: '목적지에서 가까운 순' },
   {
     key: 'price',
@@ -55,7 +74,6 @@ const priorities = [
 ];
 
 const OnBoarding = () => {
-  const navigate = useNavigate();
   const sliderRef = useRef<Slider>(null);
   const [slideIndex, setSlideIndex] = useState(0);
   const {
@@ -78,6 +96,36 @@ const OnBoarding = () => {
     selectHour,
     selectElectricCarType,
   } = useOnBoardingContents();
+  const { mutate: postSearchCondition } = usePostSearchCondition();
+
+  const getSearchCondition = () => {
+    const operationType = parkingTypes
+      .filter((_, index) => parkingTypeBooleans[index].value)
+      .map((item) => item.key);
+    const parkingType = parkingOptions
+      .filter((_, index) => parkingOptionBooleans[index].value)
+      .map((item) => item.key);
+    const feeType = parkingPrices
+      .filter((_, index) => parkingPriceBooleans[index].value)
+      .map((item) => item.key);
+    const payType = parkingPrices[1]
+      .moreOptions!.filter((_, index) => paymentBooleans[index].value)
+      .map((item) => item.key);
+    const priority = parkingPriorities.filter((_, index) => parkingPriorityBooleans[index].value)[0]
+      .key;
+    const hours = parkingTermBooleans[0].value
+      ? parkingTerms[0].key
+      : parkingTerms[1].moreOptions!.filter((_, index) => hourBooleans[index].value)[0].key;
+
+    return {
+      operationType,
+      parkingType,
+      feeType,
+      payType,
+      priority,
+      hours: Number(hours),
+    };
+  };
 
   const sliderSettings = {
     dots: true,
@@ -98,7 +146,7 @@ const OnBoarding = () => {
   const slickNext = () => {
     if (!sliderRef.current) return;
     if (slideIndex === 5) {
-      navigate('/onboarding/confirm');
+      postSearchCondition(getSearchCondition());
       return;
     }
     sliderRef.current.slickNext();
@@ -197,7 +245,7 @@ const OnBoarding = () => {
             </Label>
           }
           isMultipleSelection={false}
-          contents={priorities}
+          contents={parkingPriorities}
           booleans={parkingPriorityBooleans}
           onClick={selectPriority}
         />

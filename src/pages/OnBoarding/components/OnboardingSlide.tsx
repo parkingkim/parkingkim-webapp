@@ -3,10 +3,13 @@ import type { UseBooleanType } from '@hooks/useBoolean';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export interface OnBoardingContent {
+interface Option {
   key: string;
   name: string;
-  moreOptions?: string[];
+}
+
+interface OnBoardingContent extends Option {
+  moreOptions?: Option[];
 }
 
 interface SlideProps {
@@ -46,11 +49,11 @@ const OnboardingSlide = ({
             <MoreOptionsContainer $isSelected={booleans[index].value}>
               {content.moreOptions?.map((moreOption, moreIndex) => (
                 <MoreOptionButton
-                  key={moreOption}
+                  key={moreOption.key}
                   $isSelected={moreBooleans[moreIndex].value}
                   onClick={onClickMore(moreIndex)}
                 >
-                  {moreOption}
+                  {moreOption.name}
                 </MoreOptionButton>
               ))}
             </MoreOptionsContainer>

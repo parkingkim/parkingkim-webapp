@@ -54,6 +54,12 @@ const useOnBoardingContents = () => {
 
   const selectParkingTerm = (index: number) => () => {
     parkingTermBooleans[index].toggle();
+    parkingTermBooleans.filter((_, i) => i != index).map((item) => item.off());
+
+    if (index == 1) {
+      hourBooleans.map((item) => item.off());
+      one.on();
+    }
   };
 
   const selectElectricCar = (index: number) => () => {
@@ -62,6 +68,7 @@ const useOnBoardingContents = () => {
 
   const selectPriority = (index: number) => () => {
     parkingPriorityBooleans[index].toggle();
+    parkingPriorityBooleans.filter((_, i) => i != index).map((item) => item.off());
   };
 
   const selectElectricCarType = (index: number) => () => {
@@ -73,7 +80,8 @@ const useOnBoardingContents = () => {
   };
 
   const selectHour = (index: number) => () => {
-    hourBooleans[index].toggle();
+    hourBooleans[index].on();
+    hourBooleans.filter((_, i) => i != index).map((item) => item.off());
   };
 
   return {
