@@ -152,6 +152,8 @@ const OnBoarding = () => {
     sliderRef.current.slickNext();
   };
 
+  const isLastSlide = () => slideIndex == 5;
+
   return (
     <>
       {slideIndex !== 0 && (
@@ -250,14 +252,26 @@ const OnBoarding = () => {
           onClick={selectPriority}
         />
       </Slider>
-      <ButtonContainer>
-        <Button color="secondary" onClick={slickNext}>
-          확인
-        </Button>
-      </ButtonContainer>
+      {isLastSlide() ? (
+        <ButtonContainer>
+          <Button color="primary" onClick={slickNext}>
+            확인
+          </Button>
+        </ButtonContainer>
+      ) : (
+        <Notice>* 조건설정은 언제든지 수정할 수 있어요.</Notice>
+      )}
     </>
   );
 };
+
+const Notice = styled.p`
+  position: absolute;
+  bottom: 100px;
+  color: #d9d9d9;
+  right: 0;
+  left: 0;
+`;
 
 const Label = styled.h1`
   padding: 150px 0 10px 2rem;
